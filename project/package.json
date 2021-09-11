@@ -1,0 +1,13 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "The Project",
+  "scripts": {
+    "client:install": "cd client && npm install",
+    "server:install": "cd server && npm install",
+    "install": "npm run client:install && npm run server:install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
