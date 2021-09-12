@@ -1,12 +1,14 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const distPath = path.resolve(__dirname, "dist");
 
 module.exports = {
-  entry: "./src/index.tsx",
+  entry: path.resolve(__dirname, "src", "index.tsx"),
   mode: "development",
   output: {
     filename: "bundle.js",
-    path: path.resolve(__dirname, "dist"),
+    path: distPath,
+    publicPath: distPath,
     clean: true,
   },
   resolve: {
@@ -18,7 +20,7 @@ module.exports = {
     }),
   ],
   devServer: {
-    static: path.resolve(__dirname, "dist"),
+    static: distPath,
     port: 9000,
     allowedHosts: "all",
     open: true,
