@@ -2,7 +2,8 @@ import { useState } from "react";
 
 const App = () => {
   const [state, setState] = useState(0);
-
+  console.log("asd");
+  
   return (
     <>
       <button onClick={() => setState(state + 1)}>CLICKME</button>
