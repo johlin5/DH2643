@@ -15,7 +15,9 @@
     "isolatedModules": true,
     "noEmit": false,
     "jsx": "react-jsx",
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "outDir": "./dist/"
   },
   "include": ["src"],
   "exclude": ["node_modules"]
