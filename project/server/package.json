@@ -14,10 +14,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "better-logging": "^4.5.0",
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "better-logging": "^4.5.0",
     "nodemon": "^2.0.12"
   }
 }
