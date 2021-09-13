@@ -8,6 +8,7 @@ module.exports = {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
+    publicPath: '/'
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx", ".css"],
@@ -22,6 +23,7 @@ module.exports = {
     port: 9000,
     allowedHosts: "all",
     open: true,
+    historyApiFallback: true,
   },
   module: {
     rules: [

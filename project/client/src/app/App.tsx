@@ -1,12 +1,12 @@
 import { ThemeProvider } from "@material-ui/core/styles";
 import {theme} from "../theme";
-import Structure from "./Structure";
+import Layout from "./Layout";
 const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Structure/>
-      </ThemeProvider>
+      <Layout/>
+    </ThemeProvider>
   );
 };
 
