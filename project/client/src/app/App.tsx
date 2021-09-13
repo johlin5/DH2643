@@ -1,13 +1,12 @@
-import { useState } from "react";
-
+import { ThemeProvider } from "@material-ui/core/styles";
+import {theme} from "../theme";
+import Structure from "./Structure";
 const App = () => {
-  const [state, setState] = useState(0);
 
   return (
-    <>
-      <button onClick={() => setState(state + 1)}>CLICKME</button>
-      {state}
-    </>
+    <ThemeProvider theme={theme}>
+      <Structure/>
+      </ThemeProvider>
   );
 };
 
