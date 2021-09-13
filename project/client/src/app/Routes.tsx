@@ -1,6 +1,6 @@
-import Frontpage from "./views/Frontpage"
-import Login from "./views/Login";
-import Profile from "./views/Profile";
+import Frontpage from "../views/Frontpage";
+import Login from "../views/Login";
+import Profile from "../views/Profile";
 
 export type AppRoute = {
   path: string;

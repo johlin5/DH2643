@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { AppBar, Toolbar, Typography, Button, Theme, makeStyles, createStyles, Grid } from '@material-ui/core';
-import {WHITE} from "../../theme";
+import {WHITE} from "../app/theme";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     menuButtons: {

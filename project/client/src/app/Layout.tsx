@@ -1,6 +1,6 @@
 import React from 'react';
 import {navRoutes} from "./Routes";
-import Header from "./components/Header";
+import Header from "../components/Header";
 import {
   BrowserRouter as Router,
   Switch,
