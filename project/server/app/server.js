@@ -1,6 +1,7 @@
 /**
  * SETUP
  */
+const HOST = process.env.HOST || '0.0.0.0'; // Default 0.0.0.0
 const PORT = process.env.PORT || 8080,
   betterLogging = require("better-logging"),
   express = require("express"),
@@ -21,4 +22,8 @@ app.use(
   })
 );
 
-app.listen(PORT, () => console.debug(`Listening on http://localhost:${PORT}`));
+app.listen(PORT, () => console.debug(`Listening on http://${HOST}:${PORT}`));
+
+app.get('/', (req, res) => {
+  res.send('Hello World');
+})

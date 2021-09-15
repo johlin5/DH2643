@@ -14,7 +14,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "apollo-server-express": "^3.3.0",
+    "express": "^4.17.1",
+    "graphql": "^15.5.3"
   },
   "devDependencies": {
     "better-logging": "^4.5.0",
