@@ -1,35 +1,20 @@
-version: '3.8'
-
-services: 
-  mysqldb:
-    image: mysql
-    restart: always
-    env_file: ./.env
-    environment:
-      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD # check the environment file
-      MYSQL_DATABASE: $MYSQL_DATABASE
-    ports:
-      - $MYSQL_LOCAL_PORT:$MYSQL_DOCKER_PORT
-    volumes: 
-      - db-config:/etc/mysql
-      - db-data:/var/lib/mysql
-      - ./db/backup/files/:/data_backup/data
-  app:
-    build:
-      context: .
-      dockerfile: ./app/Dockerfile
-    image: node-mysql-app
-    env_file: ./.env
-    ports:
-      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
-    volumes: 
-      - ./app:/app
-      - app/node_modules
-    depends_on:
-      - mysqldb
-    stdin_open: true
-    tty: true
-
-volumes: 
-  db-config:
-  db-data:
+version: "3"
+services:
+       node_server:
+           container_name: node_server
+           image: quizhub # Specify what image we are gonna use 
+           restart: always
+           build: .
+           working_dir: /app
+           ports:
+               # <Port for outside world>:<Actual port of service in container>
+             - "${PORT}:${NODE_DOCKER_PORT}"
+           links:
+             - mongo
+       mongo:
+             container_name: mongo
+             image: mongo
+             volumes:
+               - ./data:/data/db
+             ports:
+               - '${MONGO_DB_GLOBAL}:${MONGO_DB_LOCAL}'
