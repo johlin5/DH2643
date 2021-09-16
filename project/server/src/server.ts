@@ -14,14 +14,14 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 const publicPath = resolve(__dirname, "../client/dist/");
 betterLogging(console, {
-  color: Theme.green,
+  color: Theme.green
 });
 console.logLevel = 4; // debug level
 const session = expressSession({
   secret: "toptoptopsecret",
   name: "Quiz",
   resave: true,
-  saveUninitialized: true,
+  saveUninitialized: true
 });
 
 /**
@@ -33,8 +33,8 @@ app.use(
     method: { show: true, color: Theme.green.base },
     header: { show: false },
     path: { show: true },
-    body: { show: true },
-  }),
+    body: { show: true }
+  })
 );
 app.use(urlencoded({ extended: true }));
 app.use(cookieParser("toptoptopsecret"));
@@ -50,7 +50,7 @@ app.use((req: Request, res: Response, next) => {
     randomNumber = randomNumber.substring(2, randomNumber.length);
     res.cookie("quiz", randomNumber, {
       maxAge: 900000,
-      httpOnly: true,
+      httpOnly: true
     });
   }
   console.debug(cookie);
