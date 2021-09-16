@@ -1,19 +1,18 @@
 /**
  * SETUP
  */
-const betterLogging = require("better-logging"),
-  cookieParser = require("cookie-parser"),
-  path = require("path"),
-  express = require("express"),
-  expressSession = require("express-session"),
-  app = express();
+import betterLogging, { expressMiddleware, Theme } from "better-logging";
+import cookieParser from "cookie-parser";
+import { resolve } from "path";
+import express, { urlencoded, json, static as expressStatic, Request, Response } from "express";
+import expressSession from "express-session";
+const app = express();
 
 /**
  * SETTINGS
  */
 const PORT = process.env.PORT || 8080;
-const publicPath = path.resolve(__dirname, "../client/dist/");
-const { Theme } = betterLogging;
+const publicPath = resolve(__dirname, "../client/dist/");
 betterLogging(console, {
   color: Theme.green,
 });
@@ -29,22 +28,22 @@ const session = expressSession({
  * MIDDLEWARES
  */
 app.use(
-  betterLogging.expressMiddleware(console, {
+  expressMiddleware(console, {
     ip: { show: true, color: Theme.green.base },
     method: { show: true, color: Theme.green.base },
     header: { show: false },
     path: { show: true },
     body: { show: true },
-  })
+  }),
 );
-app.use(express.urlencoded({ extended: true }));
+app.use(urlencoded({ extended: true }));
 app.use(cookieParser("toptoptopsecret"));
-app.use(express.json());
+app.use(json());
 app.use(session);
-app.use(express.static(publicPath));
+app.use(expressStatic(publicPath));
 
 // MIDDLEWARE DEBUG
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next) => {
   const cookie = req.cookies.quiz;
   if (!cookie) {
     let randomNumber = Math.random().toString();
@@ -57,7 +56,7 @@ app.use((req, res, next) => {
   console.debug(cookie);
   next();
 });
-app.use("*", (req, res, next) => {
+app.use("*", (req: Request, res: Response, next) => {
   console.debug("REQ SESSION", req.session);
   next();
 });
@@ -65,6 +64,9 @@ app.use("*", (req, res, next) => {
 /**
  * API BINDINGS
  */
+app.get("/", (req: Request, res: Response) => {
+  res.send("Application works!");
+});
 
 /**
  * Awaaaay we goooooooooooooo!!!!!!
