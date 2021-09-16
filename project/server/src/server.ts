@@ -34,7 +34,7 @@ app.use(
     header: { show: false },
     path: { show: true },
     body: { show: true },
-  })
+  }),
 );
 app.use(urlencoded({ extended: true }));
 app.use(cookieParser("toptoptopsecret"));
@@ -64,8 +64,8 @@ app.use("*", (req: Request, res: Response, next) => {
 /**
  * API BINDINGS
  */
- app.get('/', (req: Request, res: Response) => {
-  res.send('Application works!');
+app.get("/", (req: Request, res: Response) => {
+  res.send("Application works!");
 });
 
 /**
