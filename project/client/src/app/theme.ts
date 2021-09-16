@@ -8,11 +8,11 @@ export const INFO_BLUE = "#89BBE4";
 export const BASE_GREY = "#2C2C2C";
 
 // Primary colors
-export const LAPIZ = "#336699";
-export const DARK_SKY_BLUE = "#86BBD8";
-export const CHARCOAL = "#2F4858";
-export const GRANNY_SMITH_APPLE = "#9EE493";
-export const NYANZA = "#DAF7DC";
+export const RED = "#F74E31";
+export const SAND = "#FBBF7E";
+export const GREEN = "#ABCA90";
+export const TURQUOISE = "#28B4B1";
+export const PURPLE = "#58395C";
 export const WHITE = "#FFFFFF";
 
 export const theme = createTheme({
@@ -23,7 +23,7 @@ export const theme = createTheme({
   },
   palette: {
     primary: {
-      main: CHARCOAL,
+      main: PURPLE,
       contrastText: WHITE
     },
     secondary: {
@@ -35,7 +35,7 @@ export const theme = createTheme({
       contrastText: WHITE
     },
     background: {
-      default: NYANZA
+      default: PURPLE
     }
   },
 
