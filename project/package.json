@@ -5,7 +5,16 @@
   "scripts": {
     "client:install": "cd client && npm install",
     "server:install": "cd server && npm install",
-    "install": "npm run client:install && npm run server:install"
+    "install": "npm run client:install && npm run server:install",
+    "lint:fix:client": "cd client && npm run lint:fix",
+    "lint:fix:server": "cd server && npm run lint:fix",
+    "lint:client": "cd client && npm run lint",
+    "lint:server": "cd server && npm run lint",
+    "prettier:client": "cd client && npm run prettier",
+    "prettier:server": "cd server && npm run prettier",
+    "lint": "npm run lint:client && npm run lint:server",
+    "lint:fix": "npm run lint:fix:client && npm run lint:fix:server",
+    "prettier": "npm run prettier:client && npm run prettier:server"
   },
   "keywords": [],
   "author": "",
