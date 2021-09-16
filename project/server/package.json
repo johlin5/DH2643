@@ -8,8 +8,9 @@
     "start:prod": "npm run build && node ./dist/src/server.js",
     "build": "npx tsc",
     "start:nodemon": "./node_modules/nodemon/bin/nodemon.js",
-    "lint": "eslint src/**/*.ts",
-    "format": "eslint src/**/*.ts --fix"
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "prettier": "prettier --config .prettierrc 'src/**/*.ts' --write"
   },
   "repository": {
     "type": "git",
