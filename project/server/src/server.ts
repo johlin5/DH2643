@@ -8,15 +8,17 @@ import { resolve } from "path";
 import express, { urlencoded, json, static as expressStatic, Request, Response } from "express";
 import expressSession from "express-session";
 import { ApolloServer } from "apollo-server-express";
-import { resolvers } from "./resolvers/resolvers";
-import { typeDefs } from "./db_schemas/graphql";
+import { resolvers } from "./graphql/resolvers";
+import { typeDefs } from "./graphql/schema";
+import { connectDB } from "./db/dbConnector";
 const app = express();
+
 let server = null;
 const startServer = async () => {
   server = new ApolloServer({ typeDefs, resolvers });
   await server.start();
   server.applyMiddleware({ app });
-}
+};
 startServer();
 /**
  * SETTINGS
@@ -81,4 +83,7 @@ app.get("/", (req: Request, res: Response) => {
 /**
  * Awaaaay we goooooooooooooo!!!!!!
  */
-app.listen(PORT, () => console.info(`Listening on http://localhost:${PORT}${server.graphqlPath}`));
+connectDB()
+  .then(() => console.info("DB CONNECTED"))
+  .then(() => app.listen(PORT, () => console.info(`Listening on http://localhost:${PORT}`)))
+  .catch((err) => console.error(err));
