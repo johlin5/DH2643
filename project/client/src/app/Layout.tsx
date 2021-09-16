@@ -11,7 +11,13 @@ const Layout: React.FC = () => {
       <Header />
       <Switch>
         {navRoutes.map((nav) => {
-          return <Route path={nav.path} exact={nav.exact} component={nav.component}></Route>;
+          return (
+            <Route
+              path={nav.path}
+              exact={nav.exact}
+              component={nav.component}
+            ></Route>
+          );
         })}
       </Switch>
     </Router>

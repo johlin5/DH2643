@@ -1,5 +1,13 @@
 import { Link } from "react-router-dom";
-import { AppBar, Toolbar, Typography, Button, makeStyles, createStyles, Grid } from "@material-ui/core";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  makeStyles,
+  createStyles,
+  Grid
+} from "@material-ui/core";
 import { WHITE } from "../app/theme";
 const useStyles = makeStyles(() =>
   createStyles({
@@ -22,10 +30,18 @@ const Header: React.FC = () => {
             <Button component={Link} to="./" className={classes.menuButtons}>
               Quizes
             </Button>
-            <Button component={Link} to="./profile" className={classes.menuButtons}>
+            <Button
+              component={Link}
+              to="./profile"
+              className={classes.menuButtons}
+            >
               Profile
             </Button>
-            <Button component={Link} to="./login" className={classes.menuButtons}>
+            <Button
+              component={Link}
+              to="./login"
+              className={classes.menuButtons}
+            >
               Login
             </Button>
           </Grid>
