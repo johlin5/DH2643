@@ -8,11 +8,22 @@ type PrimaryButtonProps = {
   icon?: JSX.Element;
 };
 
-const PrimaryButton: React.FC<PrimaryButtonProps> = ({ height, color, text, icon, variant = "h4" }) => {
+const PrimaryButton: React.FC<PrimaryButtonProps> = ({
+  height,
+  color,
+  text,
+  icon,
+  variant = "h4"
+}) => {
   return (
     <Button
       startIcon={icon}
-      style={{ textTransform: "none", backgroundColor: color, height, color: "white" }}
+      style={{
+        textTransform: "none",
+        backgroundColor: color,
+        height,
+        color: "white"
+      }}
       fullWidth
     >
       <Typography variant={variant}>{text}</Typography>

@@ -1,17 +1,27 @@
 /**
  * SETUP
  */
+import * as properties from "./properties";
 import betterLogging, { expressMiddleware, Theme } from "better-logging";
 import cookieParser from "cookie-parser";
 import { resolve } from "path";
 import express, { urlencoded, json, static as expressStatic, Request, Response } from "express";
 import expressSession from "express-session";
+import { ApolloServer } from "apollo-server-express";
+import { resolvers } from "./resolvers/resolvers";
+import { typeDefs } from "./db_schemas/graphql";
 const app = express();
-
+let server = null;
+const startServer = async () => {
+  server = new ApolloServer({ typeDefs, resolvers });
+  await server.start();
+  server.applyMiddleware({ app });
+}
+startServer();
 /**
  * SETTINGS
  */
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || properties.PORT;
 const publicPath = resolve(__dirname, "../client/dist/");
 betterLogging(console, {
   color: Theme.green
@@ -71,4 +81,4 @@ app.get("/", (req: Request, res: Response) => {
 /**
  * Awaaaay we goooooooooooooo!!!!!!
  */
-app.listen(PORT, () => console.info(`Listening on http://localhost:${PORT}`));
+app.listen(PORT, () => console.info(`Listening on http://localhost:${PORT}${server.graphqlPath}`));
