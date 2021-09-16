@@ -9,42 +9,38 @@ export const BASE_GREY = "#2C2C2C";
 
 // Primary colors
 export const LAPIZ = "#336699";
-export const DARK_SKY_BLUE = "#86BBD8"
-export const CHARCOAL = "#2F4858"
-export const GRANNY_SMITH_APPLE = "#9EE493"
-export const NYANZA = "#DAF7DC"
-export const WHITE = "#FFFFFF"
-
-
-
-
+export const DARK_SKY_BLUE = "#86BBD8";
+export const CHARCOAL = "#2F4858";
+export const GRANNY_SMITH_APPLE = "#9EE493";
+export const NYANZA = "#DAF7DC";
+export const WHITE = "#FFFFFF";
 
 export const theme = createTheme({
   props: {
     MuiUseMediaQuery: {
-      noSsr: true,
-    },
+      noSsr: true
+    }
   },
   palette: {
     primary: {
       main: CHARCOAL,
-      contrastText: WHITE,
+      contrastText: WHITE
     },
     secondary: {
       main: ERROR_RED,
-      contrastText: WHITE,
+      contrastText: WHITE
     },
     success: {
       main: SUCESS_GREEN,
-      contrastText: WHITE,
+      contrastText: WHITE
     },
     background: {
-      default: NYANZA,
-    },
+      default: NYANZA
+    }
   },
 
   typography: {
-    fontFamily: "Open Sans",
+    fontFamily: "Open Sans"
   },
   overrides: {
     // MuiListItem: {
@@ -63,5 +59,5 @@ export const theme = createTheme({
     //     },
     //   },
     // },
-  },
+  }
 });
