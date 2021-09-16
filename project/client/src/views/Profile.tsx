@@ -1,6 +1,5 @@
-
-const Profile = () => {
-  return <>Profile</>
-}
+const Profile: React.FC = () => {
+  return <>Profile</>;
+};
 
 export default Profile;

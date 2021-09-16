@@ -1,5 +1,5 @@
 const Frontpage: React.FC = () => {
-  return <>Frontpage</>
-}
+  return <>Frontpage</>;
+};
 
 export default Frontpage;
