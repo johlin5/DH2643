@@ -1,25 +1,16 @@
 import mongoose, { ConnectOptions } from "mongoose";
-import { environment } from "../properties";
-import { userSchema } from "../db_schemas/db_schemas";
-const env = "development";
+import { dbString } from "../properties";
 
 /**
  * Mongoose Connection
  **/
-mongoose
-  .connect(environment[env].dbString, {
+export const connectDB = () =>
+  mongoose.connect(dbString, {
     useNewUrlParser: true,
     useUnifiedTopology: true
-  } as ConnectOptions)
-  .then(() => console.info("DATABASE CONNECTED"))
-  .catch((err) => {
-    console.error("DB_ERROR", err);
-    process.exit(1);
-  });
+  } as ConnectOptions);
 
 const db = mongoose.connection;
 db.on("error", () => {
   console.error("Error while connecting to DB");
 });
-
-export const Users = mongoose.model("Users", userSchema);

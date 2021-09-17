@@ -1,4 +1,4 @@
-import { Users } from "../db/dbConnector";
+import { Users } from "../db/models";
 
 /**
  * GraphQL Resolvers
@@ -6,16 +6,15 @@ import { Users } from "../db/dbConnector";
 
 export const resolvers = {
   Query: {
-    getUser: (root) => {
+    findUser: (root, { id }) => {
       return new Promise((resolve, reject) => {
-        Users.find((err, users) => {
+        Users.findOne({ _id: id }, (err, users) => {
           if (err) reject(err);
           else resolve(users);
         });
       });
     },
-    login: async ({username, password}) => {
-    } 
+    login: async ({ username, password }) => {}
   },
   Mutation: {
     createUser: (root, { input }) => {
@@ -24,7 +23,8 @@ export const resolvers = {
         lastName: input.lastName,
         userName: input.userName,
         password: input.password,
-        image: input.image
+        image: input.image,
+        biography: input.biography
       });
 
       newUser.id = newUser._id;

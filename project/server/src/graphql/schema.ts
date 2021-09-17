@@ -3,17 +3,17 @@ import { gql } from "apollo-server-express";
 export const typeDefs = gql`
   type User {
     id: ID!
-    firstName: String!
-    lastName: String!
+    firstName: String
+    lastName: String
     userName: String!
     password: String!
     image: String
   }
 
   type AuthData {
-      userId: ID!
-      token: String!
-      tokenExpiration: Int!
+    userId: ID!
+    token: String!
+    tokenExpiration: Int!
   }
 
   input UserInput {
@@ -26,7 +26,7 @@ export const typeDefs = gql`
   }
 
   type Query {
-    getUser: [User]
+    findUser(id: ID): User
     login(username: String!, password: String!): AuthData!
   }
 
