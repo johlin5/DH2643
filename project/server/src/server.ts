@@ -2,6 +2,7 @@
  * SETUP
  */
 import * as properties from "./properties";
+import { dbString } from "../auth";
 import betterLogging, { expressMiddleware, Theme } from "better-logging";
 import cookieParser from "cookie-parser";
 import { resolve } from "path";
@@ -20,6 +21,7 @@ const startServer = async () => {
   server.applyMiddleware({ app });
 };
 startServer();
+
 /**
  * SETTINGS
  */
@@ -30,7 +32,7 @@ betterLogging(console, {
 });
 console.logLevel = 4; // debug level
 const session = expressSession({
-  secret: "toptoptopsecret",
+  secret: properties.secret,
   name: "Quiz",
   resave: true,
   saveUninitialized: true
@@ -49,7 +51,7 @@ app.use(
   })
 );
 app.use(urlencoded({ extended: true }));
-app.use(cookieParser("toptoptopsecret"));
+app.use(cookieParser(properties.secret));
 app.use(json());
 app.use(session);
 app.use(expressStatic(publicPath));
@@ -83,7 +85,7 @@ app.get("/", (req: Request, res: Response) => {
 /**
  * Awaaaay we goooooooooooooo!!!!!!
  */
-connectDB()
+connectDB(dbString)
   .then(() => console.info("DB CONNECTED"))
   .then(() => app.listen(PORT, () => console.info(`Listening on http://localhost:${PORT}`)))
   .catch((err) => console.error(err));
