@@ -1,10 +1,9 @@
 import mongoose, { ConnectOptions } from "mongoose";
-import { dbString } from "../properties";
 
 /**
  * Mongoose Connection
  **/
-export const connectDB = () =>
+export const connectDB = (dbString: string) =>
   mongoose.connect(dbString, {
     useNewUrlParser: true,
     useUnifiedTopology: true
