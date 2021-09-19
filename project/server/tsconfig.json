@@ -6,7 +6,8 @@
     "rootDir": "./",
     "baseUrl": "./",
     "esModuleInterop": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "noImplicitAny": false
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
