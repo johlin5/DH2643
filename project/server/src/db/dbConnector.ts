@@ -1,9 +1,10 @@
 import mongoose, { ConnectOptions } from "mongoose";
+import { log } from "../utils/utils";
 
 /**
  * Mongoose Connection
  **/
-export const connectDB = (dbString: string) =>
+export const connectDB = (dbString: string): Promise<any> =>
   mongoose.connect(dbString, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -11,5 +12,5 @@ export const connectDB = (dbString: string) =>
 
 const db = mongoose.connection;
 db.on("error", () => {
-  console.error("Error while connecting to DB");
+  log.error("Error while connecting to DB");
 });
