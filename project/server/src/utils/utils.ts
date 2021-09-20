@@ -2,11 +2,12 @@ import winston, { format, transports } from "winston";
 
 export const log = winston.createLogger({
   level: "debug",
+  exitOnError: false,
   format: format.combine(
-    format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+    format.timestamp({ format: "MMM-DD-YYYY HH:mm:ss" }),
     format.json(),
     format.colorize(),
-    format.simple()
+    format.printf((info) => `${[info.timestamp]}: ${info.level}: ${info.message}`)
   ),
   transports: [new transports.Console()]
 });

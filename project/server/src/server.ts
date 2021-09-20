@@ -48,8 +48,8 @@ app.use((req: Request, res: Response, next) => {
   next();
 });
 
-app.use("*", (req: Request, res: Response, next) => {
-  log.debug("REQ SESSION", req.session);
+app.use("*", (req: Request, _res: Response, next) => {
+  log.debug("SESSION", req.session);
   next();
 });
 
