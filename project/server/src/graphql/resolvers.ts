@@ -1,5 +1,6 @@
 import { Questions, Users } from "../db/models";
 
+
 /**
  * GraphQL Resolvers
  **/
@@ -14,7 +15,23 @@ export const resolvers = {
         });
       });
     },
-    login: async ({ username, password }) => {}
+    login: async ({ username, password }) => {},
+    getAllUsers: (root => {
+      return new Promise( (resolve, reject) => {
+        Users.find( (err, users) => {
+          if (err)  reject(err)
+          else resolve(users)
+        })
+      })
+    }),
+    getAllQuestions: (root => {
+      return new Promise( (resolve, reject) => {
+        Questions.find( (err, questions) => {
+          if (err) reject(err)
+          else resolve(questions) 
+        })
+      })
+    })
   },
   Mutation: {
     createUser: (root, { input }) => {
@@ -52,6 +69,17 @@ export const resolvers = {
           else resolve(newQuestion);
         });
       });
+    },
+    updateQuestion: (root, {input, id}) => {
+      return new Promise( (resolve, reject) => {
+        Questions.findByIdAndUpdate({_id: id}, {
+          question: input.question,
+          answers: input.answers,
+        }, (err, question) => {
+          if (err) reject(err)
+          else resolve(question)
+        })
+      })
     }
   }
 };
