@@ -1,10 +1,10 @@
-import mongoose, { ConnectOptions } from "mongoose";
+import mongoose, { ConnectOptions, Mongoose } from "mongoose";
 import { log } from "../utils/utils";
 
 /**
  * Mongoose Connection
  **/
-export const connectDB = (dbString: string): Promise<any> =>
+export const connectDB = (dbString: string): Promise<Mongoose> =>
   mongoose.connect(dbString, {
     useNewUrlParser: true,
     useUnifiedTopology: true

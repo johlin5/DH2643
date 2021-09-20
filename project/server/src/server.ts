@@ -8,7 +8,7 @@ import { resolve } from "path";
 import { log } from "./utils/utils";
 import express, { urlencoded, json, static as expressStatic, Request, Response } from "express";
 import expressSession from "express-session";
-import { startServer } from "./graphql/apollo";
+import { startApolloServer } from "./graphql/appolloServer";
 import { connectDB } from "./db/dbConnector";
 
 /**
@@ -44,12 +44,12 @@ app.use((req: Request, res: Response, next) => {
       httpOnly: true
     });
   }
-  log.debug(cookie);
+  log.debug("Cookie", cookie);
   next();
 });
 
 app.use("*", (req: Request, _res: Response, next) => {
-  log.debug("SESSION", req.session);
+  log.debug("Session: ", JSON.stringify(req.session));
   next();
 });
 
@@ -63,10 +63,7 @@ app.get("/", (req: Request, res: Response) => {
 /**
  * Awaaaay we goooooooooooooo!!!!!!
  */
-startServer(app)
+startApolloServer(app)
   .then(() => connectDB(dbString))
-  .then(() => {
-    log.info("DB CONNECTED");
-    app.listen(PORT, () => log.info(`Listening on http://localhost:${PORT}`));
-  })
+  .then(() => app.listen(PORT, () => log.info(`Listening on http://localhost:${PORT}`)))
   .catch((err) => log.error(err));
