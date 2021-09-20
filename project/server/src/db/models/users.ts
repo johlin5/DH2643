@@ -9,7 +9,8 @@ const optStringType = {
   type: String
 };
 
-interface UserDoc extends Document {
+export interface UserDoc extends Document {
+  id: string;
   firstName: string;
   lastName: string;
   userName: string;
@@ -19,6 +20,7 @@ interface UserDoc extends Document {
 }
 
 const userSchema = new mongoose.Schema({
+  id: requiredStringType,
   firstName: optStringType,
   lastName: optStringType,
   userName: {
@@ -31,14 +33,8 @@ const userSchema = new mongoose.Schema({
   biography: optStringType,
   auth: {
     type: Schema.Types.ObjectId,
-    ref: 'AuthData'
+    ref: "AuthData"
   }
 });
-
-/*
-export const history = new Mongoose.Schema({
-
-});
-*/
 
 export const Users = mongoose.model<UserDoc>("Users", userSchema);

@@ -1,5 +1,23 @@
-export const isNull = (field: any) => field === null;
-export const validatePassword = (password: string) => {
-    const regex = /^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{8,}$/;
-    return regex.test(password) ? true : false;
-}
+import winston, { format, transports } from "winston";
+
+export const log = winston.createLogger({
+  level: "debug",
+  format: format.combine(
+    format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+    format.json(),
+    format.colorize(),
+    format.simple()
+  ),
+  transports: [new transports.Console()]
+});
+
+export const isNull = (field: unknown): boolean => field === null;
+
+export const validatePassword = (password: string): boolean => {
+  const regex = /^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{8,}$/;
+  return regex.test(password);
+};
+
+export const checkStringEquiv = (string1: string, string2: string): boolean => {
+  return String(string1).localeCompare(String(string2)) === 0;
+};
