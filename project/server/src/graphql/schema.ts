@@ -43,16 +43,15 @@ export const typeDefs = gql`
     reports: [String]
   }
 
-  type QuestionInput {
+  input QuestionInput {
     question: String 
-    answers: [Answer]
-    owner: User 
   }
 
   type Answer {
     id: ID!
     description: String!
-    flag: Boolean = false
+    flag: Boolean
+    question: Question
   }
 
   type Mutation {
