@@ -26,6 +26,7 @@ export const typeDefs = gql`
   }
 
   type Query {
+    getAllUsers: [User]
     findUser(id: ID): User
     login(username: String!, password: String!): AuthData!
   }
@@ -36,27 +37,39 @@ export const typeDefs = gql`
 
   type Question {
     id: ID!
-    question: String! 
-    answers: [Answer]!
+    question: String!
     owner: User!
+    answers: [Answer]
     upvotes: Int
     reports: [String]
   }
 
   input QuestionInput {
-    question: String 
+    question: String
+    owner: UserInput
+    answers: [AnswerInput]
+    upvotes: Int
+    report: String
+  }
+
+  type Query {
+    getAllQuestions: [Question]
+  }
+
+  type Mutation {
+    createQuestion(input: QuestionInput!): Question 
+    deleteQuestion(id: ID): Question 
+    updateQuestion(input: QuestionInput!, id: ID): Question 
   }
 
   type Answer {
     id: ID!
     description: String!
     flag: Boolean
-    question: Question
   }
 
-  type Mutation {
-    createQuestion(input: QuestionInput!): Question 
-    deleteQuestion(id: ID): Question 
-    updateQuestion(input: QuestionInput!): Question 
+  input AnswerInput {
+    description: String 
+    flag: Boolean
   }
 `;
