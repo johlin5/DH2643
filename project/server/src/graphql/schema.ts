@@ -33,4 +33,31 @@ export const typeDefs = gql`
   type Mutation {
     createUser(input: UserInput): User
   }
+
+  type Question {
+    id: ID!
+    question: String! 
+    answers: [Answer]!
+    owner: User!
+    upvotes: Int
+    reports: [String]
+  }
+
+  type QuestionInput {
+    question: String 
+    answers: [Answer]
+    owner: User 
+  }
+
+  type Answer {
+    id: ID!
+    description: String!
+    flag: Boolean = false
+  }
+
+  type Mutation {
+    createQuestion(input: QuestionInput!): Question 
+    deleteQuestion(id: ID): Question 
+    updateQuestion(input: QuestionInput!): Question 
+  }
 `;

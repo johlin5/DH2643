@@ -1,4 +1,4 @@
-import { Users } from "../db/models";
+import { Questions, Users } from "../db/models";
 
 /**
  * GraphQL Resolvers
@@ -33,6 +33,23 @@ export const resolvers = {
         newUser.save((err) => {
           if (err) reject(err);
           else resolve(newUser);
+        });
+      });
+    },
+    createQuestion: (root, {input}) => {
+
+      const newQuestion = new Questions({
+        question: input.question, 
+        answers: input.answers, 
+        owner: input.owner, // Come up with a solution 
+      });
+      
+      newQuestion.id = newQuestion._id; // Assign ID? 
+
+      return new Promise((resolve, reject) => {
+        newQuestion.save( (err) => {
+          if (err) reject(err);
+          else resolve(newQuestion);
         });
       });
     }
