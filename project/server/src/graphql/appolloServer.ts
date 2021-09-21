@@ -1,8 +1,9 @@
 import { ApolloServer } from "apollo-server-express";
 import typeDefs from "./typedefs";
 import { resolvers } from "./resolvers";
+import express from "express";
 
-export const startServer = async (app): Promise<void> => {
+export const startApolloServer = async (app: express.Application): Promise<void> => {
   const server = new ApolloServer({ typeDefs, resolvers });
   await server.start();
   server.applyMiddleware({ app });
