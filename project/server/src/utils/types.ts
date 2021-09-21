@@ -10,6 +10,13 @@ export type UserInput = {
   };
 };
 
+export type LoginInput = {
+  input: {
+    userName: string;
+    password: string;
+  };
+};
+
 export type Id = {
   id: string;
 };

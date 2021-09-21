@@ -1,8 +1,7 @@
 /**
  * SETUP
  */
-import * as properties from "./properties";
-import { dbString } from "../auth";
+import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { resolve } from "path";
 import { log } from "./utils/utils";
@@ -14,11 +13,12 @@ import { connectDB } from "./db/dbConnector";
 /**
  * SETTINGS
  */
+dotenv.config();
 const app = express();
-const PORT = process.env.PORT || properties.PORT;
+const PORT = process.env.PORT;
 const publicPath = resolve(__dirname, "../client/dist/");
 const session = expressSession({
-  secret: properties.secret,
+  secret: process.env.SECRET,
   name: "Quiz",
   resave: true,
   saveUninitialized: true
@@ -28,7 +28,7 @@ const session = expressSession({
  * MIDDLEWARES
  */
 app.use(urlencoded({ extended: true }));
-app.use(cookieParser(properties.secret));
+app.use(cookieParser(process.env.SECRET));
 app.use(json());
 app.use(session);
 app.use(expressStatic(publicPath));
@@ -64,6 +64,6 @@ app.get("/", (req: Request, res: Response) => {
  * Awaaaay we goooooooooooooo!!!!!!
  */
 startApolloServer(app)
-  .then(() => connectDB(dbString))
+  .then(() => connectDB(process.env.DB_STRING))
   .then(() => app.listen(PORT, () => log.info(`Listening on http://localhost:${PORT}`)))
   .catch((err) => log.error(err));

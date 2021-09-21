@@ -1,4 +1,7 @@
 import { configure, getLogger } from "log4js";
+import * as errorMsg from "./errorMessages";
+import jwt from "jsonwebtoken";
+import { Users } from "../db/models/users";
 
 const loggerConfig = {
   appenders: {
@@ -14,15 +17,61 @@ export const log = getLogger();
 
 export const isNull = (field: unknown): boolean => field === null;
 
-export const validatePassword = (password: string): boolean => {
+const validPasswordFormat = (password: string): boolean => {
   const regex = /^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{8,}$/;
   return regex.test(password);
 };
 
-export const checkStringEquiv = (string1: string, string2: string): boolean => {
+const validConfirmation = (string1: string, string2: string): boolean => {
   return String(string1).localeCompare(String(string2)) === 0;
 };
 
-export const errorMsg = (msg: string): Error => {
-  return new Error(msg);
+export const validatePassword = (password: string, passwordConfirmation: string): void => {
+  if (!validPasswordFormat(password)) {
+    throwMsg(errorMsg.invalidPasswordFormat);
+  }
+  if (!validConfirmation(password, passwordConfirmation)) {
+    throwMsg(errorMsg.invalidPasswordConfirmation);
+  }
+};
+
+export const throwMsg = (msg: string): Error => {
+  throw new Error(msg);
+};
+
+export const isAuth = (request: any) => {
+  const authHeader = request.req.headers.authorization;
+  if (!authHeader) {
+    return { isAuth: false };
+  }
+  const token = authHeader.replace("Bearer ", "");
+  if (!token) {
+    // No token found
+    return { isAuth: false };
+  }
+  let decodeToken: any = null;
+  try {
+    decodeToken = jwt.verify(token, process.env.SECRET);
+  } catch (err) {
+    // Not authenticated
+    return { isAuth: false };
+  }
+  if (!decodeToken) {
+    // Random error
+    return { isAuth: false };
+  }
+  return { isAuth: true, userId: decodeToken.userId };
+};
+
+export const createNewUser = ({ firstName, lastName, userName, image, biography }, hashed) => {
+  const user = new Users({
+    firstName: firstName,
+    lastName: lastName,
+    userName: userName,
+    password: hashed,
+    image: image,
+    biography: biography
+  });
+  user.id = user._id;
+  return user;
 };

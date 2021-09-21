@@ -2,7 +2,7 @@ import * as type from "../../utils/types";
 import { Users } from "../../db/models/users";
 
 export default {
-  findUserById: (_parent: unknown, { id }: type.Id): Promise<unknown> => {
+  findUserById: (_parent: unknown, { id }: type.Id, context: any): Promise<unknown> => {
     return new Promise((resolve, reject) => {
       Users.findById(id, (err, users) => {
         if (err) reject(err);
@@ -10,7 +10,7 @@ export default {
       });
     });
   },
-  findUserByUserName: (_parent: unknown, { userName }: type.UserName): Promise<unknown> => {
+  findUserByUserName: (_parent: unknown, { userName }: type.UserName, context: any): Promise<unknown> => {
     return new Promise((resolve, reject) => {
       Users.findOne({ userName: userName }, (err, users) => {
         if (err) reject(err);
@@ -18,14 +18,4 @@ export default {
       });
     });
   }
-  /*login: async (root: any, { input }) => {
-      const user = await Users.findOne({ userName: input.userName });
-      if (!user) {
-        errorMsg(errorMessages.userDoesNotExist);
-      }
-      bcrypt.compare(input.password, user.password, (err, isValid) => {
-        if (err || !isValid) {
-        }
-      });
-    }*/
 };

@@ -1,35 +1,34 @@
 import { Users } from "../../db/models/users";
-import bcrypt from "bcrypt";
-import { errorMsg } from "../../utils/utils";
-import { validatePassword, checkStringEquiv } from "../../utils/utils";
+import { hash, compare } from "bcrypt";
+import jwt from "jsonwebtoken";
+import { throwMsg, validatePassword, createNewUser } from "../../utils/utils";
 import * as errorMessages from "../../utils/errorMessages";
 import * as type from "../../utils/types";
 
 const saltRounds = 10;
 
 export default {
-  createUser: async (_parent: unknown, { input }: type.UserInput): Promise<unknown> => {
+  signup: async (_parent: unknown, { input }: type.UserInput): Promise<unknown> => {
     const expectedUser = await Users.findOne({ userName: input.userName });
     if (expectedUser) {
-      throw errorMsg(errorMessages.userAlreadyExists);
+      throwMsg(errorMessages.userAlreadyExists);
     }
-    if (!validatePassword(input.password) && !checkStringEquiv(input.password, input.passwordConfirmation)) {
-      throw errorMsg(errorMessages.invalidPasswordFormat);
+    validatePassword(input.password, input.passwordConfirmation);
+    const hashed = await hash(input.password, saltRounds);
+    const user = createNewUser(input, hashed);
+    const token = jwt.sign({ userId: user.id }, process.env.SECRET);
+    return { token, user };
+  },
+  login: async (_parent: unknown, { input: { userName, password } }: type.LoginInput): Promise<unknown> => {
+    const user = await Users.findOne({ userName: userName });
+    if (!user) {
+      throwMsg(errorMessages.userDoesNotExist);
     }
-    const hashedPassword = bcrypt.hashSync(input.password, saltRounds);
-    const newUser = new Users({
-      firstName: input.firstName,
-      lastName: input.lastName,
-      userName: input.userName,
-      password: hashedPassword,
-      image: input.image
-    });
-    newUser.id = newUser._id;
-    return new Promise((resolve, reject) => {
-      newUser.save((err) => {
-        if (err) reject(err);
-        else resolve(newUser);
-      });
-    });
+    const valid = await compare(password, user.password);
+    if (!valid) {
+      throwMsg(errorMessages.wrongCredentidals);
+    }
+    const token = jwt.sign({ userId: user.id }, process.env.SECRET);
+    return { token, user };
   }
 };
