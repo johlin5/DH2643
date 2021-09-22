@@ -22,13 +22,24 @@ const typeDefs = gql`
     biography: String
   }
 
+  input LoginInput {
+    userName: String!
+    password: String!
+  }
+
+  type AuthPayload {
+    token: String
+    user: User
+  }
+
   extend type Query {
     findUserById(id: ID!): User!
     findUserByUserName(userName: String!): User!
   }
 
   extend type Mutation {
-    createUser(input: UserInput!): User!
+    signup(input: UserInput!): AuthPayload!
+    login(input: LoginInput!): AuthPayload!
   }
 `;
 

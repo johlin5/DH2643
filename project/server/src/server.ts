@@ -1,10 +1,10 @@
 /**
  * SETUP
  */
-import * as properties from "./properties";
-import { dbString } from "../auth";
+import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { resolve } from "path";
+import { dbString } from "../auth";
 import { log } from "./utils/utils";
 import express, { urlencoded, json, static as expressStatic, Request, Response } from "express";
 import expressSession from "express-session";
@@ -14,11 +14,12 @@ import { connectDB } from "./db/dbConnector";
 /**
  * SETTINGS
  */
+dotenv.config();
 const app = express();
-const PORT = process.env.PORT || properties.PORT;
+const PORT = process.env.PORT;
 const publicPath = resolve(__dirname, "../client/dist/");
 const session = expressSession({
-  secret: properties.secret,
+  secret: process.env.SECRET,
   name: "Quiz",
   resave: true,
   saveUninitialized: true
@@ -28,7 +29,7 @@ const session = expressSession({
  * MIDDLEWARES
  */
 app.use(urlencoded({ extended: true }));
-app.use(cookieParser(properties.secret));
+app.use(cookieParser(process.env.SECRET));
 app.use(json());
 app.use(session);
 app.use(expressStatic(publicPath));
