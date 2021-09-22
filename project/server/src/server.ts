@@ -4,6 +4,7 @@
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { resolve } from "path";
+import { dbString } from "../auth";
 import { log } from "./utils/utils";
 import express, { urlencoded, json, static as expressStatic, Request, Response } from "express";
 import expressSession from "express-session";
@@ -64,6 +65,6 @@ app.get("/", (req: Request, res: Response) => {
  * Awaaaay we goooooooooooooo!!!!!!
  */
 startApolloServer(app)
-  .then(() => connectDB(process.env.DB_STRING))
+  .then(() => connectDB(dbString))
   .then(() => app.listen(PORT, () => log.info(`Listening on http://localhost:${PORT}`)))
   .catch((err) => log.error(err));
