@@ -63,7 +63,7 @@ export const isAuth = (request: any) => {
   return { isAuth: true, userId: decodeToken.userId };
 };
 
-export const createNewUser = ({ firstName, lastName, userName, image, biography }, hashed) => {
+export const createNewUser = async ({ firstName, lastName, userName, image, biography }, hashed) => {
   const user = new Users({
     firstName: firstName,
     lastName: lastName,
@@ -73,5 +73,6 @@ export const createNewUser = ({ firstName, lastName, userName, image, biography 
     biography: biography
   });
   user.id = user._id;
+  await user.save();
   return user;
 };
