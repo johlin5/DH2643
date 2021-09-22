@@ -12,7 +12,12 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({ height, color, text, icon
   return (
     <Button
       startIcon={icon}
-      style={{ textTransform: "none", backgroundColor: color, height, color: "white" }}
+      style={{
+        textTransform: "none",
+        backgroundColor: color,
+        height,
+        color: "white"
+      }}
       fullWidth
     >
       <Typography variant={variant}>{text}</Typography>

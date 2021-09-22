@@ -23,19 +23,19 @@ const Landing: React.FC = () => {
       <div className={classes.root}>
         <Container>
           <Grid container spacing={1}>
-            <Grid item xs={4}></Grid>
-            <Grid item xs={4}>
+            <Grid item xs={3}></Grid>
+            <Grid item xs={6}>
               <Typography variant="h2">Quiz</Typography>
             </Grid>
-            <Grid item xs={4}></Grid>
-            <Grid item xs={4}></Grid>
-            <Grid item xs={2}>
-              <PrimaryButton text="Register" color={PURPLE} height="64px" />
+            <Grid item xs={3}></Grid>
+            <Grid item xs={3}></Grid>
+            <Grid item xs={3}>
+              <PrimaryButton text="Register" color={TURQUOISE} height="64px" />
             </Grid>
-            <Grid item xs={2}>
-              <PrimaryButton text="Login" color={TURQUOISE} height="64px" />
+            <Grid item xs={3}>
+              <PrimaryButton text="Login" color={PURPLE} height="64px" />
             </Grid>
-            <Grid item xs={4}></Grid>
+            <Grid item xs={3}></Grid>
           </Grid>
         </Container>
       </div>
