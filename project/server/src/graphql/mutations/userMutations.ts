@@ -15,7 +15,7 @@ export default {
     }
     validatePassword(input.password, input.passwordConfirmation);
     const hashed = await hash(input.password, saltRounds);
-    const user = createNewUser(input, hashed);
+    const user = await createNewUser(input, hashed);
     const token = jwt.sign({ userId: user.id }, process.env.SECRET);
     return { token, user };
   },
