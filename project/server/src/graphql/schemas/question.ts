@@ -28,7 +28,7 @@ const typeDefs = gql`
     createQuestion(input: QuestionInput!): Question
     deleteQuestion(id: ID!): Question 
     updateQuestion(input: QuestionInput!): Question 
-    reportQuestion(id: ID!): Question 
+    reportQuestion(id: ID!, report: String!): Question 
   }
 `;
 
