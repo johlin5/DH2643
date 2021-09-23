@@ -4,6 +4,6 @@ import quiz from "./schemas/quiz";
 import questions from "./schemas/question";
 import answers from "./schemas/answer";
 
-const typeDefs = [root, users, quiz, questions, answers];
+const typeDefs = [root, users, questions, answers];
 
 export default typeDefs;

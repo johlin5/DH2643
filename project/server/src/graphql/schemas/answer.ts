@@ -11,6 +11,12 @@ type Answer {
     description: String 
     flag: Boolean
   }
+
+  extend type Mutation {
+    createAnswer(input: AnswerInput!): Answer 
+    deleteAnswer(id: ID!): Answer
+    updateAnswer(input: AnswerInput!): Answer
+  }
 `;
 
 export default typeDefs
