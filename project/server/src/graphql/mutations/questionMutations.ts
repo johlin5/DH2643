@@ -1,4 +1,4 @@
-import { Questions } from "../../db/models";
+import { Questions } from "../../db/models/questions";
 import jwt from "jsonwebtoken";
 import * as type from "../../utils/types";
 import { createNewQuestion, throwMsg } from "../../utils/utils";

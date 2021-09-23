@@ -1,5 +1,5 @@
 import * as type from "../../utils/types";
-import { Questions } from "../../db/models";
+import { Questions } from "../../db/models/questions";
 
 export default {
   findQuestionById: (_parent: unknown, { id }: type.Id, context: any): Promise<unknown> => {

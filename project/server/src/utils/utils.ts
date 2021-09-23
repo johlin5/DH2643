@@ -2,7 +2,7 @@ import { configure, getLogger } from "log4js";
 import * as errorMsg from "./errorMessages";
 import jwt from "jsonwebtoken";
 import { Users } from "../db/models/users";
-import { Questions } from "../db/models";
+import { Questions } from "../db/models/questions";
 
 const loggerConfig = {
   appenders: {
