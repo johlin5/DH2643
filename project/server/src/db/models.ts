@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import {Users} from "./models/users";
 
 const requiredStringType = {
   type: String,
@@ -8,15 +9,6 @@ const requiredStringType = {
 const optStringType = {
   type: String
 };
-
-const userSchema = new mongoose.Schema({
-  firstName: optStringType,
-  lastName: optStringType,
-  userName: requiredStringType,
-  password: requiredStringType,
-  image: optStringType,
-  biography: optStringType
-});
 
 /* Answer schema */
 const answerSchema = new mongoose.Schema({
@@ -28,7 +20,7 @@ const answerSchema = new mongoose.Schema({
 const questionSchema = new mongoose.Schema({
   question: requiredStringType,
   answers: [answerSchema],
-  owner: userSchema, 
+  owner: Users.schema, 
   upvotes: Number, 
   reports: [optStringType]
 });
@@ -38,6 +30,5 @@ export const history = new Mongoose.Schema({
 
 });
 */
-export const Users = mongoose.model("Users", userSchema);
 export const Questions = mongoose.model("Questions", questionSchema);
 export const Answers = mongoose.model("Answers", answerSchema);
