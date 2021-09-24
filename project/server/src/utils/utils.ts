@@ -81,7 +81,7 @@ export const createNewUser = async ({ firstName, lastName, userName, image, biog
 export const createNewQuestion = async (input) => {
   const newQuestion = new Questions({
     question: input.question,
-    owner: input.owner,
+    userId: input.userId,
     answers: input.answers,
     upvotes: input.upvotes,
     report: input.report

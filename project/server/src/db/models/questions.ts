@@ -20,7 +20,7 @@ import { Answers } from "./answer";
 const questionSchema = new mongoose.Schema({
   question: requiredStringType,
   answers: [Answers.schema],
-  owner: requiredStringType,
+  userId: requiredStringType,
   upvotes: Number, 
   reports: [optStringType]
 });

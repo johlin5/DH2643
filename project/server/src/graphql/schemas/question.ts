@@ -12,7 +12,7 @@ const typeDefs = gql`
 
   input QuestionInput {
     question: String
-    userID: String
+    userId: String
     answers: [AnswerInput]
     upvotes: Int
     report: String
