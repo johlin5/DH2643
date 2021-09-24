@@ -2,6 +2,7 @@ import Frontpage from "../views/Frontpage";
 import Login from "../views/Login";
 import Profile from "../views/Profile";
 import Landing from "../views/Landing";
+import Register from "../views/register/Index";
 
 export type AppRoute = {
   path: string;
@@ -18,5 +19,6 @@ export const navRoutes: AppRoute[] = [
   { path: "/", component: Landing, exact: true, requireLoggedIn: false },
   { path: "/login", component: Login, exact: true, requireLoggedIn: false },
   { path: "/profile", component: Profile, exact: true, requireLoggedIn: false },
+  { path: "/register", component: Register, exact: true, requireLoggedIn: false },
   { path: "*", component: NotFound, exact: false, requireLoggedIn: false }
 ];
