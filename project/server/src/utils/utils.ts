@@ -2,6 +2,7 @@ import { configure, getLogger } from "log4js";
 import * as errorMsg from "./errorMessages";
 import jwt from "jsonwebtoken";
 import { Users } from "../db/models/users";
+import { Questions } from "../db/models/questions";
 
 const loggerConfig = {
   appenders: {
@@ -75,4 +76,17 @@ export const createNewUser = async ({ firstName, lastName, userName, image, biog
   user.id = user._id;
   await user.save();
   return user;
+};
+
+export const createNewQuestion = async (input) => {
+  const newQuestion = new Questions({
+    question: input.question,
+    userId: input.userId,
+    answers: input.answers,
+    upvotes: input.upvotes,
+    report: input.report
+  });
+  newQuestion.id = newQuestion._id;
+  await newQuestion.save();
+  return newQuestion;
 };

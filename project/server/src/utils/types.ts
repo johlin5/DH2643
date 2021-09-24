@@ -24,3 +24,18 @@ export type Id = {
 export type UserName = {
   userName: string;
 };
+
+export type QuestionInput = {
+  input: {
+    question: String
+    owner: UserInput
+    answers: [AnswerInput]
+    upvotes: Number
+    report: String
+  }
+}
+
+export type AnswerInput = {
+    description: String 
+    flag: Boolean
+}
