@@ -4,7 +4,7 @@ const typeDefs = gql`
   type Question {
     id: ID!
     question: String!
-    owner: User!
+    userID: String!
     answers: [Answer]!
     upvotes: Int
     reports: [String]
@@ -27,7 +27,7 @@ const typeDefs = gql`
   extend type Mutation {
     createQuestion(input: QuestionInput!): Question
     deleteQuestion(id: ID!): Question 
-    updateQuestion(input: QuestionInput!): Question 
+    updateQuestion(id: ID!, input: QuestionInput!): Question 
     reportQuestion(id: ID!, report: String!): Question 
   }
 `;

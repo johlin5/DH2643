@@ -14,21 +14,22 @@ export default {
                 } else resolve(question);
         });
     },
-    // deleteQuestion: (_parent: unknown, {id}: type.Id): Promise<unknown> => {
-    //     return new Promise((resolve, reject) => {
-    //         // Handle the query 
-    //         Questions.findOneAndDelete(id, (err, questions) => {
-    //             if (err) reject(err);
-    //             else resolve(questions)
-    //         })
-    //     })
-    // },
-    updateQuestion: (_parent: unknown, {input}: type.QuestionInput): Promise<unknown> => {
+    deleteQuestion: (_parent: unknown, {id}: type.Id): Promise<unknown> => {
+        return new Promise((resolve, reject) => {
+            // Add authentication 
+            const questions = Questions.findByIdAndDelete(id);
+            resolve(questions);
+        });
+    },
+    updateQuestion: (_parent: unknown, {id, input}): Promise<unknown> => {
         // Add some authenication 
         return new Promise((resolve, reject) => {
-            Questions.findByIdAndUpdate({input}, (err, questions) => {
+            Questions.findByIdAndUpdate({_id: id}, {
+                question: input.question,
+                answers: input.answers,
+                upvotes: input.upvotes}, (err, question) => {
                 if (err) reject(err);
-                else resolve(questions);
+                else resolve(question);
             })
         });
     }
