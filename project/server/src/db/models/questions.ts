@@ -21,7 +21,7 @@ const questionSchema = new mongoose.Schema({
   question: requiredStringType,
   answers: [Answers.schema],
   userId: requiredStringType,
-  upvotes: Number, 
+  upvotes: { type: Number, default: 0}, 
   reports: [optStringType]
 });
 

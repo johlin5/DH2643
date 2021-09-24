@@ -1,5 +1,18 @@
 import { gql } from "apollo-server-express";
 
+// input QuestionInput {
+//   questions: String!
+//   answers: [String!]!
+//   correctanswer: String!
+// }
+// type Question {
+//   id: ID!
+//   question: String!
+//   answers: [String!]!
+//   correctanswer: String!
+// }
+// createQuestion(input: QuestionInput): Question
+
 const typeDefs = gql`
   type Quiz {
     id: ID!
@@ -9,31 +22,20 @@ const typeDefs = gql`
   }
 
   input QuizInput {
-    name: String!
-    questions: [String!]!
+    name: String
+    questions: [QuestionInput]
     creator: ID!
-  }
-
-  type Question {
-    id: ID!
-    question: String!
-    answers: [String!]!
-    correctanswer: String!
-  }
-
-  input QuestionInput {
-    questions: String!
-    answers: [String!]!
-    correctanswer: String!
   }
 
   extend type Query {
     findQuizById(id: ID!): Quiz
+    findAllQuiz: [Quiz]
   }
 
   extend type Mutation {
     createQuiz(input: QuizInput): Quiz
-    createQuestion(input: QuestionInput): Question
+    updateQuiz(id: ID!, input: QuizInput): Quiz 
+    deleteQuiz(id:ID!): Quiz
   }
 `;
 

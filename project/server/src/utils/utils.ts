@@ -3,6 +3,7 @@ import * as errorMsg from "./errorMessages";
 import jwt from "jsonwebtoken";
 import { Users } from "../db/models/users";
 import { Questions } from "../db/models/questions";
+import { Quizzes } from "../db/models/quizzes";
 
 const loggerConfig = {
   appenders: {
@@ -89,4 +90,15 @@ export const createNewQuestion = async (input) => {
   newQuestion.id = newQuestion._id;
   await newQuestion.save();
   return newQuestion;
+};
+
+export const createQuiz = async (input) => {
+  const newQuiz = new Quizzes({
+    title: input.name, 
+    questions: input.questions,
+    creator: input.creator
+  }); 
+  newQuiz.id = newQuiz._id; 
+  await newQuiz.save(); 
+  return newQuiz; 
 };
