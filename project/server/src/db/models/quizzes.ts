@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import {Questions} from "./questions";
 
 const quizzesSchema = new mongoose.Schema({
   title: {
@@ -8,7 +9,7 @@ const quizzesSchema = new mongoose.Schema({
   questions: {
     type: [
       {
-        type: Schema.Types.ObjectId,
+        type: Questions.schema,
         ref: "Question"
       }
     ],

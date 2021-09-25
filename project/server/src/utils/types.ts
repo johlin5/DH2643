@@ -39,3 +39,12 @@ export type AnswerInput = {
     description: String 
     flag: Boolean
 }
+
+export type QuizInput = {
+  input: {
+    id: Id
+    title: String
+    questions: [QuestionInput]
+    creator: Id
+  }
+}
