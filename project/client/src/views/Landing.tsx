@@ -1,10 +1,4 @@
-import {
-  Grid,
-  Container,
-  makeStyles,
-  createStyles,
-  Typography
-} from "@material-ui/core";
+import { Grid, Container, makeStyles, createStyles, Typography } from "@material-ui/core";
 import { PURPLE, WHITE, SAND, GREEN, TURQUOISE } from "../app/theme";
 import PrimaryButton from "../components/PrimaryButton";
 const useStyles = makeStyles(() =>
