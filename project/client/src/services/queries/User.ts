@@ -13,3 +13,16 @@ export const SIGN_UP = gql`
     }
   }
 `;
+
+export const LOGIN = gql`
+  mutation TokenMutation($loginInput: LoginInput!) {
+    login(input: $loginInput) {
+      token
+      user {
+        userName
+        password
+        id
+      }
+    }
+  }
+`;
