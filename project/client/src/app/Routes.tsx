@@ -1,5 +1,5 @@
 import Frontpage from "../views/Frontpage";
-import Login from "../views/Login";
+import Login from "../views/login/LoginForm";
 import Profile from "../views/Profile";
 import Landing from "../views/Landing";
 import Register from "../views/register/Index";
