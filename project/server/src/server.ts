@@ -4,7 +4,7 @@
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { resolve } from "path";
-import { dbString } from "../auth";
+import { dbString } from "./auth";
 import { log } from "./utils/utils";
 import express, { urlencoded, json, static as expressStatic, Request, Response } from "express";
 import expressSession from "express-session";
