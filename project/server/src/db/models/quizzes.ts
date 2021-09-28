@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import {Questions} from "./questions";
+import { Questions } from "./questions";
 
 const quizzesSchema = new mongoose.Schema({
   title: {

@@ -94,11 +94,11 @@ export const createNewQuestion = async (input) => {
 
 export const createQuiz = async (input) => {
   const newQuiz = new Quizzes({
-    title: input.name, 
+    title: input.name,
     questions: input.questions,
     creator: input.creator
-  }); 
-  newQuiz.id = newQuiz._id; 
-  await newQuiz.save(); 
-  return newQuiz; 
+  });
+  newQuiz.id = newQuiz._id;
+  await newQuiz.save();
+  return newQuiz;
 };

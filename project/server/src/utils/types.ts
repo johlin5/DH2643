@@ -27,24 +27,24 @@ export type UserName = {
 
 export type QuestionInput = {
   input: {
-    question: String
-    owner: UserInput
-    answers: [AnswerInput]
-    upvotes: Number
-    report: String
-  }
-}
+    question: String;
+    owner: UserInput;
+    answers: [AnswerInput];
+    upvotes: Number;
+    report: String;
+  };
+};
 
 export type AnswerInput = {
-    description: String 
-    flag: Boolean
-}
+  description: String;
+  flag: Boolean;
+};
 
 export type QuizInput = {
   input: {
-    id: Id
-    title: String
-    questions: [QuestionInput]
-    creator: Id
-  }
-}
+    id: Id;
+    title: String;
+    questions: [QuestionInput];
+    creator: Id;
+  };
+};

@@ -7,13 +7,13 @@ import quizMutation from "./mutations/quizMutation";
 
 export const resolvers = {
   Query: {
-    ...UserQueries, 
-    ...questionQueries, 
+    ...UserQueries,
+    ...questionQueries,
     ...quizQueries
   },
   Mutation: {
     ...UserMutations,
-    ...questionMutations, 
+    ...questionMutations,
     ...quizMutation
   }
 };

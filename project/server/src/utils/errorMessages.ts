@@ -6,4 +6,4 @@ export const invalidPasswordFormat =
 export const invalidPasswordConfirmation = "Passwords does not match";
 export const unableQuizCreation = "Unable to create a quiz";
 export const unableQuestionCreation = "Unable to create a question";
-export const quizNotFound = "Quiz not found"; 
+export const quizNotFound = "Quiz not found";
