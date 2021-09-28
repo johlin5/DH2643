@@ -9,6 +9,7 @@ const saltRounds = 10;
 
 export default {
   signup: async (_parent: unknown, { input }: type.UserInput): Promise<unknown> => {
+    console.log("loggin resolver");
     const expectedUser = await Users.findOne({ userName: input.userName });
     if (expectedUser) {
       throwMsg(errorMessages.userAlreadyExists);
@@ -20,10 +21,12 @@ export default {
     return { token, user };
   },
   login: async (_parent: unknown, { input: { userName, password } }: type.LoginInput): Promise<unknown> => {
+    
     const user = await Users.findOne({ userName: userName });
     if (!user) {
       throwMsg(errorMessages.userDoesNotExist);
     }
+    
     const valid = await compare(password, user.password);
     if (!valid) {
       throwMsg(errorMessages.wrongCredentidals);

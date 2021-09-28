@@ -22,8 +22,7 @@ const RegisterForm: React.FC = () => {
         }
       }
     });
-    console.log("response", response);
-    console.log("data", data);
+    localStorage.setItem('jwt', response.data.signup.token);
   };
 
   if (loading) {

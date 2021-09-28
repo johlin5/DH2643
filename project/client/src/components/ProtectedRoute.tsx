@@ -1,31 +1,12 @@
-import { useEffect } from "react";
-import { Redirect, Route, RouteProps, useLocation } from "react-router";
+import { Redirect, Route } from "react-router";
 
-export type ProtectedRouteProps = {
-  isAuthenticated: boolean;
-  authenticationPath: string;
-  redirectPath: string;
-  setRedirectPath: (path: string) => void;
-} & RouteProps;
+export default function ProtectedRoute({...routeProps}) {
 
-export default function ProtectedRoute({
-  isAuthenticated,
-  authenticationPath,
-  redirectPath,
-  setRedirectPath,
-  ...routeProps
-}: ProtectedRouteProps): React.ReactNode {
-  const currentLocation = useLocation();
+  const authenticated = localStorage.getItem('jwt');
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      setRedirectPath(currentLocation.pathname);
-    }
-  }, [isAuthenticated, setRedirectPath, currentLocation]);
-
-  if (isAuthenticated && redirectPath === currentLocation.pathname) {
+  if (authenticated) {
     return <Route {...routeProps} />;
   } else {
-    return <Redirect to={{ pathname: isAuthenticated ? redirectPath : authenticationPath }} />;
+    return <Redirect to={{ pathname: "/" }} />;
   }
 }

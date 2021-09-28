@@ -11,17 +11,17 @@ type FormInputs = {
 
 const LoginForm: React.FC = () => {
   const [formInput, setFormInput] = useState<FormInputs>({ userName: "", password: "" });
-  const [signup, { data, loading, error }] = useMutation(LOGIN);
-
+  const [login, { data, loading, error }] = useMutation(LOGIN);
   const loginUser = async () => {
-    const response = await signup({
+    const response = await login({
       variables: {
         loginInput: {
           ...formInput
         }
       }
     });
-    console.log(response);
+    localStorage.setItem('jwt',response.data.login.token);
+    
   };
 
   if (loading) {

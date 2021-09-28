@@ -43,6 +43,7 @@ export const throwMsg = (msg: string): Error => {
 
 export const isAuth = (request: any) => {
   const authHeader = request.req.headers.authorization;
+  
   if (!authHeader) {
     return { isAuth: false };
   }
