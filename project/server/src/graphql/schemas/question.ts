@@ -26,10 +26,10 @@ const typeDefs = gql`
 
   extend type Mutation {
     createQuestion(input: QuestionInput!): Question
-    deleteQuestion(id: ID!): Question 
-    updateQuestion(id: ID!, input: QuestionInput!): Question 
-    reportQuestion(id: ID!, report: String!): Question 
+    deleteQuestion(id: ID!): Question
+    updateQuestion(id: ID!, input: QuestionInput!): Question
+    reportQuestion(id: ID!, report: String!): Question
   }
 `;
 
-export default typeDefs
+export default typeDefs;

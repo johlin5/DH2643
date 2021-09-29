@@ -10,9 +10,10 @@ export default {
       });
     });
   },
-  findQuestionByUser: (_parent: unknown, {input}: type.UserInput, context: any): Promise<unknown> => {
+  findQuestionByUser: (_parent: unknown, { input }: type.UserInput, context: any): Promise<unknown> => {
     return new Promise((resolve, reject) => {
-      Questions.find(input, (err, questions) => { // Filter by ID 
+      Questions.find(input, (err, questions) => {
+        // Filter by ID
         if (err) reject(err);
         else resolve(questions);
       });

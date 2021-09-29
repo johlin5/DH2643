@@ -1,8 +1,8 @@
 export const requiredStringType = {
-    type: String,
-    required: true
-  };
-  
+  type: String,
+  required: true
+};
+
 export const optStringType = {
-    type: String
+  type: String
 };

@@ -1,34 +1,21 @@
-import { Users } from "../../db/models/users";
-import { hash, compare } from "bcrypt";
-import jwt from "jsonwebtoken";
-import { throwMsg, validatePassword, createNewUser } from "../../utils/utils";
-import * as errorMessages from "../../utils/errorMessages";
-import * as type from "../../utils/types";
-
-const saltRounds = 10;
+import { signUserJwt, hashPassword } from "../validations/authentication";
+import { validatePassword, validateUniqueUser, verifyPassword, validateExistingUser } from "../validations/validators";
+import { createNewUser } from "../../db/persistence/creators";
+import { UserInput, LoginInput } from "../../utils/types";
 
 export default {
-  signup: async (_parent: unknown, { input }: type.UserInput): Promise<unknown> => {
-    const expectedUser = await Users.findOne({ userName: input.userName });
-    if (expectedUser) {
-      throwMsg(errorMessages.userAlreadyExists);
-    }
+  signup: async (_parent: unknown, { input }: UserInput): Promise<unknown> => {
+    await validateUniqueUser(input);
     validatePassword(input.password, input.passwordConfirmation);
-    const hashed = await hash(input.password, saltRounds);
+    const hashed = await hashPassword(input.password);
     const user = await createNewUser(input, hashed);
-    const token = jwt.sign({ userId: user.id }, process.env.SECRET);
+    const token = signUserJwt(user.id);
     return { token, user };
   },
-  login: async (_parent: unknown, { input: { userName, password } }: type.LoginInput): Promise<unknown> => {
-    const user = await Users.findOne({ userName: userName });
-    if (!user) {
-      throwMsg(errorMessages.userDoesNotExist);
-    }
-    const valid = await compare(password, user.password);
-    if (!valid) {
-      throwMsg(errorMessages.wrongCredentidals);
-    }
-    const token = jwt.sign({ userId: user.id }, process.env.SECRET);
+  login: async (_parent: unknown, { input: { userName, password } }: LoginInput): Promise<unknown> => {
+    const user = await validateExistingUser(userName);
+    await verifyPassword(password, user.password);
+    const token = signUserJwt(user.id);
     return { token, user };
   }
 };

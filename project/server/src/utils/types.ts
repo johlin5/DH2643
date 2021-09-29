@@ -10,6 +10,11 @@ export type UserInput = {
   };
 };
 
+export type ContextAuth = {
+  isAuth: boolean;
+  userId: string;
+};
+
 export type LoginInput = {
   input: {
     userName: string;
@@ -27,24 +32,24 @@ export type UserName = {
 
 export type QuestionInput = {
   input: {
-    question: String
-    owner: UserInput
-    answers: [AnswerInput]
-    upvotes: Number
-    report: String
-  }
-}
+    question: string;
+    owner: UserInput;
+    answers: [AnswerInput];
+    upvotes: number;
+    report: string;
+  };
+};
 
 export type AnswerInput = {
-    description: String 
-    flag: Boolean
-}
+  description: string;
+  flag: boolean;
+};
 
 export type QuizInput = {
   input: {
-    id: Id
-    title: String
-    questions: [QuestionInput]
-    creator: Id
-  }
-}
+    id: Id;
+    title: string;
+    questions: [QuestionInput];
+    creator: Id;
+  };
+};
