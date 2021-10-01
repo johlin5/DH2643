@@ -1,6 +1,8 @@
-import { Grid, Container, makeStyles, createStyles, Typography } from "@material-ui/core";
+import { Grid, Container, makeStyles, createStyles, Typography, Button } from "@material-ui/core";
 import { PURPLE, WHITE, SAND, GREEN, TURQUOISE } from "../app/theme";
 import PrimaryButton from "../components/PrimaryButton";
+import { useHistory } from "react-router-dom";
+
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
@@ -18,6 +20,7 @@ const useStyles = makeStyles(() =>
 
 const Landing: React.FC = () => {
   const classes = useStyles();
+  const history = useHistory();
   return (
     <>
       <div className={classes.root}>
@@ -30,10 +33,22 @@ const Landing: React.FC = () => {
             <Grid item xs={3}></Grid>
             <Grid item xs={3}></Grid>
             <Grid item xs={3}>
-              <PrimaryButton text="Register" color={TURQUOISE} height="64px" />
+              <Button
+                onClick={() => {
+                  history.push("/login");
+                }}
+              >
+                Login
+              </Button>
             </Grid>
             <Grid item xs={3}>
-              <PrimaryButton text="Login" color={PURPLE} height="64px" />
+              <Button
+                onClick={() => {
+                  history.push("/register");
+                }}
+              >
+                Register
+              </Button>{" "}
             </Grid>
             <Grid item xs={3}></Grid>
           </Grid>

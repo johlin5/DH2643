@@ -4,10 +4,10 @@ import { RecoilRoot } from "recoil";
 import ApolloProvider from "./services/ApolloProvider";
 
 render(
-  <RecoilRoot>
-    <ApolloProvider>
+  <ApolloProvider>
+    <RecoilRoot>
       <App />
-    </ApolloProvider>
-  </RecoilRoot>,
+    </RecoilRoot>
+  </ApolloProvider>,
   document.getElementById("root")
 );
