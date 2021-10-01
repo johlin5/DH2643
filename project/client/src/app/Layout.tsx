@@ -14,7 +14,7 @@ const Layout: React.FC = () => {
       {!hasToken && (
         <Switch>
           {unprotectedRoutes.map((nav) => {
-            return <Route path={nav.path} exact={nav.exact} component={nav.component}></Route>;
+            return <Route path={nav.path} exact={nav.exact} component={nav.component} key={nav.path} />;
           })}
         </Switch>
       )}
@@ -23,7 +23,7 @@ const Layout: React.FC = () => {
           <Header />
           <Switch>
             {protectedRoutes.map((nav) => {
-              return <Route path={nav.path} exact={nav.exact} component={nav.component}></Route>;
+              return <Route path={nav.path} exact={nav.exact} component={nav.component} key={nav.path} />;
             })}
           </Switch>
         </>

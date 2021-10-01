@@ -9,39 +9,39 @@ module.exports = {
     filename: "bundle.js",
     path: distPath,
     clean: true,
-    publicPath: '/'
+    publicPath: "/"
   },
+  devtool: "source-map",
   resolve: {
-    extensions: [".ts", ".tsx", ".js", ".jsx", ".css"],
+    extensions: [".ts", ".tsx", ".js", ".jsx", ".css"]
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/index.html",
-    }),
+      template: "./src/index.html"
+    })
   ],
   devServer: {
     static: distPath,
     port: 9000,
     allowedHosts: "all",
     open: true,
-    historyApiFallback: true,
+    historyApiFallback: true
   },
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: ["style-loader", "css-loader"]
       },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ["babel-loader"],
+        use: ["babel-loader"]
       },
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
-        use: ["ts-loader"],
-      },
-    ],
-  },
+        use: ["ts-loader"]
+      }
+    ]
+  }
 };
