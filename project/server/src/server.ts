@@ -66,5 +66,9 @@ app.get("/", (req: Request, res: Response) => {
  */
 startApolloServer(app)
   .then(() => connectDB(dbString))
-  .then(() => app.listen(PORT, () => log.info(`Listening on http://localhost:${PORT}`)))
+  .then(() =>
+    app.listen(PORT, () =>
+      log.info(`\n Listening on http://localhost:${PORT} \n GRAPHIQL at http://localhost:${PORT}/graphql`)
+    )
+  )
   .catch((err) => log.error(err));

@@ -33,7 +33,7 @@ const typeDefs = gql`
   }
 
   extend type Query {
-    findUserById(id: ID!): User!
+    findUserById: User!
     findUserByUserName(userName: String!): User!
   }
 

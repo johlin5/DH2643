@@ -34,8 +34,8 @@ const typeDefs = gql`
 
   extend type Mutation {
     createQuiz(input: QuizInput): Quiz
-    updateQuiz(id: ID!, input: QuizInput): Quiz 
-    deleteQuiz(id:ID!): Quiz
+    updateQuiz(id: ID!, input: QuizInput): Quiz
+    deleteQuiz(id: ID!): Quiz
   }
 `;
 
