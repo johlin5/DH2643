@@ -4,6 +4,9 @@ import { LOGIN } from "../../services/queries/User";
 import { useMutation } from "@apollo/client";
 import PrimaryButton from "../../components/PrimaryButton";
 import { PURPLE } from "../../app/theme";
+import { useSetRecoilState } from "recoil";
+import { authAtom } from "../../atoms/account";
+
 type FormInputs = {
   userName: string;
   password: string;
@@ -12,16 +15,19 @@ type FormInputs = {
 const LoginForm: React.FC = () => {
   const [formInput, setFormInput] = useState<FormInputs>({ userName: "", password: "" });
   const [signup, { data, loading, error }] = useMutation(LOGIN);
+  const setLogin = useSetRecoilState(authAtom);
 
   const loginUser = async () => {
-    const response = await signup({
-      variables: {
-        loginInput: {
-          ...formInput
+    try {
+      const response = await signup({
+        variables: {
+          loginInput: {
+            ...formInput
+          }
         }
-      }
-    });
-    console.log(response);
+      });
+      setLogin(true);
+    } catch (error) {}
   };
 
   if (loading) {

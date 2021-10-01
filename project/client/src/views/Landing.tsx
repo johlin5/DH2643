@@ -1,5 +1,7 @@
-import { Grid, Container, makeStyles, createStyles, Typography } from "@material-ui/core";
+import { Grid, Container, makeStyles, createStyles, Typography, Button } from "@material-ui/core";
 import { PURPLE, WHITE, SAND, GREEN, TURQUOISE } from "../app/theme";
+import { Link } from "react-router-dom";
+
 import PrimaryButton from "../components/PrimaryButton";
 const useStyles = makeStyles(() =>
   createStyles({
@@ -30,10 +32,28 @@ const Landing: React.FC = () => {
             <Grid item xs={3}></Grid>
             <Grid item xs={3}></Grid>
             <Grid item xs={3}>
-              <PrimaryButton text="Register" color={TURQUOISE} height="64px" />
+              <Button
+                style={{ height: "64px", textTransform: "none", color: "white" }}
+                component={Link}
+                to="/login"
+                variant="contained"
+                color="primary"
+                fullWidth
+              >
+                <Typography variant="h4">Login</Typography>
+              </Button>
             </Grid>
             <Grid item xs={3}>
-              <PrimaryButton text="Login" color={PURPLE} height="64px" />
+              <Button
+                style={{ height: "64px", textTransform: "none", color: "white" }}
+                component={Link}
+                to="/register"
+                variant="contained"
+                color="primary"
+                fullWidth
+              >
+                <Typography variant="h4">Register</Typography>
+              </Button>{" "}
             </Grid>
             <Grid item xs={3}></Grid>
           </Grid>

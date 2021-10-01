@@ -15,10 +15,14 @@ const NotFound: React.FC = () => {
   return <>Not found</>;
 };
 
-export const navRoutes: AppRoute[] = [
+export const unAuthRoutes: AppRoute[] = [
   { path: "/", component: Landing, exact: true, requireLoggedIn: false },
   { path: "/login", component: Login, exact: true, requireLoggedIn: false },
-  { path: "/profile", component: Profile, exact: true, requireLoggedIn: false },
   { path: "/register", component: Register, exact: true, requireLoggedIn: false },
+  { path: "*", component: NotFound, exact: false, requireLoggedIn: false }
+];
+export const authRoutes: AppRoute[] = [
+  { path: "/", component: Frontpage, exact: true, requireLoggedIn: true },
+  { path: "/profile", component: Profile, exact: true, requireLoggedIn: true },
   { path: "*", component: NotFound, exact: false, requireLoggedIn: false }
 ];
