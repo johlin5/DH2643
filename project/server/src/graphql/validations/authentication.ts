@@ -28,8 +28,8 @@ export const isAuth = (request: any) => {
   return { isAuth: true, userId: decodeToken.userId };
 };
 
-export const signUserJwt = (userId: string): string => {
-  return jwt.sign({ userId: userId }, process.env.SECRET);
+export const generateNewToken = (userId: string): string => {
+  return jwt.sign({ userId: userId, date: new Date() }, process.env.SECRET);
 };
 
 export const hashPassword = async (password: string): Promise<string> => {

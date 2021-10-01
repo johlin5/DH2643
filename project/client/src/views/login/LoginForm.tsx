@@ -8,10 +8,16 @@ type FormInputs = {
   userName: string;
   password: string;
 };
+import { jwtTokenAtom } from "../../atoms/account";
+import { useRecoilState } from "recoil";
+import { useHistory } from "react-router-dom";
 
 const LoginForm: React.FC = () => {
   const [formInput, setFormInput] = useState<FormInputs>({ userName: "", password: "" });
   const [signup, { data, loading, error }] = useMutation(LOGIN);
+
+  const [token, setToken] = useRecoilState(jwtTokenAtom);
+  const history = useHistory();
 
   const loginUser = async () => {
     const response = await signup({
@@ -21,7 +27,9 @@ const LoginForm: React.FC = () => {
         }
       }
     });
-    console.log(response);
+    setToken(response.data.login.token);
+    localStorage.setItem("jwtToken", response.data.login.token);
+    history.push("/");
   };
 
   if (loading) {

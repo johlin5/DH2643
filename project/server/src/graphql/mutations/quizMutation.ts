@@ -7,7 +7,7 @@ import { validateContext, deleteQuiz } from "../validations/validators";
 
 export default {
   createQuiz: (_parent: unknown, { input }: QuizInput, context: any): Promise<unknown> => {
-    return new Promise(async (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       // Add authentication
       const quiz = createQuiz(input);
       if (!quiz) {
