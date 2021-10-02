@@ -3,6 +3,7 @@ import Login from "../views/login/LoginForm";
 import Profile from "../views/Profile";
 import Landing from "../views/Landing";
 import Register from "../views/register/Index";
+import Quiz from "../views/quiz/Index";
 
 export type AppRoute = {
   path: string;
@@ -20,5 +21,7 @@ export const navRoutes: AppRoute[] = [
   { path: "/login", component: Login, exact: true, requireLoggedIn: false },
   { path: "/profile", component: Profile, exact: true, requireLoggedIn: false },
   { path: "/register", component: Register, exact: true, requireLoggedIn: false },
+  { path: "/createquiz", component: Quiz, exact: true, requireLoggedIn: false},
   { path: "*", component: NotFound, exact: false, requireLoggedIn: false }
+  
 ];

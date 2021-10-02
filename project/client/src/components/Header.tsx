@@ -19,7 +19,7 @@ const Header: React.FC = () => {
             <Typography>Quizes with benefits</Typography>
           </Grid>
           <Grid item xs={3}>
-            <Button component={Link} to="./" className={classes.menuButtons}>
+            <Button component={Link} to="./createquiz" className={classes.menuButtons}>
               Quizes
             </Button>
             <Button component={Link} to="./profile" className={classes.menuButtons}>
