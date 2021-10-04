@@ -29,4 +29,5 @@ export const protectedRoutes: AppRoute[] = [
   { path: "/", component: Frontpage, exact: true, requireLoggedIn: true },
   { path: "/profile", component: Profile, exact: true, requireLoggedIn: true },
   { path: "*", component: NotFound, exact: false, requireLoggedIn: false }
+  
 ];
