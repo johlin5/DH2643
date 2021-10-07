@@ -1,28 +1,14 @@
 import { gql } from "@apollo/client";
 
-export const SIGN_UP = gql`
-  mutation LoginMutation($signupInput: UserInput!) {
-    signup(input: $signupInput) {
-      token
-      user {
-        id
-        password
-        userName
-        passwordConfirmation
-      }
-    }
-  }
-`;
-
-export const LOGIN = gql`
-  mutation TokenMutation($loginInput: LoginInput!) {
-    login(input: $loginInput) {
-      token
-      user {
-        userName
-        password
-        id
-      }
+export const FIND_USER_BY_ID = gql`
+  query Query {
+    findUserById {
+      id
+      firstName
+      lastName
+      userName
+      image
+      biography
     }
   }
 `;
