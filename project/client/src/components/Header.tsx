@@ -39,6 +39,9 @@ const Header: React.FC = () => {
                 <Button component={Link} to="./profile" className={classes.menuButtons}>
                   Profile
                 </Button>
+                <Button component={Link} to="./createquiz" className={classes.menuButtons}>
+                  Create quiz
+                </Button>
                 <Button className={classes.menuButtons} onClick={logout}>
                   Logout
                 </Button>

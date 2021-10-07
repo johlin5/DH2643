@@ -20,14 +20,12 @@ export const unprotectedRoutes: AppRoute[] = [
   { path: "/", component: Landing, exact: true, requireLoggedIn: false },
   { path: "/login", component: Login, exact: true, requireLoggedIn: false },
   { path: "/register", component: Register, exact: true, requireLoggedIn: false },
-  { path: "/createquiz", component: Quiz, exact: true, requireLoggedIn: false},
   { path: "*", component: NotFound, exact: false, requireLoggedIn: false }
-  
 ];
 
 export const protectedRoutes: AppRoute[] = [
   { path: "/", component: Frontpage, exact: true, requireLoggedIn: true },
   { path: "/profile", component: Profile, exact: true, requireLoggedIn: true },
+  { path: "/createquiz", component: Quiz, exact: true, requireLoggedIn: true },
   { path: "*", component: NotFound, exact: false, requireLoggedIn: false }
-  
 ];
