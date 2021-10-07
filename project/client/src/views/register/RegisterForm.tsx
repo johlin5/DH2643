@@ -1,6 +1,6 @@
 import { Container, TextField, Typography } from "@material-ui/core";
 import { useState, ChangeEvent } from "react";
-import { SIGN_UP } from "../../services/queries/User";
+import { SIGN_UP } from "../../services/queries/Auth";
 import { useMutation } from "@apollo/client";
 import PrimaryButton from "../../components/PrimaryButton";
 import { PURPLE } from "../../app/theme";

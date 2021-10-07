@@ -4,8 +4,7 @@ import React from "react";
 import { AnswerViewProps } from "./props";
 import PrimaryButton from "../../components/PrimaryButton";
 
-const AnswerView: React.FC<AnswerViewProps> = ({setEdit, data}: AnswerViewProps) => {
-
+const AnswerView: React.FC<AnswerViewProps> = ({ setEdit, data }: AnswerViewProps) => {
   return (
     <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
       <Typography variant="h4">Answer</Typography>

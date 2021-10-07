@@ -1,5 +1,5 @@
-import Frontpage from "../views/Frontpage";
-import Login from "../views/login/LoginForm";
+import DashboardPresenter from "../views/dashboard";
+import Login from "../views/login/LoginPresenter";
 import Profile from "../views/Profile";
 import Landing from "../views/Landing";
 import Register from "../views/register/Index";
@@ -24,7 +24,7 @@ export const unprotectedRoutes: AppRoute[] = [
 ];
 
 export const protectedRoutes: AppRoute[] = [
-  { path: "/", component: Frontpage, exact: true, requireLoggedIn: true },
+  { path: "/", component: DashboardPresenter, exact: true, requireLoggedIn: true },
   { path: "/profile", component: Profile, exact: true, requireLoggedIn: true },
   { path: "/createquiz", component: Quiz, exact: true, requireLoggedIn: true },
   { path: "*", component: NotFound, exact: false, requireLoggedIn: false }

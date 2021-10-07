@@ -16,3 +16,23 @@ export const SAVE_QUIZ = gql`
     }
   }
 `;
+export const FETCH_ALL_QUIZES = gql`
+  query Query {
+    findAllQuiz {
+      id
+      title
+      questions {
+        id
+        question
+        answers {
+          id
+          description
+          flag
+        }
+        upvotes
+        reports
+      }
+      creator
+    }
+  }
+`;
