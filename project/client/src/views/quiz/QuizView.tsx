@@ -5,14 +5,14 @@ import Question from "../question/Index";
 import { QuizViewProps } from "./Props";
 import { GREEN } from "../../app/theme";
 
-const QuizView: React.FC<QuizViewProps> = ({setEdit, editState, data}: QuizViewProps) => {
+const QuizView: React.FC<QuizViewProps> = ({setEdit, editState, quiz}: QuizViewProps) => {
 
   return (
     <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
-      <Typography variant="h4">{data.name}</Typography>
+      <Typography variant="h4">{quiz.title}</Typography>
       <ul>
             {
-                data.questions.map( (question) => {
+                quiz.questions.map( (question) => {
                     return <li>
                         <QuestionView setEdit={setEdit} editQuiz={editState} data={question}/>
                     </li>

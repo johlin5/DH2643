@@ -18,13 +18,13 @@ const typeDefs = gql`
     id: ID!
     title: String!
     questions: [Question!]!
-    creator: ID!
+    creator: String!
   }
 
   input QuizInput {
-    name: String
+    title: String
     questions: [QuestionInput]
-    creator: ID!
+    creator: String!
   }
 
   extend type Query {

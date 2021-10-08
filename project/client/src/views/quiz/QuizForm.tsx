@@ -6,17 +6,15 @@ import Question from "../question/Index";
 import { QuestionInput, AnswerInput } from "../../utils/types";
 import { QuizFromProps, QuizViewProps } from "./Props";
 
-const QuizForm: React.FC<QuizFromProps> = ({setEdit, editState, data, setQuizData}: QuizFromProps) => {
-  const [questions, setQuestions] = useState<QuestionInput[]>(data.questions);
-  const [name, setName] = useState(data.name);
+const QuizForm: React.FC<QuizFromProps> = ({setEdit, editState, quiz, setQuizData}: QuizFromProps) => {
+  const [questions, setQuestions] = useState<QuestionInput[]>(quiz.questions);
+  const [title, setTitle] = useState(quiz.title);
 
   // Callbacks to Question child 
   const handleSaveQuestion = (questionId: string, questionData: QuestionInput) => {
     const existingQuestion = questions.find( q => q.id === questionId);
     if (existingQuestion) {
         const index = questions.findIndex( q => q.id === questionId);
-        console.log(index);
-        console.log("Updating question")
         updateQuestion(index, questionData);
     } else {
         addQuestion(questionData);
@@ -26,9 +24,9 @@ const QuizForm: React.FC<QuizFromProps> = ({setEdit, editState, data, setQuizDat
 
   const handleSaveQuiz = () => {
     setQuizData({
-        "name": name,
+        "title": title,
         "questions": questions,
-        "creator": data.creator
+        "creator": quiz.creator
     });
     setEdit(false);
   };
@@ -47,9 +45,9 @@ const QuizForm: React.FC<QuizFromProps> = ({setEdit, editState, data, setQuizDat
   return (
     <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
       <TextField id="standard-basic" label="Standard" variant="standard" margin="normal" 
-        value={name}
+        value={title}
         onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => 
-        setName(event.target.value)}/>
+        setTitle(event.target.value)}/>
         <ul>
             {
                 questions.map( (question) => {
