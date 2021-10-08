@@ -6,18 +6,16 @@ import Question from "../question/Index";
 import { QuestionInput, AnswerInput } from "../../utils/types";
 import { QuizFromProps, QuizViewProps } from "./Props";
 
-const QuizForm: React.FC<QuizFromProps> = ({ setEdit, editState, data, setQuizData }: QuizFromProps) => {
-  const [questions, setQuestions] = useState<QuestionInput[]>(data.questions);
-  const [name, setName] = useState(data.name);
+const QuizForm: React.FC<QuizFromProps> = ({setEdit, editState, quiz, setQuizData}: QuizFromProps) => {
+  const [questions, setQuestions] = useState<QuestionInput[]>(quiz.questions);
+  const [title, setTitle] = useState(quiz.title);
 
   // Callbacks to Question child
   const handleSaveQuestion = (questionId: string, questionData: QuestionInput) => {
     const existingQuestion = questions.find((q) => q.id === questionId);
     if (existingQuestion) {
-      const index = questions.findIndex((q) => q.id === questionId);
-      console.log(index);
-      console.log("Updating question");
-      updateQuestion(index, questionData);
+        const index = questions.findIndex( q => q.id === questionId);
+        updateQuestion(index, questionData);
     } else {
       addQuestion(questionData);
     }
@@ -26,9 +24,9 @@ const QuizForm: React.FC<QuizFromProps> = ({ setEdit, editState, data, setQuizDa
 
   const handleSaveQuiz = () => {
     setQuizData({
-      name: name,
-      questions: questions,
-      creator: data.creator
+        "title": title,
+        "questions": questions,
+        "creator": quiz.creator
     });
     setEdit(false);
   };
@@ -51,8 +49,8 @@ const QuizForm: React.FC<QuizFromProps> = ({ setEdit, editState, data, setQuizDa
         label="Standard"
         variant="standard"
         margin="normal"
-        value={name}
-        onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setName(event.target.value)}
+        value={title}
+        onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setTitle(event.target.value)}
       />
       <ul>
         {questions.map((question) => {

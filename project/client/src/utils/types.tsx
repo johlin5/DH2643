@@ -20,7 +20,7 @@ export type QuestionInput = {
 }
 
 export type QuizInput = {
-    name: string;
+    title: string;
     questions: QuestionInput[];
     creator: string; 
 }

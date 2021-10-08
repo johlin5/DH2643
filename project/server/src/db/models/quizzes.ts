@@ -16,7 +16,7 @@ const quizzesSchema = new mongoose.Schema({
     required: true
   },
   creator: {
-    type: Schema.Types.ObjectId,
+    type: String,
     ref: "User"
   }
 });
