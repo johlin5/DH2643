@@ -8,3 +8,4 @@ export const unableQuizCreation = "Unable to create a quiz";
 export const unableQuestionCreation = "Unable to create a question";
 export const quizNotFound = "Quiz not found";
 export const notAuthenticated = "User is not authenticated";
+export const invalidObjectID = "Invalid moongoose ObjectID";

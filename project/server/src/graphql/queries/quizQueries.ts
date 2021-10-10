@@ -1,24 +1,16 @@
 import { Quizzes } from "../../db/models/quizzes";
-import { throwMsg } from "../validations/validators";
-import { quizNotFound } from "../../utils/errorMessages";
+import { validateContext, validateObjectID } from "../validations/validators";
 
 export default {
-  findAllQuiz: (_parent: unknown, context: any): Promise<unknown> => {
-    return new Promise((resolve, reject) => {
-      Quizzes.find((err, questions) => {
-        if (err) reject(err);
-        else resolve(questions);
-      });
-    });
+  findAllQuiz: async (_parent: unknown, _args: unknown, context: any): Promise<unknown> => {
+    validateContext(context);
+    const quizzes = await Quizzes.find();
+    return quizzes;
   },
-  findQuizById: (_parent: unknown, { id }, context: any): Promise<unknown> => {
-    return new Promise((resolve, reject) => {
-      const quiz = Quizzes.findById(id);
-      if (!quiz) {
-        reject(throwMsg(quizNotFound));
-      } else {
-        resolve(quiz);
-      }
-    });
+  findQuizById: async (_parent: unknown, { id }, context: any): Promise<unknown> => {
+    validateContext(context);
+    validateObjectID(id);
+    const quiz = await Quizzes.findById(id);
+    return quiz;
   }
 };
