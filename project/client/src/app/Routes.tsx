@@ -19,7 +19,7 @@ const NotFound: React.FC = () => {
 
 export const unprotectedRoutes: AppRoute[] = [
   { path: "/", component: Landing, exact: true, requireLoggedIn: false },
-  // { path: "/login", component: Login, exact: true, requireLoggedIn: false },
+  { path: "/login", component: Login, exact: true, requireLoggedIn: false },
   { path: "/register", component: Register, exact: true, requireLoggedIn: false },
   { path: "/quizes", component: Quizzes, exact: true, requireLoggedIn: false },
   { path: "*", component: NotFound, exact: false, requireLoggedIn: false }
