@@ -1,14 +1,13 @@
 import * as type from "../../utils/types";
 import { Questions } from "../../db/models/questions";
+import { validateContext, validateObjectID } from "../validations/validators";
 
 export default {
-  findQuestionById: (_parent: unknown, { id }: type.Id, context: any): Promise<unknown> => {
-    return new Promise((resolve, reject) => {
-      Questions.findById(id, (err, questions) => {
-        if (err) reject(err);
-        else resolve(questions);
-      });
-    });
+  findQuestionById: async (_parent: unknown, { id }: type.Id, context: any): Promise<unknown> => {
+    validateContext(context);
+    validateObjectID(id);
+    const question = await Questions.findById(id);
+    return question;
   },
   findQuestionByUser: (_parent: unknown, { input }: type.UserInput, context: any): Promise<unknown> => {
     return new Promise((resolve, reject) => {
@@ -19,12 +18,9 @@ export default {
       });
     });
   },
-  findAllQuestions: (_parent: unknown, context: any): Promise<unknown> => {
-    return new Promise((resolve, reject) => {
-      Questions.find({}, (err, questions) => {
-        if (err) reject(err);
-        else resolve(questions);
-      });
-    });
+  findAllQuestions: async (_parent: unknown, _args: unknown, context: any): Promise<unknown> => {
+    validateContext(context);
+    const questions = await Questions.find();
+    return questions;
   }
 };

@@ -1,10 +1,12 @@
 import * as errorMsg from "../../utils/errorMessages";
-import { isNull } from "../../utils/utils";
+import { isNull, debug } from "../../utils/utils";
 import * as type from "../../utils/types";
 import { compare } from "bcrypt";
 import { Users, UserDoc } from "../../db/models/users";
 import { Quizzes } from "../../db/models/quizzes";
+import { Types } from "mongoose";
 
+const debugValidators = debug.extend("validators");
 /**
  * ERROR ENGINE XD
  */
@@ -48,10 +50,19 @@ export const verifyPassword = async (inputPassword: string, hash: string): Promi
  */
 
 export const validateContext = ({ isAuth, userId }: type.ContextAuth): string => {
+  debugValidators("Context userId: %s isAuth: %s", userId, isAuth);
   if (isAuth && !isNull(userId)) {
     return userId;
   }
   throwMsg(errorMsg.notAuthenticated);
+};
+
+export const validateObjectID = (id: string): void => {
+  const isValid = Types.ObjectId.isValid(id);
+  debugValidators("Validate ObjectID: %s", isValid);
+  if (!isValid) {
+    throwMsg(errorMsg.invalidObjectID);
+  }
 };
 
 /**

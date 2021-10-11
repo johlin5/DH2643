@@ -1,15 +1,19 @@
 import jwt from "jsonwebtoken";
 import { hash } from "bcrypt";
+import { debug } from "../../utils/utils";
 
 const saltRounds = 10;
+const debugIsAuth = debug.extend("isAuth");
 
 export const isAuth = (request: any) => {
   const authHeader = request.req.headers.authorization;
   const notAuth = { isAuth: false, userId: null };
+  debugIsAuth("AuthHeader %o", authHeader);
   if (!authHeader) {
     return notAuth;
   }
   const token = authHeader.replace("Bearer ", "");
+  debugIsAuth("AuthToken %o", token);
   if (!token) {
     // No token found
     return notAuth;
@@ -17,6 +21,7 @@ export const isAuth = (request: any) => {
   let decodeToken = null;
   try {
     decodeToken = jwt.verify(token, process.env.SECRET);
+    debugIsAuth("AuthDecodeToken %o", decodeToken);
   } catch (err) {
     // Not authenticated
     return notAuth;

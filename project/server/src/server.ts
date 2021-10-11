@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { resolve } from "path";
 import { dbString } from "../auth";
-import { log } from "./utils/utils";
+import { log, debug } from "./utils/utils";
 import express, { urlencoded, json, static as expressStatic, Request, Response } from "express";
 import expressSession from "express-session";
 import { startApolloServer } from "./graphql/appolloServer";
@@ -24,6 +24,8 @@ const session = expressSession({
   resave: true,
   saveUninitialized: true
 });
+const debugCookie = debug.extend("cookie");
+const debugSession = debug.extend("session");
 
 /**
  * MIDDLEWARES
@@ -45,12 +47,12 @@ app.use((req: Request, res: Response, next) => {
       httpOnly: true
     });
   }
-  log.debug("Cookie", cookie);
+  debugCookie("Cookie", cookie);
   next();
 });
 
 app.use("*", (req: Request, _res: Response, next) => {
-  log.debug("Session: ", JSON.stringify(req.session));
+  debugSession("Session: %o", req.session);
   next();
 });
 
@@ -67,8 +69,9 @@ app.get("/", (req: Request, res: Response) => {
 startApolloServer(app)
   .then(() => connectDB(dbString))
   .then(() =>
-    app.listen(PORT, () =>
-      log.info(`\n Listening on http://localhost:${PORT} \n GRAPHIQL at http://localhost:${PORT}/graphql`)
-    )
+    app.listen(PORT, () => {
+      log.info(`Listening on http://localhost:${PORT}`);
+      log.info(`GRAPHIQL at http://localhost:${PORT}/graphql`);
+    })
   )
   .catch((err) => log.error(err));
