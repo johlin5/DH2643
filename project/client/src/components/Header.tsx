@@ -4,13 +4,20 @@ import { WHITE } from "../app/theme";
 import { jwtTokenAtom } from "../atoms/account";
 import { useRecoilState } from "recoil";
 import { useHistory } from "react-router-dom";
+import PersonRoundedIcon from "@material-ui/icons/PersonRounded";
+import VideogameAssetRoundedIcon from "@material-ui/icons/VideogameAssetRounded";
+import AddCircleRoundedIcon from "@material-ui/icons/AddCircleRounded";
+import ExitToAppRoundedIcon from "@material-ui/icons/ExitToAppRounded";
 
 const useStyles = makeStyles(() =>
   createStyles({
     menuButtons: {
       textTransform: "none",
-      color: WHITE
-    }
+      color: WHITE,
+      float: "right",
+      marginLeft: "16px"
+    },
+    links: {}
   })
 );
 const Header: React.FC = () => {
@@ -27,23 +34,38 @@ const Header: React.FC = () => {
     <AppBar position="sticky">
       <Toolbar>
         <Grid container spacing={1}>
-          <Grid item xs={9}>
-            <Typography>Quizes with benefits</Typography>
+          <Grid xs={12} sm={2}>
+            <Typography variant="h6">Quiz-it</Typography>
           </Grid>
-          <Grid item xs={3}>
+          <Grid xs={12} sm={10} className={classes.links}>
             {token && (
               <>
-                <Button component={Link} to="./" className={classes.menuButtons}>
-                  Quizes
+                <Button className={classes.menuButtons} onClick={logout} startIcon={<ExitToAppRoundedIcon />}>
+                  Logout
                 </Button>
-                <Button component={Link} to="./profile" className={classes.menuButtons}>
-                  Profile
-                </Button>
-                <Button component={Link} to="./createquiz" className={classes.menuButtons}>
+                <Button
+                  component={Link}
+                  to="./createquiz"
+                  className={classes.menuButtons}
+                  startIcon={<AddCircleRoundedIcon />}
+                >
                   Create quiz
                 </Button>
-                <Button className={classes.menuButtons} onClick={logout}>
-                  Logout
+                <Button
+                  component={Link}
+                  to="./profile"
+                  className={classes.menuButtons}
+                  startIcon={<PersonRoundedIcon />}
+                >
+                  Profile
+                </Button>
+                <Button
+                  component={Link}
+                  to="./"
+                  className={classes.menuButtons}
+                  startIcon={<VideogameAssetRoundedIcon />}
+                >
+                  Quizes
                 </Button>
               </>
             )}

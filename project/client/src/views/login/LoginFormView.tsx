@@ -46,7 +46,14 @@ const LoginFormView: React.FC<LoginFormViewProps> = ({ onSubmit, errorMessage })
         FormHelperTextProps={{ error: true }}
       />
 
-      <PrimaryButton text="Login" color={PURPLE} variant="h5" height="48px" onClick={() => onSubmit(formInput)} />
+      <PrimaryButton
+        type="submit"
+        text="Login"
+        color={PURPLE}
+        variant="h5"
+        height="48px"
+        onClick={() => onSubmit(formInput)}
+      />
 
       <>{errorMessage}</>
     </Container>

@@ -85,7 +85,14 @@ const RegisterForm: React.FC = () => {
         FormHelperTextProps={{ error: true }}
       />
 
-      <PrimaryButton text="Create account" color={PURPLE} variant="h5" height="48px" onClick={() => registerUser()} />
+      <PrimaryButton
+        type="submit"
+        text="Create account"
+        color={PURPLE}
+        variant="h5"
+        height="48px"
+        onClick={() => registerUser()}
+      />
 
       <>{error?.message}</>
       {data && <>Created account</>}
