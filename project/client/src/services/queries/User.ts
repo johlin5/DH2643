@@ -12,3 +12,15 @@ export const FIND_USER_BY_ID = gql`
     }
   }
 `;
+
+export const FIND_USER_BY_NAME = gql`
+  query Query($userName: String!) {
+    findUserByUserName(userName: $userName) {
+      id
+      firstName
+      lastName
+      userName
+      biography
+    }
+  }
+`;

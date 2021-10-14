@@ -10,7 +10,7 @@ const CreateQuiz: React.FC = () => {
   const [addingQuiz, setAddingQuiz] = useState(false);
   const username = useRecoilValue(withUserName);
 
-  const newQuiz = { title: "", questions: [], creator: username };
+  const newQuiz = { title: "", questions: [], creator: username ? username : "" };
 
   return (
     <Container>

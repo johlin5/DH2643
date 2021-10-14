@@ -22,6 +22,7 @@ export const FETCH_ALL_QUIZES = gql`
     findAllQuiz {
       id
       title
+      creator
     }
   }
 `;
