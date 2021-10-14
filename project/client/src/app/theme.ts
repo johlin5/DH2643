@@ -35,12 +35,12 @@ export const theme = createTheme({
       contrastText: WHITE
     },
     background: {
-      default: PURPLE
+      default: "#F3F3F2"
     }
   },
 
   typography: {
-    fontFamily: "Open Sans"
+    fontFamily: ['"Montserrat"', "Open Sans"].join(",")
   },
   overrides: {
     // MuiListItem: {

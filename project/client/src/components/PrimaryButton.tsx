@@ -6,10 +6,11 @@ type PrimaryButtonProps = {
   text: string;
   variant?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   icon?: JSX.Element;
+  type?: "submit";
   onClick?: () => void;
 };
 
-const PrimaryButton: React.FC<PrimaryButtonProps> = ({ height, color, text, icon, variant = "h4", onClick }) => {
+const PrimaryButton: React.FC<PrimaryButtonProps> = ({ height, color, text, icon, variant = "h4", onClick, type }) => {
   return (
     <Button
       startIcon={icon}
@@ -21,6 +22,7 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({ height, color, text, icon
       }}
       fullWidth
       onClick={onClick}
+      type={type}
     >
       <Typography variant={variant}>{text}</Typography>
     </Button>
