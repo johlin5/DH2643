@@ -6,8 +6,6 @@ const typeDefs = gql`
     question: String!
     userID: String!
     answers: [Answer]!
-    upvotes: Int
-    reports: [String]
   }
 
   input QuestionInput {

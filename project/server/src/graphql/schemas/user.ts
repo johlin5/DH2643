@@ -12,6 +12,22 @@ const typeDefs = gql`
     biography: String
   }
 
+  type UserAuthPayload {
+    id: ID!
+    firstName: String
+    lastName: String
+    userName: String!
+    image: String
+    biography: String
+  }
+
+  input UserUpdate {
+    firstName: String
+    lastName: String
+    image: String
+    biography: String
+  }
+
   input UserInput {
     firstName: String
     lastName: String
@@ -29,17 +45,18 @@ const typeDefs = gql`
 
   type AuthPayload {
     token: String
-    user: User
+    user: UserAuthPayload
   }
 
   extend type Query {
-    findUserById: User!
-    findUserByUserName(userName: String!): User!
+    findUserById: UserAuthPayload!
+    findUserByUserName(userName: String!): UserAuthPayload!
   }
 
   extend type Mutation {
     signup(input: UserInput!): AuthPayload!
     login(input: LoginInput!): AuthPayload!
+    updateUser(input: UserUpdate): UserAuthPayload!
   }
 `;
 
