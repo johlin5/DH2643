@@ -10,6 +10,15 @@ export type UserInput = {
   };
 };
 
+export type UserUpdateInput = {
+  input: {
+    firstName: string;
+    lastName: string;
+    image: string;
+    biography: string;
+  };
+};
+
 export type ContextAuth = {
   isAuth: boolean;
   userId: string;

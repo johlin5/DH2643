@@ -1,7 +1,14 @@
 import { generateNewToken, hashPassword } from "../validations/authentication";
-import { validatePassword, validateUniqueUser, verifyPassword, validateExistingUser } from "../validations/validators";
+import {
+  validatePassword,
+  validateUniqueUser,
+  verifyPassword,
+  validateExistingUser,
+  validateContext
+} from "../validations/validators";
 import { createNewUser } from "../../db/persistence/creators";
-import { UserInput, LoginInput } from "../../utils/types";
+import { updateUser } from "../../db/persistence/updates";
+import { UserInput, LoginInput, UserUpdateInput } from "../../utils/types";
 
 export default {
   signup: async (_parent: unknown, { input }: UserInput): Promise<unknown> => {
@@ -17,5 +24,10 @@ export default {
     await verifyPassword(password, user.password);
     const token = generateNewToken(user.id);
     return { token, user };
+  },
+  updateUser: async (_parent: unknown, { input }: UserUpdateInput, context: any) => {
+    const userId = validateContext(context);
+    const updated = await updateUser(userId, input);
+    return updated;
   }
 };

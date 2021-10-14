@@ -6,6 +6,9 @@ const quizzesSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  image: {
+    type: String
+  },
   questions: {
     type: [
       {
@@ -18,7 +21,8 @@ const quizzesSchema = new mongoose.Schema({
   creator: {
     type: String,
     ref: "User"
-  }
+  },
+  upvotes: { type: Number, default: 0 }
 });
 
 export const Quizzes = mongoose.model("Quizzes", quizzesSchema);

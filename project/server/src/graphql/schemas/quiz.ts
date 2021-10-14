@@ -17,8 +17,10 @@ const typeDefs = gql`
   type Quiz {
     id: ID!
     title: String!
+    image: String
     questions: [Question!]!
     creator: String!
+    upvotes: Int
   }
 
   input QuizInput {
