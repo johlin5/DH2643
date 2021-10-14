@@ -10,12 +10,15 @@ const CreateQuiz: React.FC = () => {
   const [addingQuiz, setAddingQuiz] = useState(false);
   const username = useRecoilValue(withUserName);
 
-  const newQuiz = {title: "", questions: [], creator: username}; 
-  
+  const newQuiz = { title: "", questions: [], creator: username };
+
   return (
     <Container>
-        {addingQuiz ? <Quiz quiz={newQuiz} editState={addingQuiz}/> 
-        : <PrimaryButton text="Add" color={GREEN} variant="h6" height="48px" onClick={() => setAddingQuiz(true)} />}
+      {addingQuiz ? (
+        <Quiz quiz={newQuiz} editState={addingQuiz} />
+      ) : (
+        <PrimaryButton text="Add" color={GREEN} variant="h6" height="48px" onClick={() => setAddingQuiz(true)} />
+      )}
     </Container>
   );
 };

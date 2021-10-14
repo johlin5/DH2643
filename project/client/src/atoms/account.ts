@@ -1,10 +1,10 @@
 import { atom } from "recoil";
-type Account = { name: string; id: string };
+type Account = string;
 type JwtToken = string | null;
 
-export const accountAtom = atom<Account>({
+export const accountNameAtom = atom<Account>({
   key: "accountName",
-  default: { name: "", id: "" }
+  default: ""
 });
 
 export const jwtTokenAtom = atom<JwtToken>({

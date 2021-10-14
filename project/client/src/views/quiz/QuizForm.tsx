@@ -6,7 +6,7 @@ import Question from "../question/Index";
 import { QuestionInput, AnswerInput } from "../../utils/types";
 import { QuizFromProps, QuizViewProps } from "./Props";
 
-const QuizForm: React.FC<QuizFromProps> = ({setEdit, editState, quiz, setQuizData}: QuizFromProps) => {
+const QuizForm: React.FC<QuizFromProps> = ({ setEdit, editState, quiz, setQuizData }: QuizFromProps) => {
   const [questions, setQuestions] = useState<QuestionInput[]>(quiz.questions);
   const [title, setTitle] = useState(quiz.title);
 
@@ -14,8 +14,8 @@ const QuizForm: React.FC<QuizFromProps> = ({setEdit, editState, quiz, setQuizDat
   const handleSaveQuestion = (questionId: string, questionData: QuestionInput) => {
     const existingQuestion = questions.find((q) => q.id === questionId);
     if (existingQuestion) {
-        const index = questions.findIndex( q => q.id === questionId);
-        updateQuestion(index, questionData);
+      const index = questions.findIndex((q) => q.id === questionId);
+      updateQuestion(index, questionData);
     } else {
       addQuestion(questionData);
     }
@@ -24,9 +24,9 @@ const QuizForm: React.FC<QuizFromProps> = ({setEdit, editState, quiz, setQuizDat
 
   const handleSaveQuiz = () => {
     setQuizData({
-        "title": title,
-        "questions": questions,
-        "creator": quiz.creator
+      title: title,
+      questions: questions,
+      creator: quiz.creator
     });
     setEdit(false);
   };
