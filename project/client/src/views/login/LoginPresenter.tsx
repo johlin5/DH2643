@@ -20,6 +20,7 @@ const LoginForm: React.FC = () => {
         }
       }
     });
+    console.log(response);
     setToken(response.data.login.token);
     localStorage.setItem("jwtToken", response.data.login.token);
     history.push("/");
