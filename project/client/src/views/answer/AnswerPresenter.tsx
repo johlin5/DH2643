@@ -4,33 +4,28 @@ import { AnswerInput } from "utils/types";
 import AnswerView from "./AnswerView";
 import { AnswerPresenterProps } from "./props";
 import AnswerForm from "./AnswerForm";
+import { useRecoilValue } from 'recoil';
+import { withEdit } from '../../selectors/quiz';
 
 const AnswerPresenter: React.FC<AnswerPresenterProps> = ({
   saveAnswerData,
-  editQuestion,
   data
 }: AnswerPresenterProps) => {
   // States
-  const [editState, setEditState] = useState(false);
+  const editState = useRecoilValue(withEdit);
   const [answerData, setAnswerData] = useState(data);
-
-  // Callbacks / Handlers
-  const handleSetEdit = (newEditState: boolean) => {
-    setEditState(newEditState);
-  };
 
   const handleSaveAnswer = (answerData: AnswerInput, newEditState: boolean) => {
     setAnswerData(answerData);
-    setEditState(newEditState);
     saveAnswerData(data.id, answerData);
   };
 
   return (
     <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
       {editState ? (
-        <AnswerForm saveAnswer={handleSaveAnswer} editQuestion={editQuestion} setEdit={handleSetEdit} data={data} />
+        <AnswerForm saveAnswer={handleSaveAnswer} data={data} />
       ) : (
-        <AnswerView setEdit={handleSetEdit} editQuestion={editQuestion} data={data} />
+        <AnswerView data={data} />
       )}
     </Container>
   );

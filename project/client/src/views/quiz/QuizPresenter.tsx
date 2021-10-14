@@ -7,8 +7,10 @@ import { QuizInput } from "../../utils/types";
 import QuizForm from "./QuizForm";
 import QuizView from "./QuizView";
 import { QuizProps } from "./Props";
+import { withEdit } from "../../selectors/quiz";
+import { useRecoilValue } from "recoil";
 
-const QuizPresenter: React.FC<QuizProps> = ({ quiz, editState }: QuizProps) => {
+const QuizPresenter: React.FC<QuizProps> = ({quiz}: QuizProps) => {
   const [save, { data, loading, error }] = useMutation(SAVE_QUIZ);
 
   // const [token, setToken] = useRecoilState(jwtTokenAtom);
@@ -31,15 +33,14 @@ const QuizPresenter: React.FC<QuizProps> = ({ quiz, editState }: QuizProps) => {
     console.log(response);
   };
 
-  // States
-  const [quizData, setQuizData] = useState<QuizInput>(quiz);
-  const [editQuiz, setEditQuiz] = useState(editState);
+  // States 
+  const [quizData, setQuizData] = useState<QuizInput>(quiz)
+  const editState = useRecoilValue(withEdit);
 
-  // Callbacks / Handlers
+  // Callbacks / Handlers 
   const handleSetEdit = (newEditState: boolean) => {
-    console.log(newEditState ? "Edit Quiz Mode On" : "Edit Quiz Mode Off");
-    setEditQuiz(newEditState);
-  };
+      console.log(newEditState ? "Edit Quiz Mode On" : "Edit Quiz Mode Off");
+  }; 
 
   const handleSetQuizData = (quizData: QuizInput) => {
     setQuizData(quizData);
@@ -52,11 +53,9 @@ const QuizPresenter: React.FC<QuizProps> = ({ quiz, editState }: QuizProps) => {
   return (
     <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
       <Typography variant="h4">Presenter</Typography>
-      {editQuiz ? (
-        <QuizForm setEdit={handleSetEdit} editState={editQuiz} quiz={quizData} setQuizData={handleSetQuizData} />
-      ) : (
-        <QuizView setEdit={handleSetEdit} editState={editQuiz} quiz={quizData} />
-      )}
+      {editState ? 
+      <QuizForm setEdit={handleSetEdit} quiz={quizData} setQuizData={handleSetQuizData}/> :
+      <QuizView quiz={quizData}/>}
     </Container>
   );
 };

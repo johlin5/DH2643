@@ -8,7 +8,7 @@ import { Editor } from "react-draft-wysiwyg";
 import { AnswerInput } from "../../utils/types";
 import { AnswerFormProps } from "./props";
 
-const AnswerForm: React.FC<AnswerFormProps> = ({ saveAnswer, setEdit, data }: AnswerFormProps) => {
+const AnswerForm: React.FC<AnswerFormProps> = ({ saveAnswer, data }: AnswerFormProps) => {
   // States
   const [answerData, setAnswerData] = useState<AnswerInput>(data);
   const id = data.id ? data.id : (Math.random() + 1).toString(36).substring(7);

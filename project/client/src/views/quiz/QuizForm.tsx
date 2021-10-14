@@ -4,11 +4,14 @@ import PrimaryButton from "../../components/PrimaryButton";
 import { PURPLE, RED, GREEN } from "../../app/theme";
 import Question from "../question/Index";
 import { QuestionInput, AnswerInput } from "../../utils/types";
-import { QuizFromProps, QuizViewProps } from "./Props";
+import { QuizFromProps } from "./Props";
+import { useRecoilState } from "recoil";
+import { canEditAtom } from "../../atoms/quiz";
 
-const QuizForm: React.FC<QuizFromProps> = ({ setEdit, editState, quiz, setQuizData }: QuizFromProps) => {
+const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData}: QuizFromProps) => {
   const [questions, setQuestions] = useState<QuestionInput[]>(quiz.questions);
   const [title, setTitle] = useState(quiz.title);
+  const [editState, setEditState] = useRecoilState(canEditAtom);
 
   // Callbacks to Question child
   const handleSaveQuestion = (questionId: string, questionData: QuestionInput) => {
@@ -28,7 +31,7 @@ const QuizForm: React.FC<QuizFromProps> = ({ setEdit, editState, quiz, setQuizDa
       questions: questions,
       creator: quiz.creator
     });
-    setEdit(false);
+    setEditState(false);
   };
 
   /** Utils */
@@ -56,7 +59,7 @@ const QuizForm: React.FC<QuizFromProps> = ({ setEdit, editState, quiz, setQuizDa
         {questions.map((question) => {
           return (
             <li>
-              <Question saveQuestion={handleSaveQuestion} editQuiz={editState} data={question} />
+              <Question saveQuestion={handleSaveQuestion} data={question} />
             </li>
           );
         })}

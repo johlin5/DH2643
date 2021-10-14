@@ -10,7 +10,7 @@ import { QuestionFormProps } from "./props";
 import { AnswerInput } from "../../utils/types";
 import AnswerPresenter from "../answer/AnswerPresenter";
 
-const QuestionForm: React.FC<QuestionFormProps> = ({ saveQuestion, editQuiz, data }: QuestionFormProps) => {
+const QuestionForm: React.FC<QuestionFormProps> = ({ saveQuestion, data }: QuestionFormProps) => {
   // States
   const [answers, setAnswers] = useState<AnswerInput[]>(data.answers);
   const [editorState, setEditorState] = useState<EditorState>(() =>
@@ -67,7 +67,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ saveQuestion, editQuiz, dat
         {answers.map((answer) => {
           return (
             <li>
-              <AnswerPresenter saveAnswerData={handleSaveAnswer} editQuestion={editQuiz} data={answer} />
+              <AnswerPresenter saveAnswerData={handleSaveAnswer} data={answer} />
             </li>
           );
         })}

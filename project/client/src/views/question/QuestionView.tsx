@@ -7,10 +7,14 @@ import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { EditorState, convertFromRaw, convertToRaw } from "draft-js";
 import Answer from "../answer/Index";
-import { QuestionViewProps } from "./props";
+import { QuestionProps } from "./props";
 import { QuestionInput } from "../../utils/types";
+import { useRecoilState } from "recoil";
+import { canEditAtom } from "../../atoms/quiz";
 
-const QuestionView: React.FC<QuestionViewProps> = ({ setEdit, editQuiz, data }: QuestionViewProps) => {
+const QuestionView: React.FC<QuestionProps> = ({ data }: QuestionProps) => {
+  const [editState, setEditState] = useRecoilState(canEditAtom);
+
   return (
     <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
       <Typography variant="h4">{data.question}</Typography>
@@ -25,8 +29,8 @@ const QuestionView: React.FC<QuestionViewProps> = ({ setEdit, editQuiz, data }: 
         })}
       </ul>
       <h6>Upvotes: {data.upvotes}</h6>
-      {editQuiz && (
-        <PrimaryButton text="Edit Question" color={GREEN} variant="h6" height="48px" onClick={() => setEdit(true)} />
+      {editState && (
+        <PrimaryButton text="Edit Question" color={GREEN} variant="h6" height="48px" onClick={() => setEditState(true)} />
       )}
     </Container>
   );

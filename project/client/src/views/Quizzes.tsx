@@ -19,7 +19,7 @@ const Quizzes: React.FC = () => {
     return (
         <Container>
         {data.findAllQuiz.map( ({title, questions, creator}: QuizInput) => {
-            return <Quiz quiz={{title: title, questions: questions, creator: creator}} editState={false} />
+            return <Quiz quiz={{title: title, questions: questions, creator: creator}} />
         })}
         </Container>
     )
