@@ -30,6 +30,7 @@ const typeDefs = gql`
   extend type Query {
     findQuizById(id: ID!): Quiz
     findAllQuiz: [Quiz]
+    findQuizByCreator(creator: String!): [Quiz]
   }
 
   extend type Mutation {
