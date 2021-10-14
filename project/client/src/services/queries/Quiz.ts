@@ -22,7 +22,17 @@ export const FETCH_ALL_QUIZES = gql`
     findAllQuiz {
       id
       title
-      creator
+      questions {
+        id
+        question
+        answers {
+          id
+          description
+          flag
+        }
+        upvotes
+        reports
+      }
     }
   }
 `;
