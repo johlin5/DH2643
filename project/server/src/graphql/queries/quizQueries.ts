@@ -12,5 +12,10 @@ export default {
     validateObjectID(id);
     const quiz = await Quizzes.findById(id);
     return quiz;
+  },
+  findQuizByUsername: async(_parent: unknown, { creator }, context: any): Promise<unknown> => {
+    validateContext(context);
+    const quiz = await Quizzes.find(creator);
+    return quiz
   }
 };
