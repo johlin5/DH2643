@@ -28,8 +28,7 @@ const Quizzes: React.FC = () => {
       }
     return (
         <Container>
-        <PrimaryButton text="Edit" color={GREEN} variant="h6" height="48px" onClick={() => setEdit(true)} />
-        {data.findQuizByCreator.map( ({title, questions, creator}: QuizInput) => {
+        {data.findAllQuiz.map( ({title, questions, creator}: QuizInput) => {
             return <Quiz quiz={{title: title, questions: questions, creator: creator}} />
         })}
         </Container>
