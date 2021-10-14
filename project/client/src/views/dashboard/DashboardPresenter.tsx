@@ -1,77 +1,29 @@
 import { Container } from "@material-ui/core";
 import { FETCH_ALL_QUIZES } from "../../services/queries/Quiz";
 import { useQuery } from "@apollo/client";
-import {
-  Typography,
-  CardActions,
-  Card,
-  makeStyles,
-  createStyles,
-  Grid,
-  CardContent,
-  CardMedia,
-  Button
-} from "@material-ui/core";
-import GameCard from "../../components/Card";
+import DashboardView from "./DashboardView";
+import Spinner from "../../components/Spinner";
+type Quiz = {
+  id: string;
+  title: string;
+};
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    root: {
-      height: "80vh",
-      backgroundColor: "white",
-      padding: "16px"
-    }
-  })
-);
+export type QuizData = { findAllQuiz: Quiz[] };
+
 const DashboardPresenter: React.FC = () => {
-  const { loading, error, data } = useQuery(FETCH_ALL_QUIZES);
-  const classes = useStyles();
+  const { loading, error, data } = useQuery<QuizData>(FETCH_ALL_QUIZES);
 
-  console.log(data);
+  if (loading || !data) {
+    return <Spinner />;
+  }
+
   return (
-    <Container component="main" className={classes.root}>
-      <Grid container spacing={2}>
-        <Grid xs={3}>
-          <GameCard
-            title="Math quiz"
-            author="Johan"
-            body="play this quiz"
-            play={() => {
-              console.log("play");
-            }}
-            info={() => {
-              console.log("info");
-            }}
-          />
-        </Grid>
-        <Grid xs={3}>
-          <GameCard
-            title="Math quiz"
-            author="Johan"
-            body="play this quiz"
-            play={() => {
-              console.log("play");
-            }}
-            info={() => {
-              console.log("info");
-            }}
-          />
-        </Grid>
-        <Grid xs={3}>
-          <GameCard
-            title="Math quiz"
-            author="Johan"
-            body="play this quiz"
-            play={() => {
-              console.log("play");
-            }}
-            info={() => {
-              console.log("info");
-            }}
-          />
-        </Grid>
-      </Grid>
-    </Container>
+    <DashboardView
+      onPlay={() => {
+        console.log("play");
+      }}
+      quizData={data}
+    />
   );
 };
 
