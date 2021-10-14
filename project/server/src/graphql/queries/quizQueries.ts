@@ -15,7 +15,7 @@ export default {
   },
   findQuizByCreator: async(_parent: unknown, { creator }, context: any): Promise<unknown> => {
     validateContext(context);
-    const quiz = await Quizzes.find(creator);
+    const quiz = await Quizzes.find({creator});
     return quiz
   }
 };
