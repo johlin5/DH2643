@@ -22,6 +22,7 @@ const LoginForm: React.FC = () => {
         }
       }
     });
+    console.log(response);
     setToken(response.data.login.token);
     setAccountName(response.data.login.user.userName);
     localStorage.setItem("jwtToken", response.data.login.token);

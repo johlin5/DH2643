@@ -29,7 +29,7 @@ const GameCard: React.FC<GameCardProps> = (props) => {
   return (
     <Card className={classes.card}>
       <CardContent>
-        <Typography gutterBottom variant="h4" component="div">
+        <Typography gutterBottom variant="h6" component="div">
           {title}
         </Typography>
         <Typography gutterBottom variant="body2" component="div">
@@ -38,11 +38,8 @@ const GameCard: React.FC<GameCardProps> = (props) => {
         <Typography variant="body1">{body}</Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={play}>
+        <Button size="small" onClick={play} variant="contained" color="secondary">
           Play
-        </Button>
-        <Button size="small" onClick={info}>
-          Author
         </Button>
       </CardActions>
     </Card>

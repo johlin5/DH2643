@@ -1,20 +1,20 @@
 import { gql } from "@apollo/client";
 
 export const SAVE_QUIZ = gql`
-mutation CreateQuizMutation($createQuizInput: QuizInput) {
-  createQuiz(input: $createQuizInput) {
-    title
-    questions {
-      question
-      answers {
-        description
-        flag
+  mutation CreateQuizMutation($createQuizInput: QuizInput) {
+    createQuiz(input: $createQuizInput) {
+      title
+      questions {
+        question
+        answers {
+          description
+          flag
+        }
       }
+      creator
+      id
     }
-    creator
-    id
   }
-}
 `;
 
 export const FETCH_ALL_QUIZES = gql`
@@ -22,18 +22,6 @@ export const FETCH_ALL_QUIZES = gql`
     findAllQuiz {
       id
       title
-      questions {
-        id
-        question
-        answers {
-          id
-          description
-          flag
-        }
-        upvotes
-        reports
-      }
-      creator
     }
   }
 `;
