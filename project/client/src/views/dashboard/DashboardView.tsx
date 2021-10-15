@@ -21,10 +21,10 @@ const DashboardView: React.FC<DashboardViewProps> = ({ onPlay, quizData }) => {
       <Grid container spacing={2}>
         {quizData.findAllQuiz.map((quiz) => {
           return (
-            <Grid item xs={6} sm={4} md={3}>
+            <Grid item={true} xs={6} sm={4} md={3} key={quiz.id}>
               <GameCard
                 title={quiz.title}
-                author="N/A"
+                author={quiz.author}
                 body="N/A"
                 play={onPlay}
                 info={() => {

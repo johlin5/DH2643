@@ -10,7 +10,7 @@ import express, { urlencoded, json, static as expressStatic, Request, Response }
 import expressSession from "express-session";
 import { startApolloServer } from "./graphql/appolloServer";
 import { connectDB } from "./db/dbConnector";
-
+import { createProxyMiddleware } from "http-proxy-middleware";
 /**
  * SETTINGS
  */
@@ -18,6 +18,8 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
 const publicPath = resolve(__dirname, "../client/dist/");
+import cors from "cors";
+
 const session = expressSession({
   secret: process.env.SECRET,
   name: "Quiz",
@@ -50,6 +52,19 @@ app.use((req: Request, res: Response, next) => {
   debugCookie("Cookie", cookie);
   next();
 });
+app.use(cors());
+
+app.use(
+  "/api",
+  createProxyMiddleware({
+    target: "https://app.pixelencounter.com", //original url
+    changeOrigin: true,
+    //secure: false,
+    onProxyRes: function (proxyRes, req, res) {
+      proxyRes.headers["Access-Control-Allow-Origin"] = "*";
+    }
+  })
+);
 
 app.use("*", (req: Request, _res: Response, next) => {
   debugSession("Session: %o", req.session);

@@ -3,9 +3,10 @@ import { FETCH_ALL_QUIZES } from "../../services/queries/Quiz";
 import { useQuery } from "@apollo/client";
 import DashboardView from "./DashboardView";
 import Spinner from "../../components/Spinner";
-type Quiz = {
+export type Quiz = {
   id: string;
   title: string;
+  author: string;
 };
 
 export type QuizData = { findAllQuiz: Quiz[] };

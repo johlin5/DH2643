@@ -26,18 +26,18 @@ const Header: React.FC = () => {
   const logout = () => {
     setToken(null);
     localStorage.removeItem("jwtToken");
+    localStorage.removeItem("userName");
     history.push("/");
-    console.log("log out");
   };
   const classes = useStyles();
   return (
     <AppBar position="sticky">
       <Toolbar>
         <Grid container spacing={1}>
-          <Grid xs={12} sm={2}>
+          <Grid item xs={12} sm={2}>
             <Typography variant="h6">Quiz-it</Typography>
           </Grid>
-          <Grid xs={12} sm={10} className={classes.links}>
+          <Grid item xs={12} sm={10} className={classes.links}>
             {token && (
               <>
                 <Button className={classes.menuButtons} onClick={logout} startIcon={<ExitToAppRoundedIcon />}>

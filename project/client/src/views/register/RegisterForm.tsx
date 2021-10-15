@@ -9,7 +9,7 @@ type FormInputs = {
   password: string;
   passwordConfirmation: string;
 };
-import { jwtTokenAtom } from "../../atoms/account";
+import { jwtTokenAtom, accountNameAtom } from "../../atoms/account";
 import { useRecoilState } from "recoil";
 import { useHistory } from "react-router-dom";
 
@@ -18,6 +18,7 @@ const RegisterForm: React.FC = () => {
   const [signup, { data, loading, error }] = useMutation(SIGN_UP);
 
   const [token, setToken] = useRecoilState(jwtTokenAtom);
+  const [userName, setUserName] = useRecoilState(accountNameAtom);
   const history = useHistory();
 
   const registerUser = async () => {
@@ -29,7 +30,10 @@ const RegisterForm: React.FC = () => {
       }
     });
     setToken(response.data.login.token);
+    setUserName(response.data.signin.user.userName);
     localStorage.setItem("jwtToken", response.data.signin.token);
+    localStorage.setItem("userName", response.data.signin.user.userName);
+
     history.push("/");
   };
 
@@ -40,61 +44,66 @@ const RegisterForm: React.FC = () => {
   return (
     <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
       <Typography variant="h4">Register</Typography>
-      <TextField
-        variant="outlined"
-        margin="normal"
-        required
-        fullWidth
-        id="username"
-        label="Username"
-        name="username"
-        autoComplete="username"
-        autoFocus
-        onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-          setFormInput({ ...formInput, userName: event.target.value });
+      <form
+        onSubmit={() => {
+          registerUser();
         }}
-        FormHelperTextProps={{ error: true }}
-      />
-      <TextField
-        variant="outlined"
-        margin="normal"
-        required
-        fullWidth
-        name="password"
-        label="Password"
-        type="password"
-        id="password"
-        onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-          setFormInput({ ...formInput, password: event.target.value });
-        }}
-        autoComplete="current-password"
-        FormHelperTextProps={{ error: true }}
-      />
-      <TextField
-        variant="outlined"
-        margin="normal"
-        required
-        fullWidth
-        name="Confirm password"
-        label="Confirm password"
-        type="password"
-        onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-          setFormInput({ ...formInput, passwordConfirmation: event.target.value });
-        }}
-        id="password"
-        FormHelperTextProps={{ error: true }}
-      />
+      >
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="username"
+          label="Username"
+          name="username"
+          autoComplete="username"
+          autoFocus
+          onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+            setFormInput({ ...formInput, userName: event.target.value });
+          }}
+          FormHelperTextProps={{ error: true }}
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          name="password"
+          label="Password"
+          type="password"
+          id="password"
+          onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+            setFormInput({ ...formInput, password: event.target.value });
+          }}
+          autoComplete="current-password"
+          FormHelperTextProps={{ error: true }}
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          name="Confirm password"
+          label="Confirm password"
+          type="password"
+          onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+            setFormInput({ ...formInput, passwordConfirmation: event.target.value });
+          }}
+          id="password"
+          FormHelperTextProps={{ error: true }}
+        />
 
-      <PrimaryButton
-        type="submit"
-        text="Create account"
-        color={PURPLE}
-        variant="h5"
-        height="48px"
-        onClick={() => registerUser()}
-      />
-
-      <>{error?.message}</>
+        <PrimaryButton
+          type="submit"
+          text="Create account"
+          color={PURPLE}
+          variant="h5"
+          height="48px"
+          onClick={() => registerUser()}
+        />
+        <>{error?.message}</>
+      </form>
       {data && <>Created account</>}
     </Container>
   );

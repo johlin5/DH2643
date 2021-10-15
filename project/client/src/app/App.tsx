@@ -5,8 +5,10 @@ import { jwtTokenAtom, accountNameAtom } from "../atoms/account";
 import { useSetRecoilState } from "recoil";
 const App = (): JSX.Element => {
   const setToken = useSetRecoilState(jwtTokenAtom);
+  const setUserName = useSetRecoilState(accountNameAtom);
 
   setToken(localStorage.getItem("jwtToken"));
+  setUserName(localStorage.getItem("userName"));
   return (
     <ThemeProvider theme={theme}>
       <Layout />

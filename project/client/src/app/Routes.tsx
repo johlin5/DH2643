@@ -1,6 +1,6 @@
 import DashboardPresenter from "../views/dashboard";
 import Login from "../views/login/LoginPresenter";
-import Profile from "../views/Profile";
+import Profile from "../views/profile";
 import Landing from "../views/Landing";
 import Register from "../views/register/Index";
 import Quizzes from "../views/Quizzes";

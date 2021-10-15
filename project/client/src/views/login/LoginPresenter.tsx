@@ -5,7 +5,7 @@ import { FormInputs } from "./types";
 import { accountNameAtom, jwtTokenAtom } from "../../atoms/account";
 import { useSetRecoilState } from "recoil";
 import { useHistory } from "react-router-dom";
-
+import Spinner from "../../components/Spinner";
 const LoginForm: React.FC = () => {
   const [signup, { data, loading, error }] = useMutation(LOGIN);
 
@@ -22,15 +22,16 @@ const LoginForm: React.FC = () => {
         }
       }
     });
-    console.log(response);
+    console.log(response.data);
     setToken(response.data.login.token);
     setAccountName(response.data.login.user.userName);
     localStorage.setItem("jwtToken", response.data.login.token);
+    localStorage.setItem("userName", response.data.login.user.userName);
     history.push("/");
   };
 
   if (loading) {
-    return <>Loading screen</>;
+    return <Spinner />;
   }
 
   return <LoginFormView onSubmit={loginUser} errorMessage={error ? error.message : ""} />;
