@@ -29,11 +29,10 @@ const RegisterForm: React.FC = () => {
         }
       }
     });
+    document.cookie = 'token=' + response.data.login.token;
+    document.cookie = 'userName=' + response.data.login.user.userName;
     setToken(response.data.login.token);
     setUserName(response.data.signin.user.userName);
-    localStorage.setItem("jwtToken", response.data.signin.token);
-    localStorage.setItem("userName", response.data.signin.user.userName);
-
     history.push("/");
   };
 

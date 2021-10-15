@@ -6,9 +6,7 @@ export const SIGN_UP = gql`
       token
       user {
         id
-        password
         userName
-        passwordConfirmation
       }
     }
   }
@@ -20,7 +18,6 @@ export const LOGIN = gql`
       token
       user {
         userName
-        password
         id
       }
     }

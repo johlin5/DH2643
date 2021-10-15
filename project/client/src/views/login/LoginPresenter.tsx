@@ -22,11 +22,10 @@ const LoginForm: React.FC = () => {
         }
       }
     });
-    console.log(response.data);
+    document.cookie = 'token=' + response.data.login.token;
+    document.cookie = 'userName=' + response.data.login.user.userName;
     setToken(response.data.login.token);
     setAccountName(response.data.login.user.userName);
-    localStorage.setItem("jwtToken", response.data.login.token);
-    localStorage.setItem("userName", response.data.login.user.userName);
     history.push("/");
   };
 
