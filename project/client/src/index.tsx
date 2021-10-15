@@ -5,9 +5,9 @@ import ApolloProvider from "./services/ApolloProvider";
 
 render(
   <ApolloProvider>
-    <RecoilRoot>
-      <App />
-    </RecoilRoot>
+      <RecoilRoot>
+        <App />
+      </RecoilRoot>
   </ApolloProvider>,
   document.getElementById("root")
 );

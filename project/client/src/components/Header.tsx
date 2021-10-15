@@ -4,6 +4,7 @@ import { WHITE } from "../app/theme";
 import { jwtTokenAtom } from "../atoms/account";
 import { useRecoilState } from "recoil";
 import { useHistory } from "react-router-dom";
+import Cookies from 'js-cookie';
 import PersonRoundedIcon from "@material-ui/icons/PersonRounded";
 import VideogameAssetRoundedIcon from "@material-ui/icons/VideogameAssetRounded";
 import AddCircleRoundedIcon from "@material-ui/icons/AddCircleRounded";
@@ -24,9 +25,8 @@ const Header: React.FC = () => {
   const [token, setToken] = useRecoilState(jwtTokenAtom);
   const history = useHistory();
   const logout = () => {
+    Cookies.remove("token");
     setToken(null);
-    localStorage.removeItem("jwtToken");
-    localStorage.removeItem("userName");
     history.push("/");
   };
   const classes = useStyles();
