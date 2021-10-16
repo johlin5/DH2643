@@ -14,7 +14,7 @@ const QuestionPresenter: React.FC<QuestionPresenterProps> = ({saveQuestion, data
   const editQuestion = useRecoilValue(withEdit);
   const [questionData, setQuestionData] = useState<QuestionInput>(data);
   
-  const handleSaveQuestion = (questionData: QuestionInput, newEditState: boolean) => {
+  const handleSaveQuestion = (questionData: QuestionInput) => {
     setQuestionData(questionData);
     saveQuestion(data.id, questionData);
   };
