@@ -15,18 +15,14 @@ const AnswerPresenter: React.FC<AnswerPresenterProps> = ({
   const editState = useRecoilValue(withEdit);
   const [answerData, setAnswerData] = useState(data);
 
-  const handleSaveAnswer = (answerData: AnswerInput, newEditState: boolean) => {
+  const handleSaveAnswer = (answerData: AnswerInput) => {
     setAnswerData(answerData);
     saveAnswerData(data.id, answerData);
   };
 
   return (
     <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
-      {editState ? (
-        <AnswerForm saveAnswer={handleSaveAnswer} data={data} />
-      ) : (
-        <AnswerView data={data} />
-      )}
+      <AnswerForm saveAnswer={handleSaveAnswer} data={data} />
     </Container>
   );
 };

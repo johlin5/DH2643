@@ -1,4 +1,4 @@
-import { Container, TextField, Typography } from "@material-ui/core";
+import { Container, FormControl, MenuItem, TextField, InputLabel, Select, Typography } from "@material-ui/core";
 import { useState, ChangeEvent } from "react";
 import PrimaryButton from "../../components/PrimaryButton";
 import { PURPLE, RED, GREEN } from "../../app/theme";
@@ -45,35 +45,71 @@ const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData}: QuizFromProps) =
     setQuestions([...questions, questionData]);
   };
 
+  const [numberOfQuestions, setNumberOfQuestions] = useState(3);
+
+  const handleChange = (event: any) => {
+    setNumberOfQuestions(event.target.value);
+    setQuestions([]);
+    for (let index = 0; index < event.target.value; index++) {
+      const questionData = { question: "", answers: [], id: "", userId: "", upvotes: 0, report: "" }
+      setQuestions(questions => [...questions, questionData]);
+      // console.log(event.target.value);
+    }
+    
+  };
+
   return (
     <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
       <TextField
         id="standard-basic"
-        label="Standard"
+        label="Quiz Title"
         variant="standard"
         margin="normal"
         value={title}
         onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setTitle(event.target.value)}
       />
+      <FormControl >
+        <InputLabel id="demo-simple-select-standard-label">#Questions</InputLabel>
+        <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={numberOfQuestions}
+          onChange={handleChange}
+          label="NumberOfQuestions"
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={3}>3</MenuItem>
+          <MenuItem value={4}>4</MenuItem>
+          <MenuItem value={5}>5</MenuItem>
+          <MenuItem value={6}>6</MenuItem>
+          <MenuItem value={7}>7</MenuItem>
+          <MenuItem value={8}>8</MenuItem>
+          <MenuItem value={9}>9</MenuItem>
+          <MenuItem value={10}>10</MenuItem>
+        </Select>
+      </FormControl>
       <ul>
-        {questions.map((question) => {
+        {
+        questions.map((question) => {
           return (
             <li>
               <Question saveQuestion={handleSaveQuestion} data={question} />
             </li>
           );
-        })}
+        })
+        }
       </ul>
-
-      <PrimaryButton
-        text="Add question"
+      {/* <PrimaryButton
+        text="Add # Questions"
         color={GREEN}
         variant="h6"
         height="48px"
         onClick={() => addQuestion({ question: "", answers: [], id: "", userId: "", upvotes: 0, report: "" })}
-      />
+      /> */}
       <PrimaryButton text="Save Quiz" color={PURPLE} variant="h6" height="48px" onClick={() => handleSaveQuiz()} />
-      <PrimaryButton
+      {editState && <PrimaryButton
         text="Delete Quiz"
         color={RED}
         variant="h6"
@@ -81,7 +117,7 @@ const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData}: QuizFromProps) =
         onClick={() => {
           /** Add function that handles deletion */
         }}
-      />
+      />}
     </Container>
   );
 };

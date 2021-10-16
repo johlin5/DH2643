@@ -10,20 +10,16 @@ import { useRecoilValue } from 'recoil';
 
 const QuestionPresenter: React.FC<QuestionPresenterProps> = ({saveQuestion, data}: QuestionPresenterProps) => {
   // States 
-//   const [answers, setAnswers] = useState<AnswerInput[]>(data.answers);
-  const editQuestion = useRecoilValue(withEdit);
   const [questionData, setQuestionData] = useState<QuestionInput>(data);
   
-  const handleSaveQuestion = (questionData: QuestionInput, newEditState: boolean) => {
+  const handleSaveQuestion = (questionData: QuestionInput) => {
     setQuestionData(questionData);
     saveQuestion(data.id, questionData);
   };
 
   return (
     <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
-      {editQuestion ? 
-      <QuestionForm saveQuestion={handleSaveQuestion} data={questionData!}/> : 
-      <QuestionView data={questionData!}/>}
+      <QuestionForm saveQuestion={handleSaveQuestion} data={questionData!}/>
     </Container>
   );
 };

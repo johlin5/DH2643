@@ -1,9 +1,15 @@
 import { useQuery } from "@apollo/client";
 import { Container } from "@material-ui/core";
 import React, { useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { withUserName } from "../selectors/account";
 import { QuizInput } from "utils/types";
-import { FETCH_ALL_QUIZES } from "../services/queries/Quiz";
+import { FECTH_BY_CREATOR } from "../services/queries/Quiz";
 import Quiz from "../views/quiz/Index";
+import Spinner from "../components/Spinner";
+import { canEditAtom } from "../atoms/quiz";
+import PrimaryButton from "../components/PrimaryButton";
+import { GREEN } from "../app/theme";
 
 /**
  * Component to render all available quizzes. We can make use of this when 
@@ -11,14 +17,19 @@ import Quiz from "../views/quiz/Index";
  * @returns 
  */
 const Quizzes: React.FC = () => {
-    const { data, loading, error } = useQuery(FETCH_ALL_QUIZES);
+  const [edit, setEdit] = useRecoilState(canEditAtom);
+  const username = useRecoilValue(withUserName);
+  // Fetch data 
+  const { loading, error, data } = useQuery(FECTH_BY_CREATOR,
+    {variables: { findQuizByCreatorCreator: username}});
     
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :({error}</p>;
-    console.log(data);
+    if (loading || !data) {
+        return <Spinner />;
+      }
     return (
         <Container>
-        {data.findAllQuiz.map( ({title, questions, creator}: QuizInput) => {
+        <PrimaryButton text="Edit" color={GREEN} variant="h6" height="48px" onClick={() => setEdit(true)} />
+        {data.findQuizByCreator.map( ({title, questions, creator}: QuizInput) => {
             return <Quiz quiz={{title: title, questions: questions, creator: creator}} />
         })}
         </Container>

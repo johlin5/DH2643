@@ -18,8 +18,7 @@ const AnswerForm: React.FC<AnswerFormProps> = ({ saveAnswer, data }: AnswerFormP
       {
         ...answerData,
         id: id
-      },
-      false
+      }
     );
   };
 

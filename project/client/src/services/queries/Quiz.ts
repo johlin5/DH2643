@@ -26,3 +26,17 @@ export const FETCH_ALL_QUIZES = gql`
     }
   }
 `;
+
+export const FECTH_BY_CREATOR = gql`
+query Query($findQuizByCreatorCreator: String!) {
+  findQuizByCreator(creator: $findQuizByCreatorCreator) {
+    title
+    questions {
+      question
+      answers {
+        description
+      }
+    }
+    creator
+  }
+}`;

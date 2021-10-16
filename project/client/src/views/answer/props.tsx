@@ -9,5 +9,5 @@ export interface AnswerPresenterProps extends AnswerProps {
 }
 
 export interface AnswerFormProps extends AnswerProps {
-  saveAnswer: (answerData: AnswerInput, newEditState: boolean) => void;
+  saveAnswer: (answerData: AnswerInput) => void;
 }

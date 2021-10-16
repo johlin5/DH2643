@@ -5,7 +5,7 @@ export interface QuestionProps {
 }
 
 export interface QuestionFormProps extends QuestionProps {
-  saveQuestion: (questionData: QuestionInput, editState: boolean) => void;
+  saveQuestion: (questionData: QuestionInput) => void;
 }
 
 export interface QuestionPresenterProps extends QuestionProps {

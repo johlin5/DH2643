@@ -6,6 +6,10 @@ import Quiz from "../views/quiz/Index";
 import { useRecoilValue } from "recoil";
 import { withUserName } from "../selectors/account";
 import { canEditAtom } from "../atoms/quiz";
+import { FECTH_BY_CREATOR } from "../services/queries/Quiz";
+import { useQuery } from "@apollo/client";
+import Spinner from "../components/Spinner";
+import { QuizInput } from "utils/types";
 
 const CreateQuiz: React.FC = () => {
   const [edit, setEdit] = useRecoilState(canEditAtom);
@@ -15,8 +19,7 @@ const CreateQuiz: React.FC = () => {
 
   return (
     <Container>
-        {edit ? <Quiz quiz={newQuiz}/> 
-        : <PrimaryButton text="Add" color={GREEN} variant="h6" height="48px" onClick={() => setEdit(true)} />}
+        <Quiz quiz={newQuiz}/> 
     </Container>
   );
 };
