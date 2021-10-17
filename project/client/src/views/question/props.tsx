@@ -1,13 +1,16 @@
-import { QuestionInput } from "../../utils/types";
+import { AnswerInput, QuestionInput } from "../../utils/types";
 
 export interface QuestionProps {
   data: QuestionInput;
 }
 
 export interface QuestionFormProps extends QuestionProps {
-  saveQuestion: (questionData: QuestionInput) => void;
+  handleSave: (questionData: QuestionInput) => void;
+  handleDelete: (questionData: QuestionInput) => void;
+  handleAdd: () => void;
 }
 
 export interface QuestionPresenterProps extends QuestionProps {
-  saveQuestion: (id: string, questionData: QuestionInput) => void;
+  saveQuestion: (questionData: QuestionInput) => void;
+  handleDelete: (questionData: QuestionInput) => void;
 }

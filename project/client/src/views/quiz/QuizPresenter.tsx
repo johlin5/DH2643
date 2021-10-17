@@ -29,8 +29,8 @@ const QuizPresenter: React.FC<QuizProps> = ({quiz}: QuizProps) => {
         }
       }
     });
-    history.push("/createquiz");
-    console.log(response);
+    history.push("/");
+    // console.log(response);
   };
 
   // States 
@@ -44,6 +44,7 @@ const QuizPresenter: React.FC<QuizProps> = ({quiz}: QuizProps) => {
 
   const handleSetQuizData = (quizData: QuizInput) => {
     setQuizData(quizData);
+    console.log("Save to backend", quizData);
     saveQuiz(quizData);
   };
 
@@ -52,10 +53,8 @@ const QuizPresenter: React.FC<QuizProps> = ({quiz}: QuizProps) => {
 
   return (
     <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
-      <Typography variant="h4">Presenter</Typography>
-      {editState ? 
-      <QuizForm setEdit={handleSetEdit} quiz={quizData} setQuizData={handleSetQuizData}/> :
-      <QuizView quiz={quizData}/>}
+      <Typography variant="h4">Create Your Own Quiz!</Typography>
+      <QuizForm setEdit={handleSetEdit} quiz={quizData} setQuizData={handleSetQuizData}/>
     </Container>
   );
 };

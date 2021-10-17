@@ -1,64 +1,47 @@
-import { Container, TextField, Typography } from "@material-ui/core";
+import { Container, Typography } from "@material-ui/core";
 import { useState } from "react";
 import PrimaryButton from "../../components/PrimaryButton";
-import { PURPLE, RED, TURQUOISE, GREEN } from "../../app/theme";
+import { RED, TURQUOISE } from "../../app/theme";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { EditorState, convertToRaw, ContentState } from "draft-js";
-import Answer from "../answer/Index";
 import { QuestionFormProps } from "./props";
-import { AnswerInput } from "../../utils/types";
 import AnswerPresenter from "../answer/AnswerPresenter";
-import { useRecoilValue } from "recoil";
-import { withUserName } from "../../selectors/account";
+import { AnswerInput } from "../../utils/types"
 
-const QuestionForm: React.FC<QuestionFormProps> = ({ saveQuestion, data }: QuestionFormProps) => {
+const QuestionForm: React.FC<QuestionFormProps> = ({ handleSave, handleDelete, handleAdd, data }: QuestionFormProps) => {
   // States
-  const [answers, setAnswers] = useState<AnswerInput[]>(data.answers);
   const [editorState, setEditorState] = useState<EditorState>(() =>
     EditorState.createWithContent(ContentState.createFromText(data.question))
   );
-  const creator = useRecoilValue(withUserName);
-  // Random string generator for ID
-  const id = data.id ? data.id : (Math.random() + 1).toString(36).substring(7);
+  const [formState, setFormState] = useState(data); 
 
-  // Callbacks / Handlers
   const handleSaveQuestion = (state: EditorState) => {
     setEditorState(state);
-    const newQuestion = {
-      id: id,
-      question: convertToRaw(editorState.getCurrentContent()).blocks[0].text,
-      userId: creator,
-      answers: answers,
-      upvotes: 0,
-      report: ""
-    };
-    saveQuestion(newQuestion);
-  };
+    setFormState({
+      ...data,
+      question: convertToRaw(editorState.getCurrentContent()).blocks[0].text
+    });
+  }
 
-  const handleSaveAnswer = (answerId: string, answerData: AnswerInput) => {
-    const existingQuestion = answers.find((a) => a.id === answerId);
-    if (existingQuestion) {
-      const index = answers.findIndex((a) => a.id === answerId);
-      console.log(index);
-      console.log("Updating Answer");
-      updateAnswer(index, answerData);
-    } else {
-      addAnswer(answerData);
-    }
-    console.log(answerData);
-  };
+  const handleSaveAnswer = (answerData: AnswerInput) => {
+    console.log("Invoking handleSaveAnswer");
+    const index = data.answers.findIndex((a) => a.id === answerData.id);
+    const newAnswers = [...data.answers];   
+    newAnswers[index] = answerData;
+    handleSave({
+      ...data, 
+      answers: newAnswers
+    })
+  }
 
-  // Utils
-  const updateAnswer = (index: number, data: AnswerInput) => {
-    const newAnswers = [...answers]; // copying the old datas array
-    newAnswers[index] = data; // replace old data with new
-    setAnswers(newAnswers);
-  };
-
-  const addAnswer = (answerData: AnswerInput) => {
-    setAnswers([...answers, answerData]);
-  };
+  const handleDeleteAnswer = (answerData: AnswerInput) => {
+    const newAnswers = data.answers.filter( (a) => {return a.id !== answerData.id });
+    handleSave({
+      ...data,
+      answers: newAnswers
+    });
+  }
 
   return (
     <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
@@ -67,12 +50,14 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ saveQuestion, data }: Quest
         editorState={editorState} 
         editorStyle={{border: "1px solid #e9e9e9", margin: " 1%"}} 
         onEditorStateChange={handleSaveQuestion} 
+        onBlur={() => handleSave(formState)}
       />
       <ul>
-        {answers.map((answer) => {
+        {data.answers.map((answer) => {
+          const id = (Math.random() + 1).toString(36).substring(7);
           return (
-            <li>
-              <AnswerPresenter saveAnswerData={handleSaveAnswer} data={answer} />
+            <li key={id}>
+              <AnswerPresenter handleSave={handleSaveAnswer} handleDelete={handleDeleteAnswer} data={answer} />
             </li>
           );
         })}
@@ -83,24 +68,15 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ saveQuestion, data }: Quest
         color={TURQUOISE}
         variant="h6"
         height="48px"
-        onClick={() => addAnswer({ description: "", id: "", flag: "0" })}
+        onClick={() => handleAdd()}
       />
       <PrimaryButton
-        text="Save"
-        color={PURPLE}
-        variant="h6"
-        height="48px"
-        onClick={() => handleSaveQuestion(editorState)}
-      />
-      {/**<PrimaryButton
-        text="-"
+        text="Delete"
         color={RED}
         variant="h6"
         height="48px"
-        onClick={() => {
-          // Add function that handles deletion
-        }}
-      />*/}
+        onClick={() => handleDelete(formState)}
+      />
     </Container>
   );
 };

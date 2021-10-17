@@ -3,7 +3,7 @@ import { useState, ChangeEvent } from "react";
 import PrimaryButton from "../../components/PrimaryButton";
 import { PURPLE, RED, GREEN } from "../../app/theme";
 import Question from "../question/Index";
-import { QuestionInput, AnswerInput } from "../../utils/types";
+import { QuestionInput } from "../../utils/types";
 import { QuizFromProps } from "./Props";
 import { useRecoilState } from "recoil";
 import { canEditAtom } from "../../atoms/quiz";
@@ -12,17 +12,17 @@ const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData}: QuizFromProps) =
   const [questions, setQuestions] = useState<QuestionInput[]>(quiz.questions);
   const [title, setTitle] = useState(quiz.title);
   const [editState, setEditState] = useRecoilState(canEditAtom);
+  const [numberOfQuestions, setNumberOfQuestions] = useState(quiz.questions.length);
 
   // Callbacks to Question child
-  const handleSaveQuestion = (questionId: string, questionData: QuestionInput) => {
-    const existingQuestion = questions.find((q) => q.id === questionId);
+  const handleSaveQuestion = (questionData: QuestionInput) => {
+    const existingQuestion = questions.find((q) => q.id === questionData.id);
     if (existingQuestion) {
-      const index = questions.findIndex((q) => q.id === questionId);
+      const index = questions.findIndex((q) => q.id === questionData.id);
       updateQuestion(index, questionData);
     } else {
       addQuestion(questionData);
     }
-    console.log(questionData);
   };
 
   const handleSaveQuiz = () => {
@@ -33,6 +33,28 @@ const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData}: QuizFromProps) =
     });
     setEditState(false);
   };
+
+  const handleChange = (event: any) => {
+    if(questions.length === 0) { // Initialise the question list 
+      appendQuestions(0, event.target.value);
+    } else if(event.target.value < questions.length) { // Delete questions 
+      const newQuestionList = questions.filter( (_, index) => index < event.target.value);
+      setQuestions(newQuestionList);
+    } else { // Append questions
+      appendQuestions(questions.length, event.target.value);
+    }
+    setNumberOfQuestions(event.target.value);
+  };
+
+  const handleDeleteQuestion = (questionData: QuestionInput) => {
+    if(questions.length <= 3){
+      console.log("At least 3 questions in a quiz");
+      return
+    }
+    const newQuestions = questions.filter( (q) => {return q.id !== questionData.id });
+    setQuestions(newQuestions); 
+    setNumberOfQuestions(numberOfQuestions - 1);
+  }
 
   /** Utils */
   const updateQuestion = (index: number, data: QuestionInput) => {
@@ -45,18 +67,17 @@ const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData}: QuizFromProps) =
     setQuestions([...questions, questionData]);
   };
 
-  const [numberOfQuestions, setNumberOfQuestions] = useState(3);
-
-  const handleChange = (event: any) => {
-    setNumberOfQuestions(event.target.value);
-    setQuestions([]);
-    for (let index = 0; index < event.target.value; index++) {
-      const questionData = { question: "", answers: [], id: "", userId: "", upvotes: 0, report: "" }
+  const appendQuestions = (start: number, end: number) => {
+    for (let index: number = start; index < end; index++) {
+      const questionId = Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+      const questionData = { question: "", answers: [], id: questionId, userId: "", upvotes: 0, report: "" }
       setQuestions(questions => [...questions, questionData]);
-      // console.log(event.target.value);
     }
-    
-  };
+  }
+
+  
 
   return (
     <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
@@ -77,7 +98,7 @@ const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData}: QuizFromProps) =
           onChange={handleChange}
           label="NumberOfQuestions"
         >
-          <MenuItem value="">
+          <MenuItem value={0}>
             <em>None</em>
           </MenuItem>
           <MenuItem value={3}>3</MenuItem>
@@ -93,9 +114,10 @@ const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData}: QuizFromProps) =
       <ul>
         {
         questions.map((question) => {
+          const id = (Math.random() + 1).toString(36).substring(7);
           return (
-            <li>
-              <Question saveQuestion={handleSaveQuestion} data={question} />
+            <li key={id}>
+              <Question saveQuestion={handleSaveQuestion} handleDelete={handleDeleteQuestion} data={question} />
             </li>
           );
         })

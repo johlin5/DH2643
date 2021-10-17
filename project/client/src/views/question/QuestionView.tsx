@@ -6,7 +6,7 @@ import { PURPLE, RED, TURQUOISE, GREEN } from "../../app/theme";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { EditorState, convertFromRaw, convertToRaw } from "draft-js";
-import Answer from "../answer/Index";
+// import Answer from "../answer/Index";
 import { QuestionProps } from "./props";
 import { QuestionInput } from "../../utils/types";
 import { useRecoilState } from "recoil";

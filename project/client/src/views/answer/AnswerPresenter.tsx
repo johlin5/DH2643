@@ -1,28 +1,26 @@
-import { Container, Typography } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import React, { useState } from "react";
 import { AnswerInput } from "utils/types";
-import AnswerView from "./AnswerView";
 import { AnswerPresenterProps } from "./props";
 import AnswerForm from "./AnswerForm";
-import { useRecoilValue } from 'recoil';
-import { withEdit } from '../../selectors/quiz';
+
 
 const AnswerPresenter: React.FC<AnswerPresenterProps> = ({
-  saveAnswerData,
+  handleSave,
+  handleDelete,
   data
 }: AnswerPresenterProps) => {
   // States
-  const editState = useRecoilValue(withEdit);
   const [answerData, setAnswerData] = useState(data);
 
-  const handleSaveAnswer = (answerData: AnswerInput) => {
-    setAnswerData(answerData);
-    saveAnswerData(data.id, answerData);
-  };
-
+  const saveAnswer = (data: AnswerInput) => {
+    setAnswerData(data);
+    handleSave(data);
+  }
+  
   return (
     <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
-      <AnswerForm saveAnswer={handleSaveAnswer} data={data} />
+      <AnswerForm saveAnswer={saveAnswer} deleteAnswer={handleDelete} data={data} />
     </Container>
   );
 };

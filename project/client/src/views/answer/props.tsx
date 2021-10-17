@@ -5,9 +5,11 @@ export interface AnswerProps {
 }
 
 export interface AnswerPresenterProps extends AnswerProps {
-  saveAnswerData: (answerId: string, answerData: AnswerInput) => void;
+  handleSave: (answerData: AnswerInput) => void;
+  handleDelete: (answerData: AnswerInput) => void;
 }
 
 export interface AnswerFormProps extends AnswerProps {
   saveAnswer: (answerData: AnswerInput) => void;
+  deleteAnswer: (answerData: AnswerInput) => void;
 }

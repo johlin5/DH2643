@@ -13,7 +13,7 @@ export type AnswerInput = {
 export type QuestionInput = {
     id: string;
     question: string;
-    userId: string;
+    userId: string | null;
     answers: AnswerInput[];
     upvotes: number;
     report: string;
