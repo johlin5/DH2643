@@ -39,5 +39,17 @@ export default {
     // Måste verifiera att quizet tillhör användaren och osäker på vad deletequiz returnerar
     const deleted = await deleteQuiz(id);
     return deleted;
+  },
+  upvoteQuiz: async (_parent: unknown, { id }, context: any): Promise<unknown> => {
+    return new Promise( (resolve, reject) => {
+      const upvotedQuiz = Quizzes.findByIdAndUpdate(id, {$inc: {
+        upvotes: 1
+      }}, {new: true}); // Increment upvotes and return the new object 
+      if (!upvotedQuiz) {
+        reject(throwMsg(quizNotFound));
+      } else {
+        resolve(upvotedQuiz);
+      }
+    });
   }
 };
