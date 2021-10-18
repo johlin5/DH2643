@@ -22,7 +22,31 @@ export const FETCH_ALL_QUIZES = gql`
     findAllQuiz {
       id
       title
-      creator
+      questions {
+        id
+        question
+        answers {
+          id
+          description
+          flag
+        }
+        upvotes
+        reports
+      }
     }
   }
 `;
+
+export const FECTH_BY_CREATOR = gql`
+query Query($findQuizByCreatorCreator: String!) {
+  findQuizByCreator(creator: $findQuizByCreatorCreator) {
+    title
+    questions {
+      question
+      answers {
+        description
+      }
+    }
+    creator
+  }
+}`;
