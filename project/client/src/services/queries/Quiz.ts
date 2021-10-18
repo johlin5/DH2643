@@ -30,8 +30,6 @@ export const FETCH_ALL_QUIZES = gql`
           description
           flag
         }
-        upvotes
-        reports
       }
     }
   }
@@ -51,27 +49,6 @@ export const FECTH_BY_CREATOR = gql`
     }
   }
 `;
-export const FETCH_QUIZ_BY_ID = gql`
-  query Query($findQuizByIdId: ID!) {
-    findQuizById(id: $findQuizByIdId) {
-      title
-      id
-      image
-      questions {
-        id
-        question
-        answers {
-          id
-          description
-          flag
-        }
-      }
-      creator
-      upvotes
-    }
-  }
-`;
-
 export const FETCH_QUIZ_BY_ID = gql`
   query Query($findQuizByIdId: ID!) {
     findQuizById(id: $findQuizByIdId) {
