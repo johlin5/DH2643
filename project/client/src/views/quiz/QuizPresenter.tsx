@@ -5,7 +5,6 @@ import { useHistory } from "react-router-dom";
 import { SAVE_QUIZ } from "../../services/queries/Quiz";
 import { QuizInput } from "../../utils/types";
 import QuizForm from "./QuizForm";
-import QuizView from "./QuizView";
 import { QuizProps } from "./Props";
 import { withEdit } from "../../selectors/quiz";
 import { useRecoilValue } from "recoil";
