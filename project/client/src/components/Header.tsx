@@ -4,7 +4,7 @@ import { WHITE } from "../app/theme";
 import { jwtTokenAtom } from "../atoms/account";
 import { useRecoilState } from "recoil";
 import { useHistory } from "react-router-dom";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import PersonRoundedIcon from "@material-ui/icons/PersonRounded";
 import VideogameAssetRoundedIcon from "@material-ui/icons/VideogameAssetRounded";
 import AddCircleRoundedIcon from "@material-ui/icons/AddCircleRounded";
@@ -45,7 +45,7 @@ const Header: React.FC = () => {
                 </Button>
                 <Button
                   component={Link}
-                  to="./createquiz"
+                  to="/createquiz"
                   className={classes.menuButtons}
                   startIcon={<AddCircleRoundedIcon />}
                 >
@@ -53,7 +53,7 @@ const Header: React.FC = () => {
                 </Button>
                 <Button
                   component={Link}
-                  to="./profile"
+                  to="/profile"
                   className={classes.menuButtons}
                   startIcon={<PersonRoundedIcon />}
                 >
@@ -61,7 +61,7 @@ const Header: React.FC = () => {
                 </Button>
                 <Button
                   component={Link}
-                  to="./"
+                  to="/"
                   className={classes.menuButtons}
                   startIcon={<VideogameAssetRoundedIcon />}
                 >
@@ -71,10 +71,10 @@ const Header: React.FC = () => {
             )}
             {!token && (
               <>
-                <Button component={Link} to="./register" className={classes.menuButtons}>
+                <Button component={Link} to="/register" className={classes.menuButtons}>
                   Register
                 </Button>
-                <Button component={Link} to="./login" className={classes.menuButtons}>
+                <Button component={Link} to="/login" className={classes.menuButtons}>
                   Login
                 </Button>
               </>
