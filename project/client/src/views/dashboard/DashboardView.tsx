@@ -2,7 +2,7 @@ import { Grid, Container, makeStyles, createStyles } from "@material-ui/core";
 import GameCard from "../../components/Card";
 import { QuizData } from "./DashboardPresenter";
 
-type DashboardViewProps = { onPlay: () => void; quizData: QuizData };
+type DashboardViewProps = { onPlay: (id: string) => void; quizData: QuizData };
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -26,7 +26,9 @@ const DashboardView: React.FC<DashboardViewProps> = ({ onPlay, quizData }) => {
                 title={quiz.title}
                 author={quiz.author}
                 body="N/A"
-                play={onPlay}
+                play={() => {
+                  onPlay(quiz.id);
+                }}
                 info={() => {
                   console.log("info");
                 }}
