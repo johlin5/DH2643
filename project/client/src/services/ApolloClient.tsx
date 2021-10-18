@@ -1,14 +1,12 @@
 import { ApolloClient, InMemoryCache, createHttpLink, from } from "@apollo/client";
-import { onError } from '@apollo/client/link/error';
+import { onError } from "@apollo/client/link/error";
 import { setContext } from "@apollo/client/link/context";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
-const errorLink = onError(({graphQLErrors, networkError}) => {
+const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
     graphQLErrors.forEach(({ message, locations, path }) =>
-      console.log(
-        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
-      ),
+      console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`)
     );
 
   if (networkError) console.log(`[Network error]: ${networkError}`);
@@ -16,7 +14,7 @@ const errorLink = onError(({graphQLErrors, networkError}) => {
 
 const authLink = setContext((_: any, { headers }: any) => {
   //const token = localStorage.getItem("jwtToken");
-  const token = Cookies.get('token');
+  const token = Cookies.get("token");
 
   return { headers: { ...headers, authorization: token ? `Bearer ${token}` : "" } };
 });
