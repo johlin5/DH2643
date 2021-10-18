@@ -36,6 +36,7 @@ export const createNewQuestion = async (input) => {
 export const createQuiz = async (input) => {
   const newQuiz = new Quizzes({
     title: input.title,
+    description: input.description,
     questions: input.questions,
     creator: input.creator
   });

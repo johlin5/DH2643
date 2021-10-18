@@ -18,6 +18,7 @@ const typeDefs = gql`
     id: ID!
     title: String!
     image: String
+    description: String
     questions: [Question!]!
     creator: String!
     upvotes: Int
@@ -25,6 +26,7 @@ const typeDefs = gql`
 
   input QuizInput {
     title: String
+    description: String
     questions: [QuestionInput]
     creator: String!
   }

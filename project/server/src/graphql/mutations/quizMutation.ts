@@ -23,15 +23,19 @@ export default {
       const updatedQuiz = Quizzes.findByIdAndUpdate(
         { _id: id },
         {
-          title: input.name,
+          title: input.title,
+          description: input.description,
           questions: input.questions
+        },
+        {new: true}, 
+        (error, result) => {
+          if(error) { 
+            reject(error);
+          } else {
+            resolve(result);
+          }
         }
       );
-      if (!updatedQuiz) {
-        reject(throwMsg(quizNotFound));
-      } else {
-        resolve(updatedQuiz);
-      }
     });
   },
   deleteQuiz: async (_parent: unknown, { id }, context: any): Promise<unknown> => {
