@@ -71,3 +71,24 @@ export const FETCH_QUIZ_BY_ID = gql`
     }
   }
 `;
+
+export const FETCH_QUIZ_BY_ID = gql`
+  query Query($findQuizByIdId: ID!) {
+    findQuizById(id: $findQuizByIdId) {
+      title
+      id
+      image
+      questions {
+        id
+        question
+        answers {
+          id
+          description
+          flag
+        }
+      }
+      creator
+      upvotes
+    }
+  }
+`;
