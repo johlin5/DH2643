@@ -39,6 +39,7 @@ const typeDefs = gql`
     createQuiz(input: QuizInput): Quiz
     updateQuiz(id: ID!, input: QuizInput): Quiz
     deleteQuiz(id: ID!): Quiz
+    upvoteQuiz(id: ID!): Quiz
   }
 `;
 
