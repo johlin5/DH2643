@@ -15,7 +15,7 @@ const CreateQuiz: React.FC = () => {
   const [edit, setEdit] = useRecoilState(canEditAtom);
   const username = useRecoilValue(withUserName);
 
-  const newQuiz = { title: "", questions: [], creator: username ? username : "" };
+  const newQuiz = { title: "", description: "", questions: [], creator: username ? username : "" };
 
   return (
     <Container>

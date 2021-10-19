@@ -21,6 +21,7 @@ export type QuestionInput = {
 
 export type QuizInput = {
     title: string;
+    description: string;
     questions: QuestionInput[];
     creator: string; 
 }

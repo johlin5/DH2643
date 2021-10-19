@@ -7,12 +7,18 @@ import { QuestionInput } from "../../utils/types";
 import { QuizFromProps } from "./Props";
 import { useRecoilState } from "recoil";
 import { canEditAtom } from "../../atoms/quiz";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { EditorState, convertToRaw, ContentState } from "draft-js";
+import { Editor } from "react-draft-wysiwyg";
 
 const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData}: QuizFromProps) => {
   const [questions, setQuestions] = useState<QuestionInput[]>(quiz.questions);
   const [title, setTitle] = useState(quiz.title);
   const [editState, setEditState] = useRecoilState(canEditAtom);
   const [numberOfQuestions, setNumberOfQuestions] = useState(quiz.questions.length);
+  const [editorState, setEditorState] = useState<EditorState>(() =>
+    EditorState.createWithContent(ContentState.createFromText(quiz.description))
+  );
 
   // Callbacks to Question child
   const handleSaveQuestion = (questionData: QuestionInput) => {
@@ -28,6 +34,7 @@ const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData}: QuizFromProps) =
   const handleSaveQuiz = () => {
     setQuizData({
       title: title,
+      description: convertToRaw(editorState.getCurrentContent()).blocks[0].text,
       questions: questions,
       creator: quiz.creator
     });
@@ -77,8 +84,6 @@ const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData}: QuizFromProps) =
     }
   }
 
-  
-
   return (
     <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
       <TextField
@@ -88,6 +93,12 @@ const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData}: QuizFromProps) =
         margin="normal"
         value={title}
         onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setTitle(event.target.value)}
+      />
+      <Editor 
+        editorState={editorState} 
+        editorStyle={{border: "1px solid #e9e9e9", margin: " 1%"}} 
+        onEditorStateChange={setEditorState} 
+        // onBlur={() => handleSave(formState)}
       />
       <FormControl >
         <InputLabel id="demo-simple-select-standard-label">#Questions</InputLabel>
