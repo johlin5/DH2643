@@ -8,7 +8,6 @@ const typeDefs = gql`
     userName: String!
     password: String!
     passwordConfirmation: String
-    image: String
     biography: String
   }
 
@@ -17,14 +16,12 @@ const typeDefs = gql`
     firstName: String
     lastName: String
     userName: String!
-    image: String
     biography: String
   }
 
   input UserUpdate {
     firstName: String
     lastName: String
-    image: String
     biography: String
   }
 
@@ -34,7 +31,6 @@ const typeDefs = gql`
     userName: String!
     password: String!
     passwordConfirmation: String!
-    image: String
     biography: String
   }
 

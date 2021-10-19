@@ -1,13 +1,10 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 import { Questions } from "./questions";
 
 const quizzesSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true
-  },
-  image: {
-    type: String
   },
   description: {
     type: String

@@ -9,6 +9,7 @@ import { log, debug } from "./utils/utils";
 import express, { urlencoded, json, static as expressStatic, Request, Response } from "express";
 import expressSession from "express-session";
 import { startApolloServer } from "./graphql/appolloServer";
+import { graphqlUploadExpress } from "graphql-upload";
 import { connectDB } from "./db/dbConnector";
 import { createProxyMiddleware } from "http-proxy-middleware";
 /**
@@ -37,7 +38,7 @@ app.use(cookieParser(process.env.SECRET));
 app.use(json());
 app.use(session);
 app.use(expressStatic(publicPath));
-
+app.use(graphqlUploadExpress());
 // MIDDLEWARE DEBUG
 app.use((req: Request, res: Response, next) => {
   const cookie = req.cookies.quiz;

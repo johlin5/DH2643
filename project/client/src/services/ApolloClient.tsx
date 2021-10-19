@@ -1,4 +1,5 @@
-import { ApolloClient, InMemoryCache, createHttpLink, from } from "@apollo/client";
+import { ApolloClient, InMemoryCache, from } from "@apollo/client";
+import { createUploadLink } from "apollo-upload-client";
 import { onError } from "@apollo/client/link/error";
 import { setContext } from "@apollo/client/link/context";
 import Cookies from "js-cookie";
@@ -19,6 +20,6 @@ const authLink = setContext((_: any, { headers }: any) => {
   return { headers: { ...headers, authorization: token ? `Bearer ${token}` : "" } };
 });
 
-const httpLink = createHttpLink({ uri: "http://localhost:8080/graphql" });
+const httpLink = createUploadLink({ uri: "http://localhost:8080/graphql" });
 
 export const client = new ApolloClient({ link: from([errorLink, authLink, httpLink]), cache: new InMemoryCache() });

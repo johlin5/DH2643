@@ -17,7 +17,6 @@ const typeDefs = gql`
   type Quiz {
     id: ID!
     title: String!
-    image: String
     description: String
     questions: [Question!]!
     creator: String!
@@ -29,6 +28,7 @@ const typeDefs = gql`
     description: String
     questions: [QuestionInput]
     creator: String!
+    image: Upload
   }
 
   extend type Query {
