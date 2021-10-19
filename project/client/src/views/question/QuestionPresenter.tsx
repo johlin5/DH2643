@@ -1,25 +1,23 @@
-import { Container, TextField, Typography } from "@material-ui/core";
-import { useState, ChangeEvent } from "react";
+import { Container } from "@material-ui/core";
+import { useState } from "react";
 import { withEdit } from "../../selectors/quiz";
-import {AnswerInput, QuestionInput} from "../../utils/types";
+import { QuestionInput } from "../../utils/types";
 import { QuestionPresenterProps } from "./props";
 import QuestionForm from "./QuestionForm";
 import { useRecoilValue } from 'recoil';
-import { withUserName } from "../../selectors/account";
 
 
 const QuestionPresenter: React.FC<QuestionPresenterProps> = ({saveQuestion, handleDelete, data}: QuestionPresenterProps) => {
   // States 
   const editQuestion = useRecoilValue(withEdit);
-  const creator = useRecoilValue(withUserName);
   const [questionData, setQuestionData] = useState<QuestionInput>(data);
   
 
   // Callbacks / Handlers
-  const handleSave = (data: QuestionInput) => {
-    // console.log(data);
-    setQuestionData(data);
-    saveQuestion(data);
+  const handleSave = (QuestionFormData: QuestionInput) => {
+    console.log(QuestionFormData);
+    setQuestionData(QuestionFormData);
+    saveQuestion(QuestionFormData);
   }
 
   const handleAdd = () => {
@@ -29,7 +27,7 @@ const QuestionPresenter: React.FC<QuestionPresenterProps> = ({saveQuestion, hand
     
     setQuestionData({
       ...questionData,
-      answers: [...questionData.answers, {id: answerId, description: "", flag: "0"}]
+      answers: [...questionData.answers, {AnswerId: answerId, description: "", flag: "0"}]
     });
   }
 
