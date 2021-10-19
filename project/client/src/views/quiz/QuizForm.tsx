@@ -1,6 +1,7 @@
 import { Container, FormControl, MenuItem, TextField, InputLabel, Select, Typography } from "@material-ui/core";
 import { useState, ChangeEvent } from "react";
 import PrimaryButton from "../../components/PrimaryButton";
+import Image from "../../components/Image"
 import { PURPLE, RED, GREEN } from "../../app/theme";
 import Question from "../question/Index";
 import { QuestionInput } from "../../utils/types";
@@ -19,6 +20,16 @@ const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData}: QuizFromProps) =
   const [editorState, setEditorState] = useState<EditorState>(() =>
     EditorState.createWithContent(ContentState.createFromText(quiz.description))
   );
+  const [image, setImage] = useState(null);
+
+  const handleImageUpload = (event:any) => {
+    console.log(event.target.files[0]);
+    const file = event.target.files[0];
+    if(!file) {
+      return;
+    }
+    setImage(event.target.files[0]);
+  }
 
   // Callbacks to Question child
   const handleSaveQuestion = (questionData: QuestionInput) => {
@@ -94,6 +105,7 @@ const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData}: QuizFromProps) =
         value={title}
         onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setTitle(event.target.value)}
       />
+      <Image imageUpload={handleImageUpload}/>
       <Editor 
         editorState={editorState} 
         editorStyle={{border: "1px solid #e9e9e9", margin: " 1%"}} 
