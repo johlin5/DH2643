@@ -23,7 +23,6 @@ const DashboardPresenter: React.FC = () => {
   return (
     <DashboardView
       onPlay={(id) => {
-        console.log("play", id);
         history.push(`/play/${id}`);
       }}
       quizData={data}
