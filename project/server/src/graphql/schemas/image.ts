@@ -10,7 +10,7 @@ const typeDefs = gql`
     }
 
     extend type Query {
-        findImageByID(id: ID!): Upload!
+        findImageById(id: ID!): Upload!
     }
 
     extend type Mutation {
