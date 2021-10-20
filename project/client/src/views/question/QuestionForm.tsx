@@ -1,32 +1,17 @@
-import { Container, Typography } from "@material-ui/core";
-import { useState } from "react";
+import { Container, TextField, Typography } from "@material-ui/core";
+import { useState, ChangeEvent } from "react";
 import PrimaryButton from "../../components/PrimaryButton";
 import { RED, TURQUOISE } from "../../app/theme";
-import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { EditorState, convertToRaw, ContentState } from "draft-js";
 import { QuestionFormProps } from "./props";
 import AnswerPresenter from "../answer/AnswerPresenter";
 import { AnswerInput } from "../../utils/types"
 
 const QuestionForm: React.FC<QuestionFormProps> = ({ handleSave, handleDelete, handleAdd, data }: QuestionFormProps) => {
   // States
-  const [editorState, setEditorState] = useState<EditorState>(() =>
-    EditorState.createWithContent(ContentState.createFromText(data.question))
-  );
   const [formState, setFormState] = useState(data); 
 
-  const handleSaveQuestion = (state: EditorState) => {
-    setEditorState(state);
-    setFormState({
-      ...data,
-      question: convertToRaw(editorState.getCurrentContent()).blocks[0].text
-    });
-  }
-
   const handleSaveAnswer = (answerData: AnswerInput) => {
-    console.log("Invoking handleSaveAnswer");
-    const index = data.answers.findIndex((a) => a.id === answerData.id);
+    const index = data.answers.findIndex((a) => a.AnswerId === answerData.AnswerId);
     const newAnswers = [...data.answers];   
     newAnswers[index] = answerData;
     handleSave({
@@ -36,7 +21,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ handleSave, handleDelete, h
   }
 
   const handleDeleteAnswer = (answerData: AnswerInput) => {
-    const newAnswers = data.answers.filter( (a) => {return a.id !== answerData.id });
+    const newAnswers = data.answers.filter( (a) => {return a.AnswerId !== answerData.AnswerId });
     handleSave({
       ...data,
       answers: newAnswers
@@ -46,11 +31,23 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ handleSave, handleDelete, h
   return (
     <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
       <Typography variant="h4">Question form</Typography>
-      <Editor 
-        editorState={editorState} 
-        editorStyle={{border: "1px solid #e9e9e9", margin: " 1%"}} 
-        onEditorStateChange={handleSaveQuestion} 
-        onBlur={() => handleSave(formState)}
+      <TextField
+        id="standard-basic"
+        label="Standard"
+        variant="standard"
+        margin="normal"
+        value={formState.question}
+        onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+            setFormState({
+              ...data,
+              question: event.target.value
+            });
+          }
+        }
+        onBlur={() => {
+            handleSave(formState);
+          }
+        }
       />
       <ul>
         {data.answers.map((answer) => {

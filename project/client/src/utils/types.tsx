@@ -5,7 +5,7 @@ export type FormInputs = {
 };
 
 export type AnswerInput = {
-    id: string;
+    AnswerId: string;
     description: string; 
     flag: string; 
 }
@@ -24,5 +24,5 @@ export type QuizInput = {
     description: string;
     questions: QuestionInput[];
     creator: string; 
-}
+}   
 

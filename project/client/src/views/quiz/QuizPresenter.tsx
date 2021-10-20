@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
-import { Container, TextField, Typography } from "@material-ui/core";
-import { useState, ChangeEvent } from "react";
+import { Container, Typography } from "@material-ui/core";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { SAVE_QUIZ } from "../../services/queries/Quiz";
 import { QuizInput } from "../../utils/types";
@@ -21,15 +21,18 @@ const QuizPresenter: React.FC<QuizProps> = ({quiz}: QuizProps) => {
    * @param quizData
    */
   const saveQuiz = async (quizData: QuizInput) => {
+    const answers = quizData.questions.map( (q) => q.answers);
+    // Messy solution clean up the form data when sending it to backend. 
+    const cleanedQuestions = quizData.questions.map(({id, answers: [{AnswerId, ...AnswerRest}],...questionRest}) => questionRest);
     const response = await save({
       variables: {
         createQuizInput: {
-          ...quizData
+          ...quizData,
+          questions: cleanedQuestions
         }
       }
     });
     history.push("/");
-    // console.log(response);
   };
 
   // States 
@@ -37,13 +40,8 @@ const QuizPresenter: React.FC<QuizProps> = ({quiz}: QuizProps) => {
   const editState = useRecoilValue(withEdit);
 
   // Callbacks / Handlers 
-  const handleSetEdit = (newEditState: boolean) => {
-      console.log(newEditState ? "Edit Quiz Mode On" : "Edit Quiz Mode Off");
-  }; 
-
   const handleSetQuizData = (quizData: QuizInput) => {
     setQuizData(quizData);
-    console.log("Save to backend", quizData);
     saveQuiz(quizData);
   };
 
@@ -53,7 +51,7 @@ const QuizPresenter: React.FC<QuizProps> = ({quiz}: QuizProps) => {
   return (
     <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
       <Typography variant="h4">Create Your Own Quiz!</Typography>
-      <QuizForm setEdit={handleSetEdit} quiz={quizData} setQuizData={handleSetQuizData}/>
+      <QuizForm quiz={quizData} setQuizData={handleSetQuizData}/>
     </Container>
   );
 };

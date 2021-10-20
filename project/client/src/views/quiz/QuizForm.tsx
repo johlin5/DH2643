@@ -1,7 +1,7 @@
 import { Container, FormControl, MenuItem, TextField, InputLabel, Select, Typography } from "@material-ui/core";
 import { useState, ChangeEvent } from "react";
 import PrimaryButton from "../../components/PrimaryButton";
-import { PURPLE, RED, GREEN } from "../../app/theme";
+import { PURPLE, RED } from "../../app/theme";
 import Question from "../question/Index";
 import { QuestionInput } from "../../utils/types";
 import { QuizFromProps } from "./Props";
@@ -79,7 +79,7 @@ const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData}: QuizFromProps) =
       const questionId = Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
       .substring(1);
-      const questionData = { question: "", answers: [], id: questionId, userId: "", upvotes: 0, report: "" }
+      const questionData = { question: "", answers: [], id: questionId, userId: quiz.creator, upvotes: 0, report: "" }
       setQuestions(questions => [...questions, questionData]);
     }
   }
