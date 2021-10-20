@@ -1,17 +1,17 @@
-import { Container, Button, Typography, Grid } from "@material-ui/core";
+import { Container, Button, Typography, Grid, makeStyles, createStyles } from "@material-ui/core";
 import { Quiz } from "./GamePresenter";
 
 type GameViewProps = { quiz: Quiz | undefined };
 
 const GameView: React.FC<GameViewProps> = (props) => {
   const { quiz } = props;
-
+  const styles = useStyles();
   if (!quiz) {
     return <>No Quiz</>;
   }
 
   return (
-    <Container>
+    <Container className={styles.root}>
       {quiz?.title}
 
       {quiz.questions.map((question) => {
@@ -31,5 +31,16 @@ const GameView: React.FC<GameViewProps> = (props) => {
     </Container>
   );
 };
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    root: {
+      height: "100%",
+      minHeight: "80vh",
+      backgroundColor: "white",
+      padding: "16px"
+    }
+  })
+);
 
 export default GameView;
