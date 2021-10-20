@@ -11,7 +11,7 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { EditorState, convertToRaw, ContentState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 
-const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData}: QuizFromProps) => {
+const QuizForm: React.FC<QuizFromProps> = ({ quiz, setQuizData }: QuizFromProps) => {
   const [questions, setQuestions] = useState<QuestionInput[]>(quiz.questions);
   const [title, setTitle] = useState(quiz.title);
   const [editState, setEditState] = useRecoilState(canEditAtom);
@@ -44,26 +44,31 @@ const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData}: QuizFromProps) =
   };
 
   const handleChange = (event: any) => {
-    if(questions.length === 0) { // Initialise the question list 
+    if (questions.length === 0) {
+      // Initialise the question list
       appendQuestions(0, event.target.value);
-    } else if(event.target.value < questions.length) { // Delete questions 
-      const newQuestionList = questions.filter( (_, index) => index < event.target.value);
+    } else if (event.target.value < questions.length) {
+      // Delete questions
+      const newQuestionList = questions.filter((_, index) => index < event.target.value);
       setQuestions(newQuestionList);
-    } else { // Append questions
+    } else {
+      // Append questions
       appendQuestions(questions.length, event.target.value);
     }
     setNumberOfQuestions(event.target.value);
   };
 
   const handleDeleteQuestion = (questionData: QuestionInput) => {
-    if(questions.length <= 3){
+    if (questions.length <= 3) {
       console.log("At least 3 questions in a quiz");
-      return
+      return;
     }
-    const newQuestions = questions.filter( (q) => {return q.id !== questionData.id });
-    setQuestions(newQuestions); 
+    const newQuestions = questions.filter((q) => {
+      return q.id !== questionData.id;
+    });
+    setQuestions(newQuestions);
     setNumberOfQuestions(numberOfQuestions - 1);
-  }
+  };
 
   /** Utils */
   const updateQuestion = (index: number, data: QuestionInput) => {
@@ -79,15 +84,15 @@ const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData}: QuizFromProps) =
   const appendQuestions = (start: number, end: number) => {
     for (let index: number = start; index < end; index++) {
       const questionId = Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
-      const questionData = { question: "", answers: [], id: questionId, userId: quiz.creator, upvotes: 0, report: "" }
-      setQuestions(questions => [...questions, questionData]);
+        .toString(16)
+        .substring(1);
+      const questionData = { question: "", answers: [], id: questionId, userId: quiz.creator, upvotes: 0, report: "" };
+      setQuestions((questions) => [...questions, questionData]);
     }
-  }
+  };
 
   return (
-    <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
+    <Container component="main" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
       <TextField
         id="standard-basic"
         label="Quiz Title"
@@ -96,13 +101,13 @@ const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData}: QuizFromProps) =
         value={title}
         onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setTitle(event.target.value)}
       />
-      <Editor 
-        editorState={editorState} 
-        editorStyle={{border: "1px solid #e9e9e9", margin: " 1%"}} 
-        onEditorStateChange={setEditorState} 
+      <Editor
+        editorState={editorState}
+        editorStyle={{ border: "1px solid #e9e9e9", margin: " 1%" }}
+        onEditorStateChange={setEditorState}
         // onBlur={() => handleSave(formState)}
       />
-      <FormControl >
+      <FormControl>
         <InputLabel id="demo-simple-select-standard-label">#Questions</InputLabel>
         <Select
           labelId="demo-simple-select-standard-label"
@@ -125,16 +130,14 @@ const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData}: QuizFromProps) =
         </Select>
       </FormControl>
       <ul>
-        {
-        questions.map((question) => {
+        {questions.map((question) => {
           const id = (Math.random() + 1).toString(36).substring(7);
           return (
             <li key={id}>
               <Question saveQuestion={handleSaveQuestion} handleDelete={handleDeleteQuestion} data={question} />
             </li>
           );
-        })
-        }
+        })}
       </ul>
       {/* <PrimaryButton
         text="Add # Questions"
@@ -144,15 +147,17 @@ const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData}: QuizFromProps) =
         onClick={() => addQuestion({ question: "", answers: [], id: "", userId: "", upvotes: 0, report: "" })}
       /> */}
       <PrimaryButton text="Save Quiz" color={PURPLE} variant="h6" height="48px" onClick={() => handleSaveQuiz()} />
-      {editState && <PrimaryButton
-        text="Delete Quiz"
-        color={RED}
-        variant="h6"
-        height="48px"
-        onClick={() => {
-          /** Add function that handles deletion */
-        }}
-      />}
+      {editState && (
+        <PrimaryButton
+          text="Delete Quiz"
+          color={RED}
+          variant="h6"
+          height="48px"
+          onClick={() => {
+            /** Add function that handles deletion */
+          }}
+        />
+      )}
     </Container>
   );
 };
