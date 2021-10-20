@@ -1,33 +1,36 @@
 import { Container, Button, Typography, Grid, makeStyles, createStyles } from "@material-ui/core";
-import { Quiz } from "./GamePresenter";
+import { Quiz, Question } from "./GamePresenter";
+import QuestionView from "./QuestionView";
 
-type GameViewProps = { quiz: Quiz | undefined };
+type GameViewProps = {
+  question: Question | undefined;
+  onAnswer: (answer: boolean) => void;
+  currentQuestion: number;
+  totalQuestions: number;
+  previusQuestion: () => void;
+  nextQuestion: () => void;
+  onSubmit: () => void;
+};
 
 const GameView: React.FC<GameViewProps> = (props) => {
-  const { quiz } = props;
+  const { question, onAnswer, currentQuestion, totalQuestions, previusQuestion, nextQuestion, onSubmit } = props;
   const styles = useStyles();
-  if (!quiz) {
-    return <>No Quiz</>;
+
+  if (!question) {
+    return <>No Question</>;
   }
 
   return (
     <Container className={styles.root}>
-      {quiz?.title}
-
-      {quiz.questions.map((question) => {
-        return (
-          <div key={question.id}>
-            <Typography variant="h3">{question.question}</Typography>
-            {question.answers.map((answer) => {
-              return (
-                <Button variant="outlined" key={answer.id}>
-                  {answer.description}
-                </Button>
-              );
-            })}
-          </div>
-        );
-      })}
+      <QuestionView question={question} onAnswer={onAnswer} />
+      <>
+        Question {currentQuestion + 1} out of {totalQuestions}
+        <div>
+          <Button onClick={previusQuestion}>{"< Previous"}</Button>
+          <Button onClick={nextQuestion}>{" Next >"}</Button>
+        </div>
+        {totalQuestions === currentQuestion + 1 && <Button onClick={onSubmit}>Submit</Button>}
+      </>
     </Container>
   );
 };
