@@ -1,9 +1,9 @@
 import { Container, FormControl, MenuItem, TextField, InputLabel, Select, Typography } from "@material-ui/core";
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useEffect } from "react";
 import PrimaryButton from "../../components/PrimaryButton";
 import { PURPLE, RED } from "../../app/theme";
 import Question from "../question/Index";
-import { QuestionInput } from "../../utils/types";
+import { QuestionInput, QuestionType } from "../../utils/types";
 import { QuizFromProps } from "./Props";
 import { useRecoilState } from "recoil";
 import { canEditAtom } from "../../atoms/quiz";
@@ -12,23 +12,19 @@ import { EditorState, convertToRaw, ContentState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 
 const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData}: QuizFromProps) => {
-  const [questions, setQuestions] = useState<QuestionInput[]>(quiz.questions);
-  const [title, setTitle] = useState(quiz.title);
   const [editState, setEditState] = useRecoilState(canEditAtom);
+  const [questions, setQuestions] = useState<QuestionType[]>(quiz.questions);
+  const [title, setTitle] = useState(quiz.title);
   const [numberOfQuestions, setNumberOfQuestions] = useState(quiz.questions.length);
   const [editorState, setEditorState] = useState<EditorState>(() =>
     EditorState.createWithContent(ContentState.createFromText(quiz.description))
   );
 
   // Callbacks to Question child
-  const handleSaveQuestion = (questionData: QuestionInput) => {
-    const existingQuestion = questions.find((q) => q.id === questionData.id);
-    if (existingQuestion) {
-      const index = questions.findIndex((q) => q.id === questionData.id);
-      updateQuestion(index, questionData);
-    } else {
-      addQuestion(questionData);
-    }
+  const handleSaveQuestion = (index: number, questionData: QuestionType) => {
+    const newQuestions = [...questions]; // copying the old datas array
+    newQuestions[index] = questionData; // replace old data with new
+    setQuestions(newQuestions);
   };
 
   const handleSaveQuiz = () => {
@@ -53,33 +49,25 @@ const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData}: QuizFromProps) =
     setNumberOfQuestions(event.target.value);
   };
 
-  const handleDeleteQuestion = (questionData: QuestionInput) => {
+  const handleDeleteQuestion = (index: number) => {
     if(questions.length <= 3){
       console.log("At least 3 questions in a quiz");
       return
     }
-    const newQuestions = questions.filter( (q) => {return q.id !== questionData.id });
+    const newQuestions = questions.filter( (_, i) => {return i !== index });
     setQuestions(newQuestions); 
     setNumberOfQuestions(numberOfQuestions - 1);
   }
 
   /** Utils */
-  const updateQuestion = (index: number, data: QuestionInput) => {
-    const newQuestions = [...questions]; // copying the old datas array
-    newQuestions[index] = data; // replace old data with new
-    setQuestions(newQuestions);
-  };
 
-  const addQuestion = (questionData: QuestionInput) => {
+  const addQuestion = (questionData: QuestionType) => {
     setQuestions([...questions, questionData]);
   };
 
   const appendQuestions = (start: number, end: number) => {
     for (let index: number = start; index < end; index++) {
-      const questionId = Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
-      const questionData = { question: "", answers: [], id: questionId, userId: quiz.creator, upvotes: 0, report: "" }
+      const questionData = { question: "" + index, answers: [], userId: quiz.creator, upvotes: 0, report: "" }
       setQuestions(questions => [...questions, questionData]);
     }
   }
@@ -124,11 +112,11 @@ const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData}: QuizFromProps) =
       </FormControl>
       <ul>
         {
-        questions.map((question) => {
-          const id = (Math.random() + 1).toString(36).substring(7);
+        questions.map((question, index) => {
+          // const id = (Math.random() + 1).toString(36).substring(7);
           return (
-            <li key={id}>
-              <Question saveQuestion={handleSaveQuestion} handleDelete={handleDeleteQuestion} data={question} />
+            <li key={index}>
+              <Question handleSave={handleSaveQuestion} handleDelete={handleDeleteQuestion} data={question} index={index}/>
             </li>
           );
         })

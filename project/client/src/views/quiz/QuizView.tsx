@@ -13,8 +13,8 @@ const QuizView: React.FC<QuizProps> = ({quiz}: QuizProps) => {
 
   return (
     <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
-      <Typography variant="h4">{quiz.title}</Typography>
-      <ul>
+      {/* <Typography variant="h4">{quiz.title}</Typography> */}
+      {/* <ul>
             {
               quiz.questions.map( (question) => {
                   return <li>
@@ -23,7 +23,7 @@ const QuizView: React.FC<QuizProps> = ({quiz}: QuizProps) => {
               }) 
             }
       </ul>
-      {editState && <PrimaryButton text="Edit Quiz" color={GREEN} variant="h6" height="48px" onClick={() => setEditState(true)} /> }
+      {editState && <PrimaryButton text="Edit Quiz" color={GREEN} variant="h6" height="48px" onClick={() => setEditState(true)} /> } */}
     </Container>
   );
 };

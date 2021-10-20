@@ -1,26 +1,28 @@
 import { Container } from "@material-ui/core";
 import React, { useState } from "react";
-import { AnswerInput } from "utils/types";
-import { AnswerPresenterProps } from "./props";
+import { AnswerType } from "utils/types";
+import { AnswerProps } from "./props";
 import AnswerForm from "./AnswerForm";
 
 
-const AnswerPresenter: React.FC<AnswerPresenterProps> = ({
+const AnswerPresenter: React.FC<AnswerProps> = ({
   handleSave,
   handleDelete,
-  data
-}: AnswerPresenterProps) => {
+  data,
+  index
+}: AnswerProps) => {
   // States
   const [answerData, setAnswerData] = useState(data);
 
-  const saveAnswer = (data: AnswerInput) => {
+  const saveAnswer = (index: number, data: AnswerType) => {
+    console.log("AnswerPresenter save")
     setAnswerData(data);
-    handleSave(data);
+    handleSave(index, data);
   }
   
   return (
     <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
-      <AnswerForm saveAnswer={saveAnswer} deleteAnswer={handleDelete} data={data} />
+      <AnswerForm handleSave={saveAnswer} handleDelete={handleDelete} data={answerData} index={index} />
     </Container>
   );
 };

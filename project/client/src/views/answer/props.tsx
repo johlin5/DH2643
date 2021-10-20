@@ -1,15 +1,8 @@
-import { AnswerInput } from "../../utils/types";
+import { AnswerInput, AnswerType } from "../../utils/types";
 
 export interface AnswerProps {
-  data: AnswerInput;
-}
-
-export interface AnswerPresenterProps extends AnswerProps {
-  handleSave: (answerData: AnswerInput) => void;
-  handleDelete: (answerData: AnswerInput) => void;
-}
-
-export interface AnswerFormProps extends AnswerProps {
-  saveAnswer: (answerData: AnswerInput) => void;
-  deleteAnswer: (answerData: AnswerInput) => void;
+  data: AnswerType;
+  index: number;
+  handleSave: (index: number, answerData: AnswerType) => void;
+  handleDelete: (index: number) => void;
 }

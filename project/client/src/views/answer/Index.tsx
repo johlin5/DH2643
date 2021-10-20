@@ -1,13 +1,13 @@
 import { Container } from "@material-ui/core";
-import { AnswerPresenterProps } from "./props";
 import AnswerPresenter from "./AnswerPresenter";
+import { AnswerProps } from "./props";
 
-// const Answer: React.FC<AnswerPresenterProps> = ({ saveAnswerData, deleteAnswer, data }: AnswerPresenterProps) => {
-//   return (
-//     <Container>
-//       <AnswerPresenter saveAnswerData={saveAnswerData} deleteAnswer={deleteAnswer} data={data} />
-//     </Container>
-//   );
-// };
+const Answer: React.FC<AnswerProps> = ({ handleSave, handleDelete, data, index }: AnswerProps) => {
+  return (
+    <Container>
+      <AnswerPresenter handleSave={handleSave} handleDelete={handleDelete} data={data} index={index} />
+    </Container>
+  );
+};
 
-// export default Answer;
+export default Answer;

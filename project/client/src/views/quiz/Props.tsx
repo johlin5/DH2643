@@ -1,9 +1,9 @@
-import { QuizInput } from "utils/types";
+import { QuizType } from "utils/types";
 
 export interface QuizProps {
-    quiz: QuizInput;
+    quiz: QuizType;
 }
 
 export interface QuizFromProps extends QuizProps {
-  setQuizData: (quizData: QuizInput) => void;
+  setQuizData: (quizData: QuizType) => void;
 }

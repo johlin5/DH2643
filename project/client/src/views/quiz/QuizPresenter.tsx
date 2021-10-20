@@ -3,7 +3,7 @@ import { Container, Typography } from "@material-ui/core";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { SAVE_QUIZ } from "../../services/queries/Quiz";
-import { QuizInput } from "../../utils/types";
+import { QuizType } from "../../utils/types";
 import QuizForm from "./QuizForm";
 import { QuizProps } from "./Props";
 import { withEdit } from "../../selectors/quiz";
@@ -20,28 +20,27 @@ const QuizPresenter: React.FC<QuizProps> = ({quiz}: QuizProps) => {
    * react useState.
    * @param quizData
    */
-  const saveQuiz = async (quizData: QuizInput) => {
-    const answers = quizData.questions.map( (q) => q.answers);
-    // Messy solution clean up the form data when sending it to backend. 
-    const cleanedQuestions = quizData.questions.map(({id, answers: [{AnswerId, ...AnswerRest}],...questionRest}) => questionRest);
+  const saveQuiz = async (quizData: QuizType) => {
+    console.log(quizData);
+
     const response = await save({
       variables: {
         createQuizInput: {
-          ...quizData,
-          questions: cleanedQuestions
+          ...quizData
         }
       }
     });
-    history.push("/");
+    // history.push("/");
   };
 
   // States 
-  const [quizData, setQuizData] = useState<QuizInput>(quiz)
+  const [quizData, setQuizData] = useState<QuizType>(quiz)
   const editState = useRecoilValue(withEdit);
 
   // Callbacks / Handlers 
-  const handleSetQuizData = (quizData: QuizInput) => {
+  const handleSetQuizData = (quizData: QuizType) => {
     setQuizData(quizData);
+    // console.log(quizData);
     saveQuiz(quizData);
   };
 

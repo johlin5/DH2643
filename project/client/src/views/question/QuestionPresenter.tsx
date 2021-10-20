@@ -1,43 +1,38 @@
 import { Container } from "@material-ui/core";
 import { useState } from "react";
 import { withEdit } from "../../selectors/quiz";
-import { QuestionInput } from "../../utils/types";
-import { QuestionPresenterProps } from "./props";
+import { QuestionInput, QuestionType } from "../../utils/types";
+import { QuestionProps } from "./props";
 import QuestionForm from "./QuestionForm";
 import { useRecoilValue } from 'recoil';
 
 
-const QuestionPresenter: React.FC<QuestionPresenterProps> = ({saveQuestion, handleDelete, data}: QuestionPresenterProps) => {
+const QuestionPresenter: React.FC<QuestionProps> = ({handleSave, handleDelete, data, index}: QuestionProps) => {
   // States 
-  const editQuestion = useRecoilValue(withEdit);
-  const [questionData, setQuestionData] = useState<QuestionInput>(data);
+  const [questionData, setQuestionData] = useState<QuestionType>(data);
+  const [qIndex, _] = useState(index);
   
-
   // Callbacks / Handlers
-  const handleSave = (QuestionFormData: QuestionInput) => {
-    console.log(QuestionFormData);
+  const handleSaveForm = (index: number, QuestionFormData: QuestionType) => {
     setQuestionData(QuestionFormData);
-    saveQuestion(QuestionFormData);
+    handleSave(index, QuestionFormData);
   }
 
   const handleAdd = () => {
-    const answerId = Math.floor((1 + Math.random()) * 0x10000)
-    .toString(16)
-    .substring(1);
-    
     setQuestionData({
       ...questionData,
-      answers: [...questionData.answers, {AnswerId: answerId, description: "", flag: "0"}]
+      answers: [...questionData.answers, {description: "", flag: false}]
     });
   }
 
   return (
     <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
       <QuestionForm 
-        handleSave={handleSave} 
+        handleSave={handleSaveForm} 
         handleDelete={handleDelete}
         handleAdd={handleAdd} 
-        data={questionData!}/>
+        data={questionData!}
+        index={qIndex}/>
     </Container>
   );
 };

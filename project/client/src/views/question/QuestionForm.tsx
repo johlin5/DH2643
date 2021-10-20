@@ -4,25 +4,26 @@ import PrimaryButton from "../../components/PrimaryButton";
 import { RED, TURQUOISE } from "../../app/theme";
 import { QuestionFormProps } from "./props";
 import AnswerPresenter from "../answer/AnswerPresenter";
-import { AnswerInput } from "../../utils/types"
+import { AnswerInput, AnswerType } from "../../utils/types"
 
-const QuestionForm: React.FC<QuestionFormProps> = ({ handleSave, handleDelete, handleAdd, data }: QuestionFormProps) => {
+const QuestionForm: React.FC<QuestionFormProps> = ({ handleSave, handleDelete, handleAdd, data, index }: QuestionFormProps) => {
   // States
   const [formState, setFormState] = useState(data); 
 
-  const handleSaveAnswer = (answerData: AnswerInput) => {
-    const index = data.answers.findIndex((a) => a.AnswerId === answerData.AnswerId);
+  const handleSaveAnswer = (index: number, answerData: AnswerType) => {
+    // const index = data.answers.findIndex((a) => a.AnswerId === answerData.AnswerId);
+    
     const newAnswers = [...data.answers];   
     newAnswers[index] = answerData;
-    handleSave({
+    handleSave(index, {
       ...data, 
       answers: newAnswers
     })
   }
 
-  const handleDeleteAnswer = (answerData: AnswerInput) => {
-    const newAnswers = data.answers.filter( (a) => {return a.AnswerId !== answerData.AnswerId });
-    handleSave({
+  const handleDeleteAnswer = (index: number) => {
+    const newAnswers = data.answers.filter( (_, i) => {return i !== index });
+    handleSave(index, {
       ...data,
       answers: newAnswers
     });
@@ -45,16 +46,16 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ handleSave, handleDelete, h
           }
         }
         onBlur={() => {
-            handleSave(formState);
+            handleSave(index, formState);
           }
         }
       />
       <ul>
-        {data.answers.map((answer) => {
+        {data.answers.map((answer, index) => {
           const id = (Math.random() + 1).toString(36).substring(7);
           return (
             <li key={id}>
-              <AnswerPresenter handleSave={handleSaveAnswer} handleDelete={handleDeleteAnswer} data={answer} />
+              <AnswerPresenter handleSave={handleSaveAnswer} handleDelete={handleDeleteAnswer} data={answer} index={index} />
             </li>
           );
         })}
@@ -72,7 +73,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ handleSave, handleDelete, h
         color={RED}
         variant="h6"
         height="48px"
-        onClick={() => handleDelete(formState)}
+        onClick={() => handleDelete(index)}
       />
     </Container>
   );

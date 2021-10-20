@@ -26,3 +26,23 @@ export type QuizInput = {
     creator: string; 
 }   
 
+export type AnswerType = {
+    description: string; 
+    flag: Boolean; 
+}
+
+export type QuestionType = {
+    question: string;
+    userId: string | null;
+    answers: AnswerType[];
+    upvotes: number;
+    report: string;
+}
+
+export type QuizType = {
+    title: string;
+    description: string;
+    questions: QuestionType[];
+    creator: string; 
+}   
+

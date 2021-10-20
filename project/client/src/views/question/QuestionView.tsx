@@ -12,12 +12,12 @@ import { QuestionInput } from "../../utils/types";
 import { useRecoilState } from "recoil";
 import { canEditAtom } from "../../atoms/quiz";
 
-const QuestionView: React.FC<QuestionProps> = ({ data }: QuestionProps) => {
+const QuestionView: React.FC = () => {
   const [editState, setEditState] = useRecoilState(canEditAtom);
 
   return (
     <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
-      <Typography variant="h4">{data.question}</Typography>
+      {/* <Typography variant="h4">{data.question}</Typography>
       <ul>
         {data.answers.map((answer) => {
           return (
@@ -31,7 +31,7 @@ const QuestionView: React.FC<QuestionProps> = ({ data }: QuestionProps) => {
       <h6>Upvotes: {data.upvotes}</h6>
       {editState && (
         <PrimaryButton text="Edit Question" color={GREEN} variant="h6" height="48px" onClick={() => setEditState(true)} />
-      )}
+      )} */}
     </Container>
   );
 };

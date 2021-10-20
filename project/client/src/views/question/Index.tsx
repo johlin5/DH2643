@@ -1,11 +1,11 @@
 import { Container } from "@material-ui/core";
-import {QuestionPresenterProps} from "./props";
+import {QuestionProps} from "./props";
 import QuestionPresenter from "./QuestionPresenter";
 
-const Question: React.FC<QuestionPresenterProps> = ({saveQuestion, handleDelete, data}: QuestionPresenterProps) => {
+const Question: React.FC<QuestionProps> = ({handleSave, handleDelete, data, index}: QuestionProps) => {
   return (
     <Container>
-      <QuestionPresenter saveQuestion={saveQuestion} handleDelete={handleDelete} data={data}/>
+      <QuestionPresenter handleSave={handleSave} handleDelete={handleDelete} data={data} index={index}/>
     </Container>
   );
 };
