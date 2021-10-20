@@ -1,7 +1,7 @@
 
 
 export default {
-    upLoadImage: async (_: any, { file,id }: any) => {
+    uploadImage: async (_: any, { file,id }: any) => {
         console.log(file);
         console.log(id);
         const { createReadStream, filename, mimetype, encoding } = await file;

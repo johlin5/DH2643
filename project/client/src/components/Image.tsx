@@ -5,7 +5,9 @@ import { PURPLE, RED, GREEN } from "../app/theme";
 const Image: React.FC<any> = ({imageUpload}:any) => {
 
     return (
-        <PrimaryButton text="Upload image" color={PURPLE} variant="h6" height="48px" onClick={imageUpload}/>
+        <div>
+            <input accept="image/*" type="file" name={"Upload image"} onChange={imageUpload}/>
+        </div>
     )
 }
 

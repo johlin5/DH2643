@@ -12,7 +12,7 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { EditorState, convertToRaw, ContentState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 
-const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData}: QuizFromProps) => {
+const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData, setImageData}: QuizFromProps) => {
   const [questions, setQuestions] = useState<QuestionInput[]>(quiz.questions);
   const [title, setTitle] = useState(quiz.title);
   const [editState, setEditState] = useRecoilState(canEditAtom);
@@ -20,16 +20,6 @@ const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData}: QuizFromProps) =
   const [editorState, setEditorState] = useState<EditorState>(() =>
     EditorState.createWithContent(ContentState.createFromText(quiz.description))
   );
-  const [image, setImage] = useState(null);
-
-  const handleImageUpload = (event:any) => {
-    console.log(event.target.files[0]);
-    const file = event.target.files[0];
-    if(!file) {
-      return;
-    }
-    setImage(event.target.files[0]);
-  }
 
   // Callbacks to Question child
   const handleSaveQuestion = (questionData: QuestionInput) => {
@@ -105,7 +95,7 @@ const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData}: QuizFromProps) =
         value={title}
         onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setTitle(event.target.value)}
       />
-      <Image imageUpload={handleImageUpload}/>
+      <Image imageUpload={setImageData}/>
       <Editor 
         editorState={editorState} 
         editorStyle={{border: "1px solid #e9e9e9", margin: " 1%"}} 
