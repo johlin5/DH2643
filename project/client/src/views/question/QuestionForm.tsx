@@ -17,7 +17,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ handleSave, handleDelete, h
     handleSave({
       ...data, 
       answers: newAnswers
-    })
+    });
   }
 
   const handleDeleteAnswer = (answerData: AnswerInput) => {
@@ -33,7 +33,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ handleSave, handleDelete, h
       <Typography variant="h4">Question form</Typography>
       <TextField
         id="standard-basic"
-        label="Standard"
+        label="Your question is...."
         variant="standard"
         margin="normal"
         value={formState.question}
@@ -46,8 +46,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ handleSave, handleDelete, h
         }
         onBlur={() => {
             handleSave(formState);
-          }
-        }
+        }}
       />
       <ul>
         {data.answers.map((answer) => {

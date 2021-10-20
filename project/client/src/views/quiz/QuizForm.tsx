@@ -32,10 +32,12 @@ const QuizForm: React.FC<QuizFromProps> = ({quiz, setQuizData}: QuizFromProps) =
   };
 
   const handleSaveQuiz = () => {
+    const answers = questions.map( q => q.answers.map( ({AnswerId, ...answer})  => answer ));
+    const cleanQuestions = questions.map( ({id, ...q}, index) => ({...q, answers: answers[index]}) );
     setQuizData({
       title: title,
       description: convertToRaw(editorState.getCurrentContent()).blocks[0].text,
-      questions: questions,
+      questions: cleanQuestions,
       creator: quiz.creator
     });
     setEditState(false);

@@ -21,14 +21,10 @@ const QuizPresenter: React.FC<QuizProps> = ({quiz}: QuizProps) => {
    * @param quizData
    */
   const saveQuiz = async (quizData: QuizInput) => {
-    const answers = quizData.questions.map( (q) => q.answers);
-    // Messy solution clean up the form data when sending it to backend. 
-    const cleanedQuestions = quizData.questions.map(({id, answers: [{AnswerId, ...AnswerRest}],...questionRest}) => questionRest);
     const response = await save({
       variables: {
         createQuizInput: {
-          ...quizData,
-          questions: cleanedQuestions
+          ...quizData
         }
       }
     });
@@ -42,6 +38,7 @@ const QuizPresenter: React.FC<QuizProps> = ({quiz}: QuizProps) => {
   // Callbacks / Handlers 
   const handleSetQuizData = (quizData: QuizInput) => {
     setQuizData(quizData);
+    console.log(quizData);
     saveQuiz(quizData);
   };
 

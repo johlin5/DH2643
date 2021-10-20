@@ -5,13 +5,13 @@ export type FormInputs = {
 };
 
 export type AnswerInput = {
-    AnswerId: string;
+    AnswerId?: string;
     description: string; 
-    flag: string; 
+    flag: Boolean; 
 }
 
 export type QuestionInput = {
-    id: string;
+    id?: string;
     question: string;
     userId: string | null;
     answers: AnswerInput[];
