@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 
 export const UPLOAD_IMAGE = gql`
     mutation uploadImage($image: Upload!, $id: ID!) {
@@ -15,3 +16,12 @@ export const FETCH_IMAGE_BY_ID = gql`
         }
     }
 `
+
+export const uploadImage = (image:any) => {
+    const [upload, { data, loading, error }] = useMutation(UPLOAD_IMAGE);
+
+}
+
+export const loadImage = (id:any) => {
+    const [load, { data, loading, error }] = useMutation(FETCH_IMAGE_BY_ID);
+}
