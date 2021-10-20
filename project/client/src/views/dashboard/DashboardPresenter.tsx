@@ -7,7 +7,8 @@ import { useHistory } from "react-router-dom";
 export type Quiz = {
   id: string;
   title: string;
-  author: string;
+  creator: string;
+  description: string;
 };
 
 export type QuizData = { findAllQuiz: Quiz[] };

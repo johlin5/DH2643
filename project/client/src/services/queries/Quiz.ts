@@ -22,6 +22,7 @@ export const FETCH_ALL_QUIZES = gql`
     findAllQuiz {
       id
       title
+      description
       questions {
         id
         question
@@ -31,6 +32,7 @@ export const FETCH_ALL_QUIZES = gql`
           flag
         }
       }
+      creator
     }
   }
 `;
