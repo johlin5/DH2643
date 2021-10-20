@@ -8,22 +8,24 @@ import { withEdit } from "../../selectors/quiz";
 import { useRecoilState } from "recoil";
 import { canEditAtom } from "../../atoms/quiz";
 
-const QuizView: React.FC<QuizProps> = ({quiz}: QuizProps) => {
+const QuizView: React.FC<QuizProps> = ({ quiz }: QuizProps) => {
   const [editState, setEditState] = useRecoilState(canEditAtom);
 
   return (
-    <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
+    <Container component="main" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
       <Typography variant="h4">{quiz.title}</Typography>
       <ul>
-            {
-              quiz.questions.map( (question) => {
-                  return <li>
-                      <QuestionView data={question}/>
-                  </li>
-              }) 
-            }
+        {quiz.questions.map((question) => {
+          return (
+            <li>
+              <QuestionView data={question} />
+            </li>
+          );
+        })}
       </ul>
-      {editState && <PrimaryButton text="Edit Quiz" color={GREEN} variant="h6" height="48px" onClick={() => setEditState(true)} /> }
+      {editState && (
+        <PrimaryButton text="Edit Quiz" color={GREEN} variant="h6" height="48px" onClick={() => setEditState(true)} />
+      )}
     </Container>
   );
 };
