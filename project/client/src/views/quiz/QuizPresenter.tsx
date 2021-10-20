@@ -34,10 +34,7 @@ const QuizPresenter: React.FC<QuizProps> = ({quiz}: QuizProps) => {
       }
     });
     history.push("/");
-<<<<<<< HEAD
-=======
     console.log(response);
->>>>>>> some updates
   };
 
   // States 
@@ -46,9 +43,6 @@ const QuizPresenter: React.FC<QuizProps> = ({quiz}: QuizProps) => {
   const editState = useRecoilValue(withEdit);
 
   // Callbacks / Handlers 
-<<<<<<< HEAD
-=======
-
   const handleImageUpload = (event: any) => {
     const image = event.target.files[0];
     if(!image) {
@@ -62,7 +56,6 @@ const QuizPresenter: React.FC<QuizProps> = ({quiz}: QuizProps) => {
       console.log(newEditState ? "Edit Quiz Mode On" : "Edit Quiz Mode Off");
   }; 
 
->>>>>>> some updates
   const handleSetQuizData = (quizData: QuizInput) => {
     setQuizData(quizData);
     saveQuiz(quizData);
@@ -74,11 +67,7 @@ const QuizPresenter: React.FC<QuizProps> = ({quiz}: QuizProps) => {
   return (
     <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
       <Typography variant="h4">Create Your Own Quiz!</Typography>
-<<<<<<< HEAD
-      <QuizForm quiz={quizData} setQuizData={handleSetQuizData}/>
-=======
       <QuizForm setEdit={handleSetEdit} quiz={quizData} setQuizData={handleSetQuizData} setImageData={handleImageUpload}/>
->>>>>>> some updates
     </Container>
   );
 };
