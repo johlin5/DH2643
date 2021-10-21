@@ -1,32 +1,35 @@
 import { Container, Button, Typography, Grid, makeStyles, createStyles } from "@material-ui/core";
 import { Question } from "./GamePresenter";
+import { RED, WHITE, SAND } from "../../app/theme";
 
 type QuestionViewProps = {
   question: Question | undefined;
-  onAnswer: (correct: boolean) => void;
+  answer: string;
+  onAnswer: (correctId: string) => void;
 };
 
 const QuestionView: React.FC<QuestionViewProps> = (props) => {
-  const { question, onAnswer } = props;
+  const { question, onAnswer, answer } = props;
   const styles = useStyles();
+
   if (!question) {
     return <>No Quiz</>;
   }
 
   return (
-    <div key={question.id}>
-      <Typography variant="h6">{question.question}</Typography>
-      {question.answers.map((answer) => {
+    <div key={question.id} className={styles.root}>
+      <Typography variant="h4">{question.question}</Typography>
+      {question.answers.map((ans) => {
         return (
           <Button
             variant="contained"
             onClick={() => {
-              onAnswer(answer.flag);
+              onAnswer(ans.id);
             }}
-            className={styles.button}
-            key={answer.id}
+            className={answer === ans.id ? styles.buttonSelected : styles.button}
+            key={ans.id}
           >
-            {answer.description}
+            {ans.description}
           </Button>
         );
       })}
@@ -36,7 +39,9 @@ const QuestionView: React.FC<QuestionViewProps> = (props) => {
 
 const useStyles = makeStyles(() =>
   createStyles({
-    button: { padding: "8px" }
+    button: { margin: "8px", color: WHITE, backgroundColor: RED },
+    buttonSelected: { margin: "8px", color: WHITE, backgroundColor: SAND },
+    root: { textAlign: "center" }
   })
 );
 
