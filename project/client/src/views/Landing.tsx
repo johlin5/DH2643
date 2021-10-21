@@ -1,4 +1,4 @@
-import { Grid, Container, makeStyles, createStyles, Typography, Button } from "@material-ui/core";
+import { Grid, Container, makeStyles, createStyles, Typography, Button, TextField } from "@material-ui/core";
 import { PURPLE, WHITE, SAND, GREEN, TURQUOISE } from "../app/theme";
 import PrimaryButton from "../components/PrimaryButton";
 import { useHistory } from "react-router-dom";
@@ -6,56 +6,58 @@ import { useHistory } from "react-router-dom";
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
-      backgroundColor: SAND,
-      color: WHITE,
+      backgroundColor: WHITE,
+      color: PURPLE,
       height: "100vh",
       width: "100%"
     },
     button: {
       textTransform: "none",
       height: "100px"
+    },
+    centerContent: {
+      backgroundColor: WHITE,
+      padding: "16px",
+      marginTop: "32px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
     }
   })
 );
 
 const Landing: React.FC = () => {
-  const classes = useStyles();
   const history = useHistory();
+
   return (
-    <>
-      <div className={classes.root}>
-        <Container>
-          <Grid container spacing={1}>
-            <Grid item xs={3}></Grid>
-            <Grid item xs={6}>
-              <Typography variant="h2">Quiz</Typography>
-            </Grid>
-            <Grid item xs={3}></Grid>
-            <Grid item xs={3}></Grid>
-            <Grid item xs={3}>
-              <Button
-                onClick={() => {
-                  history.push("/login");
-                }}
-              >
-                Login
-              </Button>
-            </Grid>
-            <Grid item xs={3}>
-              <Button
-                onClick={() => {
-                  history.push("/register");
-                }}
-              >
-                Register
-              </Button>{" "}
-            </Grid>
-            <Grid item xs={3}></Grid>
-          </Grid>
-        </Container>
-      </div>
-    </>
+    <Container component="main" maxWidth="xs" style={{backgroundColor: "white", padding: "16px", marginTop: "32px"}}>
+      <Grid container direction={"column"} spacing={2}>
+        <Grid item>
+          <Typography variant="h4">Quiz-it</Typography>
+        </Grid>
+        <Grid item>
+          <PrimaryButton
+            type="submit"
+            text="Already a user?"
+            color={PURPLE}
+            variant="h5"
+            height="48px"
+            onClick={() => history.push("/login")}
+          />
+        </Grid>
+        <Grid item>
+          <PrimaryButton
+            type="submit"
+            text="Register new user"
+            color={PURPLE}
+            variant="h5"
+            height="48px"
+            onClick={() => history.push("/register")}
+          />
+        </Grid>
+      </Grid>
+    </Container>
   );
-};
+}
 
 export default Landing;
