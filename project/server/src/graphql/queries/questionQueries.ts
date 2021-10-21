@@ -1,6 +1,6 @@
 import * as type from "../../utils/types";
 import { Questions } from "../../db/models/questions";
-import { validateContext, validateObjectID } from "../validations/validators";
+import { validateContext, validateObjectID } from "../../validations/validators";
 
 export default {
   findQuestionById: async (_parent: unknown, { id }: type.Id, context: any): Promise<unknown> => {

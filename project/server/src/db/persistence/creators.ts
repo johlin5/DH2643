@@ -1,6 +1,7 @@
 import { Users, UserDoc } from "../models/users";
 import { Questions } from "../models/questions";
 import { Quizzes } from "../models/quizzes";
+import { History, HistoryDoc } from "../models/history";
 import { UserInput } from "../../utils/types";
 
 export const createNewUser = async (
@@ -43,4 +44,16 @@ export const createQuiz = async (input) => {
   newQuiz.id = newQuiz._id;
   await newQuiz.save();
   return newQuiz;
+};
+
+export const createHistory = async (input, userId): Promise<HistoryDoc> => {
+  const newHistory = new History({
+    quizId: input.quizId,
+    score: input.score,
+    userId: userId,
+    date: new Date().toString()
+  });
+  newHistory.id = newHistory._id;
+  await newHistory.save();
+  return newHistory;
 };

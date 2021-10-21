@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { hash } from "bcrypt";
-import { debug } from "../../utils/utils";
+import { debug } from "../utils/utils";
 
 const saltRounds = 10;
 const debugIsAuth = debug.extend("isAuth");
@@ -34,6 +34,7 @@ export const isAuth = (request: any) => {
 };
 
 export const generateNewToken = (userId: string): string => {
+  debugIsAuth("GENERATETOKEN: %s", userId);
   return jwt.sign({ userId: userId, date: new Date() }, process.env.SECRET);
 };
 
