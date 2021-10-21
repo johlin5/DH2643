@@ -27,7 +27,7 @@ const QuestionPresenter: React.FC<QuestionPresenterProps> = ({saveQuestion, hand
     
     setQuestionData({
       ...questionData,
-      answers: [...questionData.answers, {AnswerId: answerId, description: "", flag: "0"}]
+      answers: [...questionData.answers, {AnswerId: answerId, description: "", flag: false}]
     });
   }
 

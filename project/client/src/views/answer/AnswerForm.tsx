@@ -12,7 +12,7 @@ const AnswerForm: React.FC<AnswerFormProps> = ({ saveAnswer, deleteAnswer, data 
       <Typography variant="h4">Answer</Typography>
       <TextField
         id="standard-basic"
-        label="Standard"
+        label="Answer"
         variant="standard"
         margin="normal"
         value={formState.description}
@@ -28,10 +28,10 @@ const AnswerForm: React.FC<AnswerFormProps> = ({ saveAnswer, deleteAnswer, data 
       <Select
         labelId="flag_id"
         id="flag_id"
-        value={formState.flag}
+        value={formState.flag ? "1" : "0"}
         defaultValue={0}
         onChange={(event: any) => {
-          setFormState({ ...data, flag: event.target.value });
+          setFormState({ ...data, flag: event.target.value === "0" ? false : true });
           }
         }
         onBlur={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
