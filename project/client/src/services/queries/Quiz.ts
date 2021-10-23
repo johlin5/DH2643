@@ -17,6 +17,17 @@ export const SAVE_QUIZ = gql`
   }
 `;
 
+export const UPDATE_QUIZ = gql`
+  mutation UpdateQuizMutation($id: ID!, $updateQuizInput: QuizInput) {
+    updateQuiz(id: $id, input: $updateQuizInput) {
+      title
+      questions {
+        question
+      }
+    },  
+  }
+`;
+
 export const FETCH_ALL_QUIZES = gql`
   query Query {
     findAllQuiz {
