@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 export type User = {
   biography: string | null;
   firstName: string | null;
+  lastName: string | null;
   id: string | null;
   userName: string | null;
 };
