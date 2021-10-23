@@ -1,11 +1,11 @@
-import { generateNewToken, hashPassword } from "../validations/authentication";
+import { generateNewToken, hashPassword } from "../../validations/authentication";
 import {
   validatePassword,
   validateUniqueUser,
   verifyPassword,
   validateExistingUser,
   validateContext
-} from "../validations/validators";
+} from "../../validations/validators";
 import { createNewUser } from "../../db/persistence/creators";
 import { updateUser } from "../../db/persistence/updates";
 import { UserInput, LoginInput, UserUpdateInput } from "../../utils/types";

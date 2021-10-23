@@ -1,5 +1,15 @@
-import mongoose, { Schema } from "mongoose";
-import { Questions } from "./questions";
+import mongoose from "mongoose";
+import { Questions, QuestionDoc } from "./questions";
+
+export interface QuizDoc extends Document {
+  id: string;
+  title: string;
+  image: string;
+  description: string;
+  questions: QuestionDoc;
+  creator: string;
+  upvotes: number;
+}
 
 const quizzesSchema = new mongoose.Schema({
   title: {
@@ -28,4 +38,4 @@ const quizzesSchema = new mongoose.Schema({
   upvotes: { type: Number, default: 0 }
 });
 
-export const Quizzes = mongoose.model("Quizzes", quizzesSchema);
+export const Quizzes = mongoose.model<QuizDoc>("Quizzes", quizzesSchema);

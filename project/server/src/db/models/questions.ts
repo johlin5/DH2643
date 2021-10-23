@@ -1,6 +1,12 @@
 import mongoose from "mongoose";
-import { requiredStringType, optStringType } from "./stringType";
-import { Answers } from "./answer";
+import { requiredStringType } from "./stringType";
+import { Answers, AnswerDoc } from "./answer";
+
+export interface QuestionDoc extends Document {
+  question: string;
+  answers: AnswerDoc;
+  userId: string;
+}
 
 const questionSchema = new mongoose.Schema({
   question: requiredStringType,
@@ -8,4 +14,4 @@ const questionSchema = new mongoose.Schema({
   userId: requiredStringType
 });
 
-export const Questions = mongoose.model("Questions", questionSchema);
+export const Questions = mongoose.model<QuestionDoc>("Questions", questionSchema);

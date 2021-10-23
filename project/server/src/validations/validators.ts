@@ -1,9 +1,9 @@
-import * as errorMsg from "../../utils/errorMessages";
-import { isNull, debug } from "../../utils/utils";
-import * as type from "../../utils/types";
+import * as errorMsg from "../utils/errorMessages";
+import { isNull, debug } from "../utils/utils";
+import * as type from "../utils/types";
 import { compare } from "bcrypt";
-import { Users, UserDoc } from "../../db/models/users";
-import { Quizzes } from "../../db/models/quizzes";
+import { Users, UserDoc } from "../db/models/users";
+import { Quizzes, QuizDoc } from "../db/models/quizzes";
 import { Types } from "mongoose";
 
 const debugValidators = debug.extend("validators");
@@ -79,6 +79,7 @@ export const validateUniqueUser = async ({ userName }: type.UserName): Promise<v
 
 export const validateExistingUser = async (userName: string): Promise<UserDoc> => {
   const user = await Users.findOne({ userName: userName });
+  debugValidators("EXISTINGUSER: %o", user);
   if (!user) {
     throwMsg(errorMsg.userDoesNotExist);
   }
@@ -88,10 +89,14 @@ export const validateExistingUser = async (userName: string): Promise<UserDoc> =
 /**
  * QUIZ
  */
-export const deleteQuiz = async (id: string): Promise<unknown> => {
-  const deletedQuiz = await Quizzes.findByIdAndDelete(id);
-  if (!deletedQuiz) {
+export const validateQuiz = async (quizId: string, userId: string): Promise<QuizDoc> => {
+  const quiz = await Quizzes.findById(quizId);
+  debugValidators("QUIZVALIDATIONS: %o", quiz);
+  if (!quiz) {
     throwMsg(errorMsg.quizNotFound);
   }
-  return deletedQuiz;
+  if (quiz.creator !== userId) {
+    throwMsg(errorMsg.quizDeleteNotAllowed);
+  }
+  return quiz;
 };

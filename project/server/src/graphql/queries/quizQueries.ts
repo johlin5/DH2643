@@ -1,5 +1,5 @@
 import { Quizzes } from "../../db/models/quizzes";
-import { validateContext, validateObjectID } from "../validations/validators";
+import { validateContext, validateObjectID } from "../../validations/validators";
 
 export default {
   findAllQuiz: async (_parent: unknown, _args: unknown, context: any): Promise<unknown> => {
@@ -13,9 +13,9 @@ export default {
     const quiz = await Quizzes.findById(id);
     return quiz;
   },
-  findQuizByCreator: async(_parent: unknown, { creator }, context: any): Promise<unknown> => {
+  findQuizByCreator: async (_parent: unknown, { creator }, context: any): Promise<unknown> => {
     validateContext(context);
-    const quiz = await Quizzes.find({creator});
-    return quiz
+    const quiz = await Quizzes.find({ creator });
+    return quiz;
   }
 };

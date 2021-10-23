@@ -1,7 +1,7 @@
 import { Questions } from "../../db/models/questions";
 import jwt from "jsonwebtoken";
 import * as type from "../../utils/types";
-import { throwMsg } from "../validations/validators";
+import { throwMsg } from "../../validations/validators";
 import { createNewQuestion } from "../../db/persistence/creators";
 
 export default {
