@@ -1,4 +1,4 @@
-import { Container, TextField, Typography } from "@material-ui/core";
+import { Container, List, TextField, Typography, ListItem } from "@material-ui/core";
 import { useState, ChangeEvent } from "react";
 import PrimaryButton from "../../components/PrimaryButton";
 import { RED, TURQUOISE } from "../../app/theme";
@@ -29,8 +29,8 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ handleSave, handleDelete, h
   }
 
   return (
-    <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
-      <Typography variant="h4">Question form</Typography>
+    <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "8px", marginTop: "32px" }}>
+      <Typography variant="h4">{formState.question === "" ? "Your question is...." : formState.question}</Typography>
       <TextField
         id="standard-basic"
         label="Your question is...."
@@ -48,17 +48,16 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ handleSave, handleDelete, h
             handleSave(formState);
         }}
       />
-      <ul>
-        {data.answers.map((answer) => {
-          const id = (Math.random() + 1).toString(36).substring(7);
+      <List>
+
+        {data.answers.map((answer, index) => {
           return (
-            <li key={id}>
+            <ListItem key={index}>
               <AnswerPresenter handleSave={handleSaveAnswer} handleDelete={handleDeleteAnswer} data={answer} />
-            </li>
+            </ListItem>
           );
         })}
-      </ul>
-
+      </List>
       <PrimaryButton
         text="Add Answer"
         color={TURQUOISE}

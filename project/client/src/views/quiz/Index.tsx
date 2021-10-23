@@ -1,5 +1,4 @@
 import { Container } from "@material-ui/core";
-// import { QuizInput } from "../../utils/types";
 import QuizPresenter from "./QuizPresenter";
 import { QuizProps } from "./Props";
 

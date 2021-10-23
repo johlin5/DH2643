@@ -1,4 +1,4 @@
-import { Container, Select, TextField, Typography, MenuItem } from "@material-ui/core";
+import { Container, Select, TextField, Typography, MenuItem, FormControl } from "@material-ui/core";
 import React, { ChangeEvent, useState } from "react";
 import PrimaryButton from "../../components/PrimaryButton";
 import { GREEN, PURPLE, RED } from "../../app/theme";
@@ -8,8 +8,9 @@ const AnswerForm: React.FC<AnswerFormProps> = ({ saveAnswer, deleteAnswer, data 
   const [formState, setFormState] = useState(data);
 
   return (
-    <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
+    <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "4px" }}>
       <Typography variant="h4">Answer</Typography>
+      <FormControl>
       <TextField
         id="standard-basic"
         label="Answer"
@@ -20,7 +21,7 @@ const AnswerForm: React.FC<AnswerFormProps> = ({ saveAnswer, deleteAnswer, data 
           setFormState({...formState, description: event.target.value});
           }
         }
-        onBlur={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+        onBlur={() => {
           saveAnswer(formState);
           }
         }
@@ -34,17 +35,20 @@ const AnswerForm: React.FC<AnswerFormProps> = ({ saveAnswer, deleteAnswer, data 
           setFormState({ ...data, flag: event.target.value === "0" ? false : true });
           }
         }
-        onBlur={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+        onBlur={() => {
           saveAnswer(formState);
           }
         }
+        style={{
+          width: 70
+        }}
       >
         <MenuItem value={1}>True</MenuItem>
         <MenuItem value={0}>False</MenuItem>
       </Select>
-      {/* <PrimaryButton text="Save" color={GREEN} variant="h6" height="48px" onClick={() => handleSave()} /> */}
+      </FormControl>
       <PrimaryButton
-        text="Delete"
+        text="Delete Answer"
         color={RED}
         variant="h6"
         height="48px"

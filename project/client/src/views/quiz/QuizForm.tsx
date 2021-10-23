@@ -1,4 +1,4 @@
-import { Container, FormControl, MenuItem, TextField, InputLabel, Select, Typography } from "@material-ui/core";
+import { Container, FormControl, MenuItem, TextField, InputLabel, Select, ListItem, List } from "@material-ui/core";
 import { useState, ChangeEvent } from "react";
 import PrimaryButton from "../../components/PrimaryButton";
 import { PURPLE, RED } from "../../app/theme";
@@ -60,7 +60,7 @@ const QuizForm: React.FC<QuizFromProps> = ({ quiz, setQuizData }: QuizFromProps)
 
   const handleDeleteQuestion = (questionData: QuestionInput) => {
     if (questions.length <= 3) {
-      console.log("At least 3 questions in a quiz");
+      alert("At least 3 questions in a quiz");
       return;
     }
     const newQuestions = questions.filter((q) => {
@@ -105,7 +105,6 @@ const QuizForm: React.FC<QuizFromProps> = ({ quiz, setQuizData }: QuizFromProps)
         editorState={editorState}
         editorStyle={{ border: "1px solid #e9e9e9", margin: " 1%" }}
         onEditorStateChange={setEditorState}
-        // onBlur={() => handleSave(formState)}
       />
       <FormControl>
         <InputLabel id="demo-simple-select-standard-label">#Questions</InputLabel>
@@ -129,23 +128,16 @@ const QuizForm: React.FC<QuizFromProps> = ({ quiz, setQuizData }: QuizFromProps)
           <MenuItem value={10}>10</MenuItem>
         </Select>
       </FormControl>
-      <ul>
+      <List>
         {questions.map((question) => {
           const id = (Math.random() + 1).toString(36).substring(7);
           return (
-            <li key={id}>
+            <ListItem key={id}>
               <Question saveQuestion={handleSaveQuestion} handleDelete={handleDeleteQuestion} data={question} />
-            </li>
+            </ListItem>
           );
         })}
-      </ul>
-      {/* <PrimaryButton
-        text="Add # Questions"
-        color={GREEN}
-        variant="h6"
-        height="48px"
-        onClick={() => addQuestion({ question: "", answers: [], id: "", userId: "", upvotes: 0, report: "" })}
-      /> */}
+      </List>
       <PrimaryButton text="Save Quiz" color={PURPLE} variant="h6" height="48px" onClick={() => handleSaveQuiz()} />
       {editState && (
         <PrimaryButton

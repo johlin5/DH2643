@@ -1,21 +1,17 @@
 import { Container } from "@material-ui/core";
 import { useState } from "react";
-import { withEdit } from "../../selectors/quiz";
 import { QuestionInput } from "../../utils/types";
 import { QuestionPresenterProps } from "./props";
 import QuestionForm from "./QuestionForm";
-import { useRecoilValue } from 'recoil';
 
 
 const QuestionPresenter: React.FC<QuestionPresenterProps> = ({saveQuestion, handleDelete, data}: QuestionPresenterProps) => {
   // States 
-  const editQuestion = useRecoilValue(withEdit);
   const [questionData, setQuestionData] = useState<QuestionInput>(data);
   
 
   // Callbacks / Handlers
   const handleSave = (QuestionFormData: QuestionInput) => {
-    console.log(QuestionFormData);
     setQuestionData(QuestionFormData);
     saveQuestion(QuestionFormData);
   }
@@ -32,7 +28,7 @@ const QuestionPresenter: React.FC<QuestionPresenterProps> = ({saveQuestion, hand
   }
 
   return (
-    <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
+    <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px"}}>
       <QuestionForm 
         handleSave={handleSave} 
         handleDelete={handleDelete}
