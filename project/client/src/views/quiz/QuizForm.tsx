@@ -129,8 +129,7 @@ const QuizForm: React.FC<QuizFromProps> = ({ quiz, setQuizData }: QuizFromProps)
         </Select>
       </FormControl>
       <List>
-        {questions.map((question) => {
-          const id = (Math.random() + 1).toString(36).substring(7);
+        {questions.map((question, id) => { 
           return (
             <ListItem key={id}>
               <Question saveQuestion={handleSaveQuestion} handleDelete={handleDeleteQuestion} data={question} />
