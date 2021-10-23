@@ -1,11 +1,12 @@
 import jwt from "jsonwebtoken";
 import { hash } from "bcrypt";
 import { debug } from "../utils/utils";
+import { ContextAuth } from "../utils/types";
 
 const saltRounds = 10;
 const debugIsAuth = debug.extend("isAuth");
 
-export const isAuth = (request: any) => {
+export const isAuth = (request: any): ContextAuth => {
   const authHeader = request.req.headers.authorization;
   const notAuth = { isAuth: false, userId: null };
   debugIsAuth("AuthHeader %o", authHeader);
