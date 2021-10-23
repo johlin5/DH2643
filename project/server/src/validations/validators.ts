@@ -7,19 +7,13 @@ import { Quizzes, QuizDoc } from "../db/models/quizzes";
 import { Types } from "mongoose";
 
 const debugValidators = debug.extend("validators");
+
 /**
  * ERROR ENGINE XD
  */
 
 export const throwMsg = (msg: string): Error => {
   throw new Error(msg);
-};
-
-export const genericMongooseValidationCb = (err, document, errorMsg: string): Error | void => {
-  if (err) {
-    throwMsg(errorMsg);
-  }
-  return;
 };
 
 /**

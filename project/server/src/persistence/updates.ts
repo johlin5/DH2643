@@ -1,7 +1,10 @@
 import { Users, UserDoc } from "../db/models/users";
 import { Quizzes, QuizDoc } from "../db/models/quizzes";
-import { genericMongooseValidationCb } from "../validations/validators";
+import { throwMsg } from "../validations/validators";
 import { updateFailed } from "../utils/errorMessages";
+import { debug } from "../utils/utils";
+
+const debugUpdates = debug.extend("updates");
 
 const filterUpdateInput = (updateInput: any) => {
   const update = Object.entries(updateInput).reduce((a, [k, v]) => {
@@ -17,32 +20,33 @@ const filterUpdateInput = (updateInput: any) => {
 export const updateUser = async (userId: string, updateInput): Promise<UserDoc> => {
   const filter = { _id: userId };
   const update = filterUpdateInput(updateInput);
-  const document = await Users.findOneAndUpdate(
-    filter,
-    update,
-    {
+  try {
+    return await Users.findOneAndUpdate(filter, update, {
       returnOriginal: false
-    },
-    (err, user) => genericMongooseValidationCb(err, user, updateFailed)
-  );
-  return document;
+    });
+  } catch (error) {
+    throwMsg(updateFailed);
+    debugUpdates(error);
+  }
 };
 
 /** QUIZ */
 export const updateQuiz = async (id: string, input): Promise<QuizDoc> => {
   const filter = { _id: id };
   const update = filterUpdateInput(input);
-  const document = await Quizzes.findByIdAndUpdate(filter, update, { new: true }, (err, quiz) =>
-    genericMongooseValidationCb(err, quiz, updateFailed)
-  );
-  return document;
+  try {
+    return await Quizzes.findByIdAndUpdate(filter, update, { new: true });
+  } catch (error) {
+    throwMsg(updateFailed);
+  }
 };
 
 export const upvoteQuiz = async (id: string): Promise<QuizDoc> => {
   const filter = { _id: id };
   const update = { $inc: { upvotes: 1 } };
-  const document = await Quizzes.findByIdAndUpdate(filter, update, { new: true }, (err, quiz) =>
-    genericMongooseValidationCb(err, quiz, updateFailed)
-  );
-  return document;
+  try {
+    return await Quizzes.findByIdAndUpdate(filter, update, { new: true });
+  } catch (error) {
+    throwMsg(updateFailed);
+  }
 };
