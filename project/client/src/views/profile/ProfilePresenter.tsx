@@ -6,6 +6,8 @@ import { useRecoilValue } from "recoil";
 import Spinner from "../../components/Spinner";
 import { fetchMonster } from "../../services/avatar/fetch";
 import { useEffect, useState } from "react";
+import ProfileQuizPresenter from "./ProfileQuizPresenter";
+
 export type User = {
   biography: string | null;
   firstName: string | null;
@@ -18,6 +20,7 @@ export type UserData = { findUserByUserName: User };
 
 const ProfilePresenter: React.FC = () => {
   const accountName = useRecoilValue(accountNameAtom);
+
   const [icon, setIcon] = useState<string>("");
 
   useEffect(() => {
@@ -39,7 +42,11 @@ const ProfilePresenter: React.FC = () => {
   if (loading || !data) {
     <Spinner />;
   }
-  return <ProfileView user={data} image={icon} />;
+  return (
+    <>
+      <ProfileView user={data} image={icon} />
+    </>
+  );
 };
 
 export default ProfilePresenter;

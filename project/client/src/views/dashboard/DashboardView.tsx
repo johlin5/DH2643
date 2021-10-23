@@ -25,7 +25,7 @@ const DashboardView: React.FC<DashboardViewProps> = ({ onPlay, quizData }) => {
               <GameCard
                 title={quiz.title}
                 author={quiz.creator}
-                body={quiz.description !== null || "" ? quiz.description : "N/A" }
+                body={quiz.description !== null || "" ? quiz.description : "N/A"}
                 play={() => {
                   onPlay(quiz.id);
                 }}
