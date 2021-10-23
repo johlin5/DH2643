@@ -15,6 +15,13 @@ export const throwMsg = (msg: string): Error => {
   throw new Error(msg);
 };
 
+export const genericMongooseValidationCb = (err, document, errorMsg: string): Error | void => {
+  if (err) {
+    throwMsg(errorMsg);
+  }
+  return;
+};
+
 /**
  * PASSWORDS
  */

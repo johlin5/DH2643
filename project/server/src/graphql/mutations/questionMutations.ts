@@ -1,14 +1,12 @@
 import { Questions } from "../../db/models/questions";
-import jwt from "jsonwebtoken";
 import * as type from "../../utils/types";
 import { throwMsg } from "../../validations/validators";
-import { createNewQuestion } from "../../db/persistence/creators";
+import { createNewQuestion } from "../../persistence/creators";
 
 export default {
-  createQuestion: (_parent: unknown, { input }: type.QuestionInput, { isAuth, userId }): Promise<unknown> => {
-    // Add some authentication here
-    return new Promise(async (resolve, _) => {
-      const question = await createNewQuestion(input);
+  createQuestion: async (_parent: unknown, { input }: type.QuestionInput, { isAuth, userId }): Promise<unknown> => {
+    const question = await createNewQuestion(input);
+    return new Promise((resolve, _) => {
       if (!question) {
         throwMsg("Weirdo, could not create question"); // Change this to something more nice
       } else resolve(question);
