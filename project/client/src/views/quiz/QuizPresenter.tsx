@@ -6,20 +6,10 @@ import { SAVE_QUIZ } from "../../services/queries/Quiz";
 import { QuizInput } from "../../utils/types";
 import QuizForm from "./QuizForm";
 import { QuizProps } from "./Props";
-import { withEdit } from "../../selectors/quiz";
-import { useRecoilValue } from "recoil";
 
 const QuizPresenter: React.FC<QuizProps> = ({ quiz }: QuizProps) => {
   const [save, { data, loading, error }] = useMutation(SAVE_QUIZ);
-
-  // const [token, setToken] = useRecoilState(jwtTokenAtom);
   const history = useHistory();
-
-  /**
-   * I believe there is a better solution for using the mutation with
-   * react useState.
-   * @param quizData
-   */
   const saveQuiz = async (quizData: QuizInput) => {
     const response = await save({
       variables: {
@@ -33,12 +23,10 @@ const QuizPresenter: React.FC<QuizProps> = ({ quiz }: QuizProps) => {
 
   // States
   const [quizData, setQuizData] = useState<QuizInput>(quiz);
-  const editState = useRecoilValue(withEdit);
 
   // Callbacks / Handlers
   const handleSetQuizData = (quizData: QuizInput) => {
     setQuizData(quizData);
-    console.log(quizData);
     saveQuiz(quizData);
   };
 
