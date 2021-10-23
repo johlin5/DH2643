@@ -1,9 +1,10 @@
-import { Users, UserDoc } from "../models/users";
-import { Questions } from "../models/questions";
-import { Quizzes } from "../models/quizzes";
-import { History, HistoryDoc } from "../models/history";
-import { UserInput } from "../../utils/types";
+import { Users, UserDoc } from "../db/models/users";
+import { Questions } from "../db/models/questions";
+import { Quizzes } from "../db/models/quizzes";
+import { History, HistoryDoc } from "../db/models/history";
+import { UserInput } from "../utils/types";
 
+/** User */
 export const createNewUser = async (
   { firstName, lastName, userName, image, biography }: UserInput["input"],
   hashed: string
@@ -21,6 +22,7 @@ export const createNewUser = async (
   return user;
 };
 
+/** Question */
 export const createNewQuestion = async (input) => {
   const newQuestion = new Questions({
     question: input.question,
@@ -34,6 +36,7 @@ export const createNewQuestion = async (input) => {
   return newQuestion;
 };
 
+/** Quiz */
 export const createQuiz = async (input) => {
   const newQuiz = new Quizzes({
     title: input.title,
@@ -46,6 +49,7 @@ export const createQuiz = async (input) => {
   return newQuiz;
 };
 
+/** History */
 export const createHistory = async (input, userId): Promise<HistoryDoc> => {
   const newHistory = new History({
     quizId: input.quizId,

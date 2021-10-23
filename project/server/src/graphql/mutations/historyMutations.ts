@@ -1,4 +1,4 @@
-import { createHistory } from "../../db/persistence/creators";
+import { createHistory } from "../../persistence/creators";
 import { validateContext } from "../../validations/validators";
 import { HistoryDoc } from "../../db/models/history";
 

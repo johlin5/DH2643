@@ -1,6 +1,6 @@
-import { validateQuiz } from "../../validations/validators";
-import { Quizzes, QuizDoc } from "../models/quizzes";
-import { debug } from "../../utils/utils";
+import { validateQuiz } from "../validations/validators";
+import { Quizzes, QuizDoc } from "../db/models/quizzes";
+import { debug } from "../utils/utils";
 
 const debugDeletions = debug.extend("deletions");
 

@@ -6,8 +6,8 @@ import {
   validateExistingUser,
   validateContext
 } from "../../validations/validators";
-import { createNewUser } from "../../db/persistence/creators";
-import { updateUser } from "../../db/persistence/updates";
+import { createNewUser } from "../../persistence/creators";
+import { updateUser } from "../../persistence/updates";
 import { UserInput, LoginInput, UserUpdateInput } from "../../utils/types";
 
 export default {
