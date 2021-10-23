@@ -3,7 +3,7 @@ import { useState, ChangeEvent } from "react";
 import { SIGN_UP } from "../../services/queries/Auth";
 import { useMutation } from "@apollo/client";
 import PrimaryButton from "../../components/PrimaryButton";
-import { PURPLE } from "../../app/theme";
+import { PURPLE, RED } from "../../app/theme";
 type FormInputs = {
   userName: string;
   password: string;
@@ -29,12 +29,13 @@ const RegisterForm: React.FC = () => {
         }
       }
     });
-    document.cookie = 'token=' + response.data.login.token;
-    document.cookie = 'userName=' + response.data.login.user.userName;
+    document.cookie = "token=" + response.data.login.token;
+    document.cookie = "userName=" + response.data.login.user.userName;
     setToken(response.data.login.token);
     setUserName(response.data.signin.user.userName);
-    history.push("/");
   };
+
+  const goBack = () => history.goBack();
 
   if (loading) {
     return <>Loading screen</>;
@@ -43,11 +44,7 @@ const RegisterForm: React.FC = () => {
   return (
     <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
       <Typography variant="h4">Register</Typography>
-      <form
-        onSubmit={() => {
-          registerUser();
-        }}
-      >
+      <form onSubmit={() => registerUser()}>
         <TextField
           variant="outlined"
           margin="normal"
@@ -101,6 +98,7 @@ const RegisterForm: React.FC = () => {
           height="48px"
           onClick={() => registerUser()}
         />
+        <PrimaryButton text="Back" color={RED} variant="h5" height="48px" onClick={() => goBack()} />
         <>{error?.message}</>
       </form>
       {data && <>Created account</>}
