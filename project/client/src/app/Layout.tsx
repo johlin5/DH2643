@@ -5,21 +5,21 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { CssBaseline } from "@material-ui/core";
 import { jwtTokenAtom } from "../atoms/account";
 import { useRecoilValue } from "recoil";
-import Cookie from 'js-cookie';
+import Cookie from "js-cookie";
 
 const Layout: React.FC = () => {
   const hasToken = !!useRecoilValue(jwtTokenAtom);
   return (
     <Router>
       <CssBaseline />
-      {!Cookie.get('token') && (
+      {!Cookie.get("token") && (
         <Switch>
           {unprotectedRoutes.map((nav) => {
             return <Route path={nav.path} exact={nav.exact} component={nav.component} key={nav.path} />;
           })}
         </Switch>
       )}
-      {Cookie.get('token') && (
+      {Cookie.get("token") && (
         <>
           <Header />
           <Switch>

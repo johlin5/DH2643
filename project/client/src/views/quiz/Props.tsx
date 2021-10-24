@@ -1,7 +1,7 @@
 import { QuizInput } from "utils/types";
 
 export interface QuizProps {
-    quiz: QuizInput;
+  quiz: QuizInput;
 }
 
 export interface QuizFromProps extends QuizProps {

@@ -8,6 +8,8 @@ import { fetchMonster } from "../../services/avatar/fetch";
 import { useEffect, useState } from "react";
 import ProfileQuizPresenter from "./ProfileQuizPresenter";
 import { Container } from "@material-ui/core";
+import HistoryPresenter from "./HistoryPresenter";
+
 export type User = {
   biography: string | null;
   firstName: string | null;
@@ -46,6 +48,7 @@ const ProfilePresenter: React.FC = () => {
     <Container component="main" style={{ backgroundColor: "white", minHeight: "80vh" }}>
       <ProfileView user={data} image={icon} />
       <ProfileQuizPresenter />
+      <HistoryPresenter />
     </Container>
   );
 };

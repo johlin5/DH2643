@@ -11,41 +11,37 @@ const AnswerForm: React.FC<AnswerFormProps> = ({ saveAnswer, deleteAnswer, data 
     <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "4px" }}>
       <Typography variant="h4">Answer</Typography>
       <FormControl>
-      <TextField
-        id="standard-basic"
-        label="Answer"
-        variant="standard"
-        margin="normal"
-        value={formState.description}
-        onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-          setFormState({...formState, description: event.target.value});
-          }
-        }
-        onBlur={() => {
-          saveAnswer(formState);
-          }
-        }
-      />
-      <Select
-        labelId="flag_id"
-        id="flag_id"
-        value={formState.flag ? "1" : "0"}
-        defaultValue={0}
-        onChange={(event: any) => {
-          setFormState({ ...data, flag: event.target.value === "0" ? false : true });
-          }
-        }
-        onBlur={() => {
-          saveAnswer(formState);
-          }
-        }
-        style={{
-          width: 70
-        }}
-      >
-        <MenuItem value={1}>True</MenuItem>
-        <MenuItem value={0}>False</MenuItem>
-      </Select>
+        <TextField
+          id="standard-basic"
+          label="Answer"
+          variant="standard"
+          margin="normal"
+          value={formState.description}
+          onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+            setFormState({ ...formState, description: event.target.value });
+          }}
+          onBlur={() => {
+            saveAnswer(formState);
+          }}
+        />
+        <Select
+          labelId="flag_id"
+          id="flag_id"
+          value={formState.flag ? "1" : "0"}
+          defaultValue={0}
+          onChange={(event: any) => {
+            setFormState({ ...data, flag: event.target.value === "0" ? false : true });
+          }}
+          onBlur={() => {
+            saveAnswer(formState);
+          }}
+          style={{
+            width: 70
+          }}
+        >
+          <MenuItem value={1}>True</MenuItem>
+          <MenuItem value={0}>False</MenuItem>
+        </Select>
       </FormControl>
       <PrimaryButton
         text="Delete Answer"

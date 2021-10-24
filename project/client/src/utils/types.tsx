@@ -1,29 +1,28 @@
 export type FormInputs = {
-    userName: string;
-    password: string;
-    passwordConfirmation: string;
+  userName: string;
+  password: string;
+  passwordConfirmation: string;
 };
 
 export type AnswerInput = {
-    AnswerId?: string;
-    description: string; 
-    flag: Boolean; 
-}
+  AnswerId?: string;
+  description: string;
+  flag: boolean;
+};
 
 export type QuestionInput = {
-    id?: string;
-    question: string;
-    userId: string | null;
-    answers: AnswerInput[];
-    upvotes: number;
-    report: string;
-}
+  id?: string;
+  question: string;
+  userId: string | null;
+  answers: AnswerInput[];
+  upvotes: number;
+  report: string;
+};
 
 export type QuizInput = {
-    id?: string;
-    title: string;
-    description: string;
-    questions: QuestionInput[];
-    creator: string; 
-}   
-
+  id?: string;
+  title: string;
+  description: string;
+  questions: QuestionInput[];
+  creator: string;
+};
