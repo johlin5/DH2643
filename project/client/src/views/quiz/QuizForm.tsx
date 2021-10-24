@@ -1,20 +1,17 @@
 import { Container, FormControl, MenuItem, TextField, InputLabel, Select, ListItem, List } from "@material-ui/core";
 import { useState, ChangeEvent } from "react";
 import PrimaryButton from "../../components/PrimaryButton";
-import { PURPLE, RED } from "../../app/theme";
+import { PURPLE } from "../../app/theme";
 import Question from "../question/Index";
 import { QuestionInput } from "../../utils/types";
 import { QuizFromProps } from "./Props";
-import { useRecoilState } from "recoil";
-import { canEditAtom } from "../../atoms/quiz";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { EditorState, convertToRaw, ContentState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 
-const QuizForm: React.FC<QuizFromProps> = ({ quiz, setQuizData }: QuizFromProps) => {
+const QuizForm: React.FC<QuizFromProps> = ({ quiz, saveQuiz }: QuizFromProps) => {
   const [questions, setQuestions] = useState<QuestionInput[]>(quiz.questions);
   const [title, setTitle] = useState(quiz.title);
-  const [editState, setEditState] = useRecoilState(canEditAtom);
   const [numberOfQuestions, setNumberOfQuestions] = useState(quiz.questions.length);
   const [editorState, setEditorState] = useState<EditorState>(() =>
     EditorState.createWithContent(ContentState.createFromText(quiz.description))
@@ -27,20 +24,19 @@ const QuizForm: React.FC<QuizFromProps> = ({ quiz, setQuizData }: QuizFromProps)
       const index = questions.findIndex((q) => q.id === questionData.id);
       updateQuestion(index, questionData);
     } else {
-      addQuestion(questionData);
+      setQuestions([...questions, questionData]);
     }
   };
 
   const handleSaveQuiz = () => {
     const answers = questions.map( q => q.answers.map( ({AnswerId, ...answer})  => answer ));
     const cleanQuestions = questions.map( ({id, ...q}, index) => ({...q, answers: answers[index]}) );
-    setQuizData({
+    saveQuiz({
       title: title,
       description: convertToRaw(editorState.getCurrentContent()).blocks[0].text,
       questions: cleanQuestions,
       creator: quiz.creator
     });
-    setEditState(false);
   };
 
   const handleChange = (event: any) => {
@@ -75,10 +71,6 @@ const QuizForm: React.FC<QuizFromProps> = ({ quiz, setQuizData }: QuizFromProps)
     const newQuestions = [...questions]; // copying the old datas array
     newQuestions[index] = data; // replace old data with new
     setQuestions(newQuestions);
-  };
-
-  const addQuestion = (questionData: QuestionInput) => {
-    setQuestions([...questions, questionData]);
   };
 
   const appendQuestions = (start: number, end: number) => {
@@ -129,8 +121,7 @@ const QuizForm: React.FC<QuizFromProps> = ({ quiz, setQuizData }: QuizFromProps)
         </Select>
       </FormControl>
       <List>
-        {questions.map((question) => {
-          const id = (Math.random() + 1).toString(36).substring(7);
+        {questions.map((question, id) => { 
           return (
             <ListItem key={id}>
               <Question saveQuestion={handleSaveQuestion} handleDelete={handleDeleteQuestion} data={question} />
@@ -139,17 +130,6 @@ const QuizForm: React.FC<QuizFromProps> = ({ quiz, setQuizData }: QuizFromProps)
         })}
       </List>
       <PrimaryButton text="Save Quiz" color={PURPLE} variant="h6" height="48px" onClick={() => handleSaveQuiz()} />
-      {editState && (
-        <PrimaryButton
-          text="Delete Quiz"
-          color={RED}
-          variant="h6"
-          height="48px"
-          onClick={() => {
-            /** Add function that handles deletion */
-          }}
-        />
-      )}
     </Container>
   );
 };
