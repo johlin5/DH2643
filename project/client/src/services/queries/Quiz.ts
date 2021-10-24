@@ -24,7 +24,8 @@ export const UPDATE_QUIZ = gql`
       questions {
         question
       }
-    },  
+      id
+    }
   }
 `;
 
@@ -51,6 +52,7 @@ export const FETCH_ALL_QUIZES = gql`
 export const FECTH_BY_CREATOR = gql`
   query Query($findQuizByCreatorCreator: String!) {
     findQuizByCreator(creator: $findQuizByCreatorCreator) {
+      id
       title
       questions {
         question
