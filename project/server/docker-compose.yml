@@ -5,16 +5,7 @@ services:
            image: quizhub # Specify what image we are gonna use 
            restart: always
            build: .
-           working_dir: /app
+           working_dir: /src
            ports:
                # <Port for outside world>:<Actual port of service in container>
              - "${PORT}:${NODE_DOCKER_PORT}"
-           links:
-             - mongo
-       mongo:
-             container_name: mongo
-             image: mongo
-             volumes:
-               - ./data:/data/db
-             ports:
-               - '${MONGO_DB_GLOBAL}:${MONGO_DB_LOCAL}'
