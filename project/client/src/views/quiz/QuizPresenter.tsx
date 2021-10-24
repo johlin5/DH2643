@@ -11,23 +11,22 @@ const QuizPresenter: React.FC<QuizProps> = ({ quiz }: QuizProps) => {
   const [update] = useMutation(UPDATE_QUIZ);
   const history = useHistory();
   const saveQuiz = async (quizData: QuizInput) => {
-    const response = quiz.id ? 
-    await update({
-      variables: {
-        id: quiz.id, 
-        updateQuizInput: {
-          ...quizData
-        }
-      }
-    })
-    :
-    await save({
-      variables: {
-        createQuizInput: {
-          ...quizData
-        }
-      }
-    });
+    const response = quiz.id
+      ? await update({
+          variables: {
+            id: quiz.id,
+            updateQuizInput: {
+              ...quizData
+            }
+          }
+        })
+      : await save({
+          variables: {
+            createQuizInput: {
+              ...quizData
+            }
+          }
+        });
     history.push("/");
   };
 

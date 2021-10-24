@@ -29,8 +29,8 @@ const QuizForm: React.FC<QuizFromProps> = ({ quiz, saveQuiz }: QuizFromProps) =>
   };
 
   const handleSaveQuiz = () => {
-    const answers = questions.map( q => q.answers.map( ({AnswerId, ...answer})  => answer ));
-    const cleanQuestions = questions.map( ({id, ...q}, index) => ({...q, answers: answers[index]}) );
+    const answers = questions.map((q) => q.answers.map(({ AnswerId, ...answer }) => answer));
+    const cleanQuestions = questions.map(({ id, ...q }, index) => ({ ...q, answers: answers[index] }));
     saveQuiz({
       title: title,
       description: convertToRaw(editorState.getCurrentContent()).blocks[0].text,
@@ -121,7 +121,7 @@ const QuizForm: React.FC<QuizFromProps> = ({ quiz, saveQuiz }: QuizFromProps) =>
         </Select>
       </FormControl>
       <List>
-        {questions.map((question, id) => { 
+        {questions.map((question, id) => {
           return (
             <ListItem key={id}>
               <Question saveQuestion={handleSaveQuestion} handleDelete={handleDeleteQuestion} data={question} />

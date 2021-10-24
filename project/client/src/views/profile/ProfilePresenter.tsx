@@ -7,7 +7,7 @@ import Spinner from "../../components/Spinner";
 import { fetchMonster } from "../../services/avatar/fetch";
 import { useEffect, useState } from "react";
 import ProfileQuizPresenter from "./ProfileQuizPresenter";
-
+import { Container } from "@material-ui/core";
 export type User = {
   biography: string | null;
   firstName: string | null;
@@ -43,9 +43,10 @@ const ProfilePresenter: React.FC = () => {
     <Spinner />;
   }
   return (
-    <>
+    <Container component="main" style={{ backgroundColor: "white", minHeight: "80vh" }}>
       <ProfileView user={data} image={icon} />
-    </>
+      <ProfileQuizPresenter />
+    </Container>
   );
 };
 

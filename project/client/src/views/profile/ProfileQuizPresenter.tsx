@@ -5,6 +5,7 @@ import { accountNameAtom } from "../../atoms/account";
 import { useRecoilValue } from "recoil";
 import Spinner from "../../components/Spinner";
 import ProfileQuizView from "./ProfileQuizView";
+import { useHistory } from "react-router-dom";
 export type Quiz = {
   id: string;
   title: string;
@@ -16,7 +17,7 @@ export type QuizData = { findQuizByCreator: Quiz[] };
 
 const ProfileQuizPresenter: React.FC = () => {
   const accountName = useRecoilValue(accountNameAtom);
-
+  const history = useHistory();
   const { loading, error, data } = useQuery<QuizData>(FECTH_BY_CREATOR, {
     variables: { findQuizByCreatorCreator: accountName }
   });
@@ -27,8 +28,8 @@ const ProfileQuizPresenter: React.FC = () => {
   return (
     <ProfileQuizView
       quizes={data.findQuizByCreator}
-      onClick={() => {
-        console.log("clicked");
+      onClick={(id: string) => {
+        history.push(`/play/${id}`);
       }}
     />
   );
