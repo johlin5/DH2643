@@ -52,10 +52,11 @@ export const createQuiz = async (input) => {
 /** History */
 export const createHistory = async (input, userId): Promise<HistoryDoc> => {
   const newHistory = new History({
-    quizId: input.quizId,
+    quizTitle: input.quizTitle,
     score: input.score,
+    maxScore: input.maxScore,
     userId: userId,
-    date: new Date().toString()
+    date: new Date().toLocaleDateString()
   });
   newHistory.id = newHistory._id;
   await newHistory.save();

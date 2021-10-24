@@ -20,7 +20,7 @@ const ProfileQuizView: React.FC<ProfileQuizViewProps> = ({ quizes, onClick }) =>
       <Grid container>
         {quizes.map((quiz) => {
           return (
-            <Grid item xs={6} sm={4} md={3}>
+            <Grid item key={quiz.id} xs={6} sm={4} md={3}>
               <Card
                 title={quiz.title}
                 body={quiz.description}

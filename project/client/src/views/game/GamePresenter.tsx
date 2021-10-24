@@ -1,13 +1,16 @@
 import GameView from "./GameView";
 import { FETCH_QUIZ_BY_ID } from "../../services/queries/Quiz";
-import { useQuery } from "@apollo/client";
+import { CREATE_HISTORY } from "../../services/queries/History";
+import { useQuery, useMutation } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import Spinner from "../../components/Spinner";
 import { useState, useEffect } from "react";
 import GameOverModal from "./GamOverModal";
 import { useHistory } from "react-router-dom";
+import { History } from "../profile/HistoryPresenter";
 
 type Answer = { description: string; flag: boolean; id: string };
+type HistoryInput = { quizTitle: string; score: number; maxScore: number };
 
 export type Question = {
   answers: Answer[];
@@ -48,6 +51,18 @@ const GamePresenter: React.FC = () => {
   const { loading, error, data } = useQuery<QuizData>(FETCH_QUIZ_BY_ID, {
     variables: { findQuizByIdId: id }
   });
+
+  const [createHistory, _historyResponse] = useMutation<History>(CREATE_HISTORY);
+
+  const submitHistory = async (input: HistoryInput) => {
+    await createHistory({
+      variables: {
+        input: {
+          ...input
+        }
+      }
+    });
+  };
 
   useEffect(() => {
     const answerArray = new Array(data?.findQuizById.questions.length).fill("");
@@ -105,6 +120,11 @@ const GamePresenter: React.FC = () => {
     setGameState({
       ...gameState,
       gameOver: true
+    });
+    submitHistory({
+      quizTitle: gameState.quiz ? gameState.quiz.title : "Should not happen",
+      score: countAnswer(),
+      maxScore: gameState.totalQuestions
     });
   };
 

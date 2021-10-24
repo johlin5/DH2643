@@ -1,7 +1,7 @@
 import { ThemeProvider } from "@material-ui/core/styles";
 import { theme } from "./theme";
 import Layout from "./Layout";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import { jwtTokenAtom, accountNameAtom } from "../atoms/account";
 import { useSetRecoilState } from "recoil";
 const App = (): JSX.Element => {

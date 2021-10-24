@@ -4,29 +4,36 @@ import PrimaryButton from "../../components/PrimaryButton";
 import { RED, TURQUOISE } from "../../app/theme";
 import { QuestionFormProps } from "./props";
 import AnswerPresenter from "../answer/AnswerPresenter";
-import { AnswerInput } from "../../utils/types"
+import { AnswerInput } from "../../utils/types";
 
-const QuestionForm: React.FC<QuestionFormProps> = ({ handleSave, handleDelete, handleAdd, data }: QuestionFormProps) => {
+const QuestionForm: React.FC<QuestionFormProps> = ({
+  handleSave,
+  handleDelete,
+  handleAdd,
+  data
+}: QuestionFormProps) => {
   // States
-  const [formState, setFormState] = useState(data); 
+  const [formState, setFormState] = useState(data);
 
   const handleSaveAnswer = (answerData: AnswerInput) => {
     const index = data.answers.findIndex((a) => a.AnswerId === answerData.AnswerId);
-    const newAnswers = [...data.answers];   
+    const newAnswers = [...data.answers];
     newAnswers[index] = answerData;
-    handleSave({
-      ...data, 
-      answers: newAnswers
-    });
-  }
-
-  const handleDeleteAnswer = (answerData: AnswerInput) => {
-    const newAnswers = data.answers.filter( (a) => {return a.AnswerId !== answerData.AnswerId });
     handleSave({
       ...data,
       answers: newAnswers
     });
-  }
+  };
+
+  const handleDeleteAnswer = (answerData: AnswerInput) => {
+    const newAnswers = data.answers.filter((a) => {
+      return a.AnswerId !== answerData.AnswerId;
+    });
+    handleSave({
+      ...data,
+      answers: newAnswers
+    });
+  };
 
   return (
     <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "8px", marginTop: "32px" }}>
@@ -38,18 +45,16 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ handleSave, handleDelete, h
         margin="normal"
         value={formState.question}
         onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-            setFormState({
-              ...data,
-              question: event.target.value
-            });
-          }
-        }
+          setFormState({
+            ...data,
+            question: event.target.value
+          });
+        }}
         onBlur={() => {
-            handleSave(formState);
+          handleSave(formState);
         }}
       />
       <List>
-
         {data.answers.map((answer, index) => {
           return (
             <ListItem key={index}>
@@ -58,20 +63,8 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ handleSave, handleDelete, h
           );
         })}
       </List>
-      <PrimaryButton
-        text="Add Answer"
-        color={TURQUOISE}
-        variant="h6"
-        height="48px"
-        onClick={() => handleAdd()}
-      />
-      <PrimaryButton
-        text="Delete"
-        color={RED}
-        variant="h6"
-        height="48px"
-        onClick={() => handleDelete(formState)}
-      />
+      <PrimaryButton text="Add Answer" color={TURQUOISE} variant="h6" height="48px" onClick={() => handleAdd()} />
+      <PrimaryButton text="Delete" color={RED} variant="h6" height="48px" onClick={() => handleDelete(formState)} />
     </Container>
   );
 };

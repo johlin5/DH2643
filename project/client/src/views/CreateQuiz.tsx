@@ -10,7 +10,7 @@ const CreateQuiz: React.FC = () => {
 
   return (
     <Container>
-        <Quiz quiz={newQuiz}/> 
+      <Quiz quiz={newQuiz} />
     </Container>
   );
 };

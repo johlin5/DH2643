@@ -30,7 +30,7 @@ const Landing: React.FC = () => {
   const history = useHistory();
 
   return (
-    <Container component="main" maxWidth="xs" style={{backgroundColor: "white", padding: "16px", marginTop: "32px"}}>
+    <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
       <Grid container direction={"column"} spacing={2}>
         <Grid item>
           <Typography variant="h4">Quiz-it</Typography>
@@ -58,6 +58,6 @@ const Landing: React.FC = () => {
       </Grid>
     </Container>
   );
-}
+};
 
 export default Landing;

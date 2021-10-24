@@ -3,15 +3,17 @@ import { gql } from "apollo-server-express";
 const typeDefs = gql`
   type History {
     id: ID!
-    quizId: String!
+    quizTitle: String!
     score: Int!
+    maxScore: Int!
     userId: String!
     date: String
   }
 
   input HistoryInput {
-    quizId: String!
+    quizTitle: String!
     score: Int!
+    maxScore: Int!
   }
 
   extend type Query {
