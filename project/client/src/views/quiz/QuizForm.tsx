@@ -100,7 +100,6 @@ const QuizForm: React.FC<QuizFromProps> = ({ quiz, saveQuiz }: QuizFromProps) =>
           onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setDescription(event.target.value)}
         />
         
-        <InputLabel id="demo-simple-select-standard">#Questions</InputLabel>
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
