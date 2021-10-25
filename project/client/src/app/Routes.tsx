@@ -5,6 +5,7 @@ import Landing from "../views/Landing";
 import Register from "../views/register/Index";
 import CreateQuiz from "../views/CreateQuiz";
 import Play from "../views/game";
+import ProfileEdit from "../views/profile/edit";
 
 export type AppRoute = {
   path: string;
@@ -29,5 +30,6 @@ export const protectedRoutes: AppRoute[] = [
   { path: "/profile", component: Profile, exact: true, requireLoggedIn: true },
   { path: "/createquiz", component: CreateQuiz, exact: true, requireLoggedIn: true },
   { path: "/play/:id", component: Play, exact: false, requireLoggedIn: true },
+  { path: "/profile/edit", component: ProfileEdit, exact: true, requireLoggedIn: true },
   { path: "*", component: NotFound, exact: false, requireLoggedIn: false }
 ];

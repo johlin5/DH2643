@@ -4,10 +4,9 @@ import { Grid, Typography } from "@material-ui/core";
 
 type HistoryViewProps = {
   history: History[];
-  onClick: () => void;
 };
 
-const HistoryView: React.FC<HistoryViewProps> = ({ history, onClick }) => {
+const HistoryView: React.FC<HistoryViewProps> = ({ history }) => {
   if (!history) {
     return <>No quiz history!</>;
   }

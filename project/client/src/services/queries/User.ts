@@ -24,3 +24,16 @@ export const FIND_USER_BY_NAME = gql`
     }
   }
 `;
+
+export const UPDATE_USER = gql`
+  mutation UpdateUserMutation($input: UserUpdate) {
+    updateUser(input: $input) {
+      lastName
+      firstName
+      id
+      image
+      userName
+      biography
+    }
+  }
+`;

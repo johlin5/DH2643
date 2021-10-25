@@ -1,9 +1,17 @@
 import { UserData } from "./ProfilePresenter";
-import { Container, makeStyles, createStyles, Avatar, Card, CardHeader, Typography, Divider } from "@material-ui/core";
-import ProfileQuizPresenter from "./ProfileQuizPresenter";
-type ProfileViewProps = { user: UserData | undefined; image: string };
+import {
+  makeStyles,
+  createStyles,
+  Avatar,
+  CardHeader,
+  Typography,
+  Divider,
+  Button,
+  CardActions
+} from "@material-ui/core";
+type ProfileViewProps = { user: UserData | undefined; image: string; editProfile: () => void };
 
-const ProfileView: React.FC<ProfileViewProps> = ({ user, image }) => {
+const ProfileView: React.FC<ProfileViewProps> = ({ user, image, editProfile }) => {
   const classes = useStyles();
   const { userName, firstName, lastName, biography } = user?.findUserByUserName || {};
 
@@ -14,6 +22,11 @@ const ProfileView: React.FC<ProfileViewProps> = ({ user, image }) => {
         title={<Typography variant="h5">{userName ? userName : "Username"} </Typography>}
         subheader={firstName && lastName ? firstName + " " + lastName : ""}
       />
+      <CardActions>
+        <Button variant="contained" color="primary" onClick={editProfile}>
+          Edit
+        </Button>
+      </CardActions>
       {biography ? biography : ""}
       <Divider />
     </>
