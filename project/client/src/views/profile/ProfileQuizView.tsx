@@ -26,6 +26,7 @@ const ProfileQuizView: React.FC<ProfileQuizViewProps> = ({ quizes, onClick }) =>
                 body={quiz.description}
                 author={quiz.creator}
                 colors={true}
+                upvotes={quiz.upvotes}
                 play={() => {
                   onClick(quiz.id);
                 }}
