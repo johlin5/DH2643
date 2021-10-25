@@ -56,7 +56,7 @@ export const createHistory = async (input, userId): Promise<HistoryDoc> => {
     score: input.score,
     maxScore: input.maxScore,
     userId: userId,
-    date: new Date().toLocaleDateString()
+    date: new Date().toLocaleDateString("en-GB")
   });
   newHistory.id = newHistory._id;
   await newHistory.save();

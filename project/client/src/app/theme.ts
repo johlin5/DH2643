@@ -15,6 +15,8 @@ export const TURQUOISE = "#28B4B1";
 export const PURPLE = "#58395C";
 export const WHITE = "#FFFFFF";
 
+export const ThemeColors = [SAND, GREEN, TURQUOISE, SUCESS_GREEN, WARNING_YELLOW];
+
 export const theme = createTheme({
   props: {
     MuiUseMediaQuery: {
