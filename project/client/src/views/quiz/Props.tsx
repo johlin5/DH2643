@@ -1,4 +1,4 @@
-import { QuizInput } from "utils/types";
+import { QuizInput } from "../../utils/types";
 
 export interface QuizProps {
   quiz: QuizInput;

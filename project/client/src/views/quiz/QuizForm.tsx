@@ -1,21 +1,17 @@
-import { Container, FormControl, MenuItem, TextField, InputLabel, Select, ListItem, List } from "@material-ui/core";
+import { Container, FormControl, MenuItem, TextField, InputLabel, Select, ListItem, List, Typography } from "@material-ui/core";
 import { useState, ChangeEvent } from "react";
 import PrimaryButton from "../../components/PrimaryButton";
 import { PURPLE } from "../../app/theme";
 import Question from "../question/Index";
 import { QuestionInput } from "../../utils/types";
 import { QuizFromProps } from "./Props";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { EditorState, convertToRaw, ContentState } from "draft-js";
-import { Editor } from "react-draft-wysiwyg";
+
 
 const QuizForm: React.FC<QuizFromProps> = ({ quiz, saveQuiz }: QuizFromProps) => {
   const [questions, setQuestions] = useState<QuestionInput[]>(quiz.questions);
   const [title, setTitle] = useState(quiz.title);
+  const [description, setDescription] = useState(quiz.description);
   const [numberOfQuestions, setNumberOfQuestions] = useState(quiz.questions.length);
-  const [editorState, setEditorState] = useState<EditorState>(() =>
-    EditorState.createWithContent(ContentState.createFromText(quiz.description))
-  );
 
   // Callbacks to Question child
   const handleSaveQuestion = (questionData: QuestionInput) => {
@@ -33,7 +29,7 @@ const QuizForm: React.FC<QuizFromProps> = ({ quiz, saveQuiz }: QuizFromProps) =>
     const cleanQuestions = questions.map(({ id, ...q }, index) => ({ ...q, answers: answers[index] }));
     saveQuiz({
       title: title,
-      description: convertToRaw(editorState.getCurrentContent()).blocks[0].text,
+      description: description,
       questions: cleanQuestions,
       creator: quiz.creator
     });
@@ -84,22 +80,27 @@ const QuizForm: React.FC<QuizFromProps> = ({ quiz, saveQuiz }: QuizFromProps) =>
   };
 
   return (
-    <Container component="main" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
-      <TextField
-        id="standard-basic"
-        label="Quiz Title"
-        variant="standard"
-        margin="normal"
-        value={title}
-        onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setTitle(event.target.value)}
-      />
-      <Editor
-        editorState={editorState}
-        editorStyle={{ border: "1px solid #e9e9e9", margin: " 1%" }}
-        onEditorStateChange={setEditorState}
-      />
-      <FormControl>
-        <InputLabel id="demo-simple-select-standard-label">#Questions</InputLabel>
+    <Container component="main" style={{ backgroundColor: "white", padding: "16px"}}>
+      
+      <FormControl fullWidth>
+        <TextField
+          id="standard-basic"
+          label="Quiz Title"
+          variant="standard"
+          margin="normal"
+          value={title}
+          onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setTitle(event.target.value)}
+        />
+        <TextField
+          id="standard-basic"
+          label="Description"
+          variant="standard"
+          margin="normal"
+          value={description}
+          onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setDescription(event.target.value)}
+        />
+        
+        <InputLabel id="demo-simple-select-standard">#Questions</InputLabel>
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"

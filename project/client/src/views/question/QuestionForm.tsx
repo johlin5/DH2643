@@ -1,4 +1,4 @@
-import { Container, List, TextField, Typography, ListItem } from "@material-ui/core";
+import { Container, List, TextField, Typography, ListItem, Button, FormControl } from "@material-ui/core";
 import { useState, ChangeEvent } from "react";
 import PrimaryButton from "../../components/PrimaryButton";
 import { RED, TURQUOISE } from "../../app/theme";
@@ -29,6 +29,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
     const newAnswers = data.answers.filter((a) => {
       return a.AnswerId !== answerData.AnswerId;
     });
+    console.log("Deleting answer", answerData);
     handleSave({
       ...data,
       answers: newAnswers
@@ -36,8 +37,9 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
   };
 
   return (
-    <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "8px", marginTop: "32px" }}>
-      <Typography variant="h4">{formState.question === "" ? "Your question is...." : formState.question}</Typography>
+    <Container component="main" style={{ backgroundColor: "white", border: "solid 1px grey", padding: "10px"}}>
+      <Typography variant="h5">{formState.question === "" ? "Your question is...." : formState.question}</Typography>
+      <FormControl fullWidth>
       <TextField
         id="standard-basic"
         label="Your question is...."
@@ -57,14 +59,15 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
       <List>
         {data.answers.map((answer, index) => {
           return (
-            <ListItem key={index}>
+            <ListItem key={index} style={{padding: "0px"}}>
               <AnswerPresenter handleSave={handleSaveAnswer} handleDelete={handleDeleteAnswer} data={answer} />
             </ListItem>
           );
         })}
       </List>
-      <PrimaryButton text="Add Answer" color={TURQUOISE} variant="h6" height="48px" onClick={() => handleAdd()} />
-      <PrimaryButton text="Delete" color={RED} variant="h6" height="48px" onClick={() => handleDelete(formState)} />
+      <Button size="small" variant="contained" color="primary" onClick={() => handleAdd()}>Add answer</Button>
+      <Button size="small" variant="contained" color="secondary" onClick={() => handleDelete(formState)}>Delete</Button>
+      </FormControl>
     </Container>
   );
 };
