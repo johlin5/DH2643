@@ -1,5 +1,5 @@
 import { Typography, Card, makeStyles, createStyles, CardContent } from "@material-ui/core";
-
+import { getRandomColor } from "./Card";
 const useStyles = makeStyles(() =>
   createStyles({
     card: { margin: "8px" }

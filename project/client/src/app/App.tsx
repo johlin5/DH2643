@@ -4,6 +4,8 @@ import Layout from "./Layout";
 import Cookies from "js-cookie";
 import { jwtTokenAtom, accountNameAtom } from "../atoms/account";
 import { useSetRecoilState } from "recoil";
+import "../styles.css";
+
 const App = (): JSX.Element => {
   const setToken = useSetRecoilState(jwtTokenAtom);
   const setUserName = useSetRecoilState(accountNameAtom);
