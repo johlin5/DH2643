@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import ProfileQuizPresenter from "./ProfileQuizPresenter";
 import { Container } from "@material-ui/core";
 import HistoryPresenter from "./HistoryPresenter";
+import { useHistory } from "react-router-dom";
 
 export type User = {
   biography: string | null;
@@ -22,6 +23,8 @@ export type UserData = { findUserByUserName: User };
 
 const ProfilePresenter: React.FC = () => {
   const accountName = useRecoilValue(accountNameAtom);
+  const history = useHistory();
+  const editProfile = () => history.push("/profile/edit");
 
   const [icon, setIcon] = useState<string>("");
 
@@ -46,7 +49,7 @@ const ProfilePresenter: React.FC = () => {
   }
   return (
     <Container component="main" style={{ backgroundColor: "white", minHeight: "80vh" }}>
-      <ProfileView user={data} image={icon} />
+      <ProfileView user={data} image={icon} editProfile={() => editProfile()} />
       <ProfileQuizPresenter />
       <HistoryPresenter />
     </Container>

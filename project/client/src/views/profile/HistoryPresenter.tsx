@@ -21,7 +21,7 @@ const HistoryPresenter: React.FC = () => {
     return <Spinner />;
   }
 
-  return <HistoryView history={data.findHistory} onClick={() => console.log("hej")} />;
+  return <HistoryView history={data.findHistory} />;
 };
 
 export default HistoryPresenter;
