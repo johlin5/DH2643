@@ -1,5 +1,5 @@
 import GameView from "./GameView";
-import { FETCH_QUIZ_BY_ID } from "../../services/queries/Quiz";
+import { FETCH_QUIZ_BY_ID, UPVOTE_QUIZ } from "../../services/queries/Quiz";
 import { CREATE_HISTORY } from "../../services/queries/History";
 import { useQuery, useMutation } from "@apollo/client";
 import { useParams } from "react-router-dom";
@@ -35,6 +35,11 @@ type GameState = {
   gameOver: boolean;
 };
 
+type Upvote = {
+  title: string;
+  upvote: number;
+};
+
 export type QuizData = { findQuizById: Quiz };
 
 const GamePresenter: React.FC = () => {
@@ -48,11 +53,13 @@ const GamePresenter: React.FC = () => {
     totalQuestions: 0,
     gameOver: false
   });
+  const [upvoteState, setUpvoteState] = useState(false);
   const { loading, error, data } = useQuery<QuizData>(FETCH_QUIZ_BY_ID, {
     variables: { findQuizByIdId: id }
   });
 
   const [createHistory, _historyResponse] = useMutation<History>(CREATE_HISTORY);
+  const [sumbitUpvote, _upvoteResponse] = useMutation<Upvote>(UPVOTE_QUIZ);
 
   const submitHistory = async (input: HistoryInput) => {
     await createHistory({
@@ -145,6 +152,15 @@ const GamePresenter: React.FC = () => {
     return <Spinner />;
   }
 
+  const onUpvote = async () => {
+    setUpvoteState(true);
+    await sumbitUpvote({
+      variables: {
+        id: gameState.quiz?.id
+      }
+    });
+  };
+
   return (
     <>
       <GameOverModal
@@ -153,6 +169,7 @@ const GamePresenter: React.FC = () => {
         playAgain={playAgain}
         open={gameState.gameOver}
         onClose={goToFrontpage}
+        onUpvote={{ onUpvoteClick: onUpvote, disabled: upvoteState }}
       />
       <GameView
         question={gameState.quiz?.questions[gameState.questionCurrentIndex]}

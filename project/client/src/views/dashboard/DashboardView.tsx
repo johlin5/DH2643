@@ -26,6 +26,7 @@ const DashboardView: React.FC<DashboardViewProps> = ({ onPlay, quizData }) => {
                 title={quiz.title}
                 author={quiz.creator}
                 colors={true}
+                upvotes={quiz.upvotes}
                 body={quiz.description !== null || "" ? quiz.description : "N/A"}
                 play={() => {
                   onPlay(quiz.id);

@@ -11,6 +11,7 @@ export type Quiz = {
   title: string;
   creator: string;
   description: string;
+  upvotes: number;
 };
 
 export type QuizData = { findQuizByCreator: Quiz[] };

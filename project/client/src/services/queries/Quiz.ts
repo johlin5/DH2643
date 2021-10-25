@@ -34,6 +34,7 @@ export const FETCH_ALL_QUIZES = gql`
     findAllQuiz {
       id
       title
+      upvotes
       description
       questions {
         id
@@ -80,6 +81,15 @@ export const FETCH_QUIZ_BY_ID = gql`
         }
       }
       creator
+      upvotes
+    }
+  }
+`;
+
+export const UPVOTE_QUIZ = gql`
+  mutation UpvoteQuizMutation($id: ID!) {
+    upvoteQuiz(id: $id) {
+      title
       upvotes
     }
   }

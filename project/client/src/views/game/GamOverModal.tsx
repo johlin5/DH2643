@@ -1,4 +1,7 @@
-import { Modal, Box, Paper, Button, Typography, makeStyles, createStyles } from "@material-ui/core";
+import { Modal, Box, Paper, Button, Typography, makeStyles, createStyles, IconButton } from "@material-ui/core";
+import { ThumbUp } from "@material-ui/icons";
+import { withStyles } from "@material-ui/core/styles";
+import { SUCESS_GREEN } from "../../app/theme";
 
 type GameOverModalProps = {
   open: boolean;
@@ -6,9 +9,16 @@ type GameOverModalProps = {
   numberCorrect: number;
   playAgain: () => void;
   onClose: () => void;
+  onUpvote: { onUpvoteClick: () => void; disabled: boolean };
 };
 
-const GameOverModal: React.FC<GameOverModalProps> = ({ open, total, numberCorrect, playAgain, onClose }) => {
+const CustomColorIconButton = withStyles({
+  root: {
+    color: SUCESS_GREEN
+  }
+})(IconButton);
+
+const GameOverModal: React.FC<GameOverModalProps> = ({ open, total, numberCorrect, playAgain, onClose, onUpvote }) => {
   const classes = useStyles();
   return (
     <Modal open={open} onClose={onClose} className={classes.modalRoot}>
@@ -19,7 +29,10 @@ const GameOverModal: React.FC<GameOverModalProps> = ({ open, total, numberCorrec
             You got {numberCorrect} questions correct out of {total}
           </Typography>
           <Button onClick={playAgain}>Play again</Button>
-          <Button onClick={onClose}>More quiezes</Button>
+          <Button onClick={onClose}>More quizes</Button>
+          <CustomColorIconButton disabled={onUpvote.disabled} onClick={onUpvote.onUpvoteClick}>
+            <ThumbUp />
+          </CustomColorIconButton>
         </Paper>
       </Box>
     </Modal>

@@ -9,6 +9,7 @@ import {
   ThemeProvider
 } from "@material-ui/core";
 import { theme, ThemeColors } from "../app/theme";
+import { ThumbUp } from "@material-ui/icons";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -21,6 +22,7 @@ type GameCardProps = {
   body: string;
   author: string;
   colors: boolean;
+  upvotes: number;
   play: () => void;
   info: () => void;
 };
@@ -30,7 +32,7 @@ export const getRandomColor = (): string => {
 };
 
 const GameCard: React.FC<GameCardProps> = (props) => {
-  const { title, body, colors, play, info, author } = props;
+  const { title, body, colors, play, info, author, upvotes } = props;
   const classes = useStyles();
   const borders = { border: "solid", borderRadius: "5px", borderWidth: "1px" };
   const color = colors ? { backgroundColor: getRandomColor() } : {};
@@ -45,6 +47,9 @@ const GameCard: React.FC<GameCardProps> = (props) => {
           </Typography>
           <Typography gutterBottom variant="body2" component="div">
             Author: {author}
+          </Typography>
+          <Typography gutterBottom variant="body2" component="div">
+            <ThumbUp /> {upvotes}
           </Typography>
           <Typography variant="body1">{body}</Typography>
         </CardContent>
