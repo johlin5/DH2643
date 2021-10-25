@@ -29,7 +29,8 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
     const newAnswers = data.answers.filter((a) => {
       return a.AnswerId !== answerData.AnswerId;
     });
-    console.log("Deleting answer", answerData);
+    console.log(answerData);
+    console.log(newAnswers);
     handleSave({
       ...data,
       answers: newAnswers
