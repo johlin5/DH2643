@@ -30,9 +30,7 @@ const QuestionPresenter: React.FC<QuestionPresenterProps> = ({
   };
 
   return (
-    <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px" }}>
-      <QuestionForm handleSave={handleSave} handleDelete={handleDelete} handleAdd={handleAdd} data={questionData!} />
-    </Container>
+    <QuestionForm handleSave={handleSave} handleDelete={handleDelete} handleAdd={handleAdd} data={questionData!} />
   );
 };
 

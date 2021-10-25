@@ -5,6 +5,7 @@ import { SAVE_QUIZ, UPDATE_QUIZ } from "../../services/queries/Quiz";
 import { QuizInput } from "../../utils/types";
 import QuizForm from "./QuizForm";
 import { QuizProps } from "./Props";
+import { SAND } from "../../app/theme";
 
 const QuizPresenter: React.FC<QuizProps> = ({ quiz }: QuizProps) => {
   const [save, { data, loading, error }] = useMutation(SAVE_QUIZ);
@@ -34,7 +35,7 @@ const QuizPresenter: React.FC<QuizProps> = ({ quiz }: QuizProps) => {
   if (error) return <p>Error :( </p>;
 
   return (
-    <Container component="main" style={{ backgroundColor: "white" }}>
+    <Container component="main" style={{ backgroundColor: "white", marginTop: "10px", padding: "15px"}}>
       <Typography variant="h4">Create Your Own Quiz!</Typography>
       <QuizForm quiz={quiz} saveQuiz={saveQuiz} />
     </Container>
