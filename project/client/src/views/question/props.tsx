@@ -1,13 +1,15 @@
 import { AnswerInput, QuestionInput } from "../../utils/types";
 
 export interface QuestionProps {
-  data: QuestionInput;
+  questionData: QuestionInput;
 }
 
 export interface QuestionFormProps extends QuestionProps {
   handleSave: (questionData: QuestionInput) => void;
   handleDelete: (questionData: QuestionInput) => void;
-  handleAdd: () => void;
+  onAddAnswer: () => void;
+  onDeleteAnswer: (answerData: AnswerInput) => void;
+  onSaveAnswer: (answerData: AnswerInput) => void;
 }
 
 export interface QuestionPresenterProps extends QuestionProps {
