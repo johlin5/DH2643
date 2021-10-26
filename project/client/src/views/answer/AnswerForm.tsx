@@ -1,13 +1,9 @@
-import { Container, Select, TextField, Typography, MenuItem, FormControl, Button } from "@material-ui/core";
-import React, { ChangeEvent, useState } from "react";
-import PrimaryButton from "../../components/PrimaryButton";
-import { GREEN, PURPLE, RED } from "../../app/theme";
-import { AnswerFormProps } from "./props";
+import { Container, Select, TextField, MenuItem, FormControl, Button } from "@material-ui/core";
+import React, { ChangeEvent } from "react";
+import { AnswerProps } from "./props";
 
 
-const AnswerForm: React.FC<AnswerFormProps> = ({ saveAnswer, deleteAnswer, data }: AnswerFormProps) => {
-  const [formState, setFormState] = useState(data);
-
+const AnswerForm: React.FC<AnswerProps> = ({ answerData, handleSave, handleDelete }: AnswerProps) => {
   return (
     <Container maxWidth="sm" style={{ backgroundColor: "white", border:"solid grey 1px", padding: "10px", marginBottom: "5px"}} >
       
@@ -17,25 +13,17 @@ const AnswerForm: React.FC<AnswerFormProps> = ({ saveAnswer, deleteAnswer, data 
           label="Answer"
           variant="standard"
           margin="normal"
-          value={formState.description}
-          onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-            setFormState({ ...formState, description: event.target.value });
-          }}
-          onBlur={() => {
-            saveAnswer(formState);
-          }}
+          value={answerData.description}
+          onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => handleSave({...answerData, description: event.target.value})}
+          onBlur={() => handleSave(answerData)}
         />
         <Select
           labelId="flag_id"
           id="flag_id"
-          value={formState.flag ? "1" : "0"}
+          value={answerData.flag ? "1" : "0"}
           defaultValue={0}
-          onChange={(event: any) => {
-            setFormState({ ...data, flag: event.target.value === "0" ? false : true });
-          }}
-          onBlur={() => {
-            saveAnswer(formState);
-          }}
+          onChange={(event: any) => handleSave({...answerData, flag: event.target.value === "0" ? false : true})}
+          onBlur={() => handleSave(answerData)}
           style={{
             width: 70
           }}
@@ -46,9 +34,7 @@ const AnswerForm: React.FC<AnswerFormProps> = ({ saveAnswer, deleteAnswer, data 
         <Button 
         color="primary"
         variant="text"
-        onClick={() => {
-            deleteAnswer(formState);
-          }}>
+        onClick={() => handleDelete(answerData)}>
           X
       </Button>
       </FormControl>
