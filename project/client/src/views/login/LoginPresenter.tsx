@@ -4,7 +4,7 @@ import LoginFormView from "./LoginFormView";
 import { FormInputs } from "./types";
 import { accountNameAtom, jwtTokenAtom } from "../../atoms/account";
 import { useSetRecoilState } from "recoil";
-import { useHistory, useLocation, withRouter } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import Spinner from "../../components/Spinner";
 import Cookie from "js-cookie";
 

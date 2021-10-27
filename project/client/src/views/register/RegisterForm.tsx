@@ -9,7 +9,7 @@ type FormInputs = {
   password: string;
   passwordConfirmation: string;
 };
-import { useHistory, withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const RegisterForm: React.FC = () => {
   const [formInput, setFormInput] = useState<FormInputs>({ userName: "", password: "", passwordConfirmation: "" });
@@ -103,4 +103,4 @@ const RegisterForm: React.FC = () => {
   );
 };
 
-export default withRouter(RegisterForm);
+export default RegisterForm;
