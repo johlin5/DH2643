@@ -15,7 +15,7 @@ const AnswerPresenter: React.FC<AnswerPresenterProps> = ({ handleSave, handleDel
 
   return (
     // <Container component="main" maxWidth="xs" style={{ backgroundColor: "blue", padding: "0px"}}>
-      <AnswerForm saveAnswer={saveAnswer} deleteAnswer={handleDelete} data={data} />
+    <AnswerForm saveAnswer={saveAnswer} deleteAnswer={handleDelete} data={data} />
     // </Container>
   );
 };

@@ -1,5 +1,5 @@
-import { Container, TextField, Typography } from "@material-ui/core";
-import { useState, ChangeEvent } from "react";
+import { Container, TextField, Typography, Button } from "@material-ui/core";
+import { useState, ChangeEvent, FormEvent, MouseEvent } from "react";
 import { SIGN_UP } from "../../services/queries/Auth";
 import { useMutation } from "@apollo/client";
 import PrimaryButton from "../../components/PrimaryButton";
@@ -9,32 +9,27 @@ type FormInputs = {
   password: string;
   passwordConfirmation: string;
 };
-import { jwtTokenAtom, accountNameAtom } from "../../atoms/account";
-import { useRecoilState } from "recoil";
-import { useHistory } from "react-router-dom";
+import { useHistory, withRouter } from "react-router-dom";
 
 const RegisterForm: React.FC = () => {
   const [formInput, setFormInput] = useState<FormInputs>({ userName: "", password: "", passwordConfirmation: "" });
-  const [signup, { data, loading, error }] = useMutation(SIGN_UP);
-
-  const [token, setToken] = useRecoilState(jwtTokenAtom);
-  const [userName, setUserName] = useRecoilState(accountNameAtom);
+  const [signup, { loading, error }] = useMutation(SIGN_UP);
   const history = useHistory();
 
-  const registerUser = async () => {
-    const response = await signup({
+  const registerUser = async (event: FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    signup({
       variables: {
         signupInput: {
           ...formInput
         }
       }
-    });
-    document.cookie = "token=" + response.data.login.token;
-    document.cookie = "userName=" + response.data.login.user.userName;
-    setToken(response.data.login.token);
-    setUserName(response.data.signin.user.userName);
+    })
+      .catch((err) => err)
+      .finally(() => pushLogin("Sucessfully created account!"));
   };
 
+  const pushLogin = (message: string) => history.push({ pathname: "/login", state: { message } });
   const goBack = () => history.goBack();
 
   if (loading) {
@@ -44,7 +39,7 @@ const RegisterForm: React.FC = () => {
   return (
     <Container component="main" maxWidth="xs" style={{ backgroundColor: "white", padding: "16px", marginTop: "32px" }}>
       <Typography variant="h4">Register</Typography>
-      <form onSubmit={() => registerUser()}>
+      <form onSubmit={(e) => registerUser(e)}>
         <TextField
           variant="outlined"
           margin="normal"
@@ -86,24 +81,26 @@ const RegisterForm: React.FC = () => {
           onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
             setFormInput({ ...formInput, passwordConfirmation: event.target.value });
           }}
-          id="password"
+          id="passwordConfirmation"
           FormHelperTextProps={{ error: true }}
         />
-
-        <PrimaryButton
+        <Button
+          style={{
+            textTransform: "none",
+            backgroundColor: PURPLE,
+            height: "48px",
+            color: "white"
+          }}
+          fullWidth
           type="submit"
-          text="Create account"
-          color={PURPLE}
-          variant="h5"
-          height="48px"
-          onClick={() => registerUser()}
-        />
-        <PrimaryButton text="Back" color={RED} variant="h5" height="48px" onClick={() => goBack()} />
+        >
+          <Typography variant="h5">Create account</Typography>
+        </Button>
+        <PrimaryButton text="Back" color={RED} variant="h5" height="48px" type="button" onClick={() => goBack()} />
         <>{error?.message}</>
       </form>
-      {data && <>Created account</>}
     </Container>
   );
 };
 
-export default RegisterForm;
+export default withRouter(RegisterForm);

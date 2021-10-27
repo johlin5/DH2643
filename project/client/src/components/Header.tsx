@@ -25,7 +25,7 @@ const Header: React.FC = () => {
   const [token, setToken] = useRecoilState(jwtTokenAtom);
   const history = useHistory();
   const logout = () => {
-    Cookies.remove("token");
+    Cookies.remove("token", { path: "/" });
     setToken(null);
     history.push("/");
   };

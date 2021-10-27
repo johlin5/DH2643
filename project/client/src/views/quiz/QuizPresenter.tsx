@@ -35,7 +35,7 @@ const QuizPresenter: React.FC<QuizProps> = ({ quiz }: QuizProps) => {
   if (error) return <p>Error :( </p>;
 
   return (
-    <Container component="main" style={{ backgroundColor: "white", marginTop: "10px", padding: "15px"}}>
+    <Container component="main" style={{ backgroundColor: "white", marginTop: "10px", padding: "15px" }}>
       <Typography variant="h4">Create Your Own Quiz!</Typography>
       <QuizForm quiz={quiz} saveQuiz={saveQuiz} />
     </Container>

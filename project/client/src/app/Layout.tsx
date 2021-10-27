@@ -3,12 +3,9 @@ import { unprotectedRoutes, protectedRoutes } from "./Routes";
 import Header from "../components/Header";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { CssBaseline } from "@material-ui/core";
-import { jwtTokenAtom } from "../atoms/account";
-import { useRecoilValue } from "recoil";
 import Cookie from "js-cookie";
 
 const Layout: React.FC = () => {
-  const hasToken = !!useRecoilValue(jwtTokenAtom);
   return (
     <Router>
       <CssBaseline />

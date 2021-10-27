@@ -1,4 +1,5 @@
 import { Button, Typography } from "@material-ui/core";
+import React from "react";
 
 type PrimaryButtonProps = {
   height: string;
@@ -6,7 +7,7 @@ type PrimaryButtonProps = {
   text: string;
   variant?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   icon?: JSX.Element;
-  type?: "submit";
+  type?: "submit" | "button";
   onClick?: () => void;
 };
 

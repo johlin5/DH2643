@@ -37,36 +37,40 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
   };
 
   return (
-    <Container component="main" style={{ backgroundColor: "white", border: "solid 1px grey", padding: "10px"}}>
+    <Container component="main" style={{ backgroundColor: "white", border: "solid 1px grey", padding: "10px" }}>
       <Typography variant="h5">{formState.question === "" ? "Your question is...." : formState.question}</Typography>
       <FormControl fullWidth>
-      <TextField
-        id="standard-basic"
-        label="Your question is...."
-        variant="standard"
-        margin="normal"
-        value={formState.question}
-        onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-          setFormState({
-            ...data,
-            question: event.target.value
-          });
-        }}
-        onBlur={() => {
-          handleSave(formState);
-        }}
-      />
-      <List>
-        {data.answers.map((answer, index) => {
-          return (
-            <ListItem key={index} style={{padding: "0px"}}>
-              <AnswerPresenter handleSave={handleSaveAnswer} handleDelete={handleDeleteAnswer} data={answer} />
-            </ListItem>
-          );
-        })}
-      </List>
-      <Button size="small" variant="contained" color="primary" onClick={() => handleAdd()}>Add answer</Button>
-      <Button size="small" variant="contained" color="secondary" onClick={() => handleDelete(formState)}>Delete</Button>
+        <TextField
+          id="standard-basic"
+          label="Your question is...."
+          variant="standard"
+          margin="normal"
+          value={formState.question}
+          onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+            setFormState({
+              ...data,
+              question: event.target.value
+            });
+          }}
+          onBlur={() => {
+            handleSave(formState);
+          }}
+        />
+        <List>
+          {data.answers.map((answer, index) => {
+            return (
+              <ListItem key={index} style={{ padding: "0px" }}>
+                <AnswerPresenter handleSave={handleSaveAnswer} handleDelete={handleDeleteAnswer} data={answer} />
+              </ListItem>
+            );
+          })}
+        </List>
+        <Button size="small" variant="contained" color="primary" onClick={() => handleAdd()}>
+          Add answer
+        </Button>
+        <Button size="small" variant="contained" color="secondary" onClick={() => handleDelete(formState)}>
+          Delete
+        </Button>
       </FormControl>
     </Container>
   );

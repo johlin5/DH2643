@@ -1,16 +1,15 @@
-import { Container, Select, TextField, Typography, MenuItem, FormControl, Button } from "@material-ui/core";
+import { Container, Select, TextField, MenuItem, FormControl, Button } from "@material-ui/core";
 import React, { ChangeEvent, useState } from "react";
-import PrimaryButton from "../../components/PrimaryButton";
-import { GREEN, PURPLE, RED } from "../../app/theme";
 import { AnswerFormProps } from "./props";
-
 
 const AnswerForm: React.FC<AnswerFormProps> = ({ saveAnswer, deleteAnswer, data }: AnswerFormProps) => {
   const [formState, setFormState] = useState(data);
 
   return (
-    <Container maxWidth="sm" style={{ backgroundColor: "white", border:"solid grey 1px", padding: "10px", marginBottom: "5px"}} >
-      
+    <Container
+      maxWidth="sm"
+      style={{ backgroundColor: "white", border: "solid grey 1px", padding: "10px", marginBottom: "5px" }}
+    >
       <FormControl>
         <TextField
           id="standard-basic"
@@ -43,14 +42,15 @@ const AnswerForm: React.FC<AnswerFormProps> = ({ saveAnswer, deleteAnswer, data 
           <MenuItem value={1}>True</MenuItem>
           <MenuItem value={0}>False</MenuItem>
         </Select>
-        <Button 
-        color="primary"
-        variant="text"
-        onClick={() => {
+        <Button
+          color="primary"
+          variant="text"
+          onClick={() => {
             deleteAnswer(formState);
-          }}>
+          }}
+        >
           X
-      </Button>
+        </Button>
       </FormControl>
     </Container>
   );

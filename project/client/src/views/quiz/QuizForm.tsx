@@ -1,11 +1,20 @@
-import { Container, FormControl, MenuItem, TextField, InputLabel, Select, ListItem, List, Typography } from "@material-ui/core";
+import {
+  Container,
+  FormControl,
+  MenuItem,
+  TextField,
+  InputLabel,
+  Select,
+  ListItem,
+  List,
+  Typography
+} from "@material-ui/core";
 import { useState, ChangeEvent } from "react";
 import PrimaryButton from "../../components/PrimaryButton";
 import { PURPLE } from "../../app/theme";
 import Question from "../question/Index";
 import { QuestionInput } from "../../utils/types";
 import { QuizFromProps } from "./Props";
-
 
 const QuizForm: React.FC<QuizFromProps> = ({ quiz, saveQuiz }: QuizFromProps) => {
   const [questions, setQuestions] = useState<QuestionInput[]>(quiz.questions);
@@ -80,8 +89,7 @@ const QuizForm: React.FC<QuizFromProps> = ({ quiz, saveQuiz }: QuizFromProps) =>
   };
 
   return (
-    <Container component="main" style={{ backgroundColor: "white", padding: "16px"}}>
-      
+    <Container component="main" style={{ backgroundColor: "white", padding: "16px" }}>
       <FormControl fullWidth>
         <TextField
           id="standard-basic"
@@ -99,7 +107,7 @@ const QuizForm: React.FC<QuizFromProps> = ({ quiz, saveQuiz }: QuizFromProps) =>
           value={description}
           onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setDescription(event.target.value)}
         />
-        
+
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
