@@ -113,6 +113,9 @@ const GamePresenter: React.FC = () => {
         ...gameState,
         questionCurrentIndex: gameState.questionCurrentIndex + 1
       });
+    if (gameState.questionCurrentIndex + 1 === gameState.totalQuestions) {
+      submit();
+    }
   };
 
   const previusQuestion = () => {
