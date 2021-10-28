@@ -4,12 +4,12 @@ import { QuestionFormProps } from "./props";
 import AnswerPresenter from "../answer/AnswerPresenter";
 
 const QuestionForm: React.FC<QuestionFormProps> = ({
-  handleSave,
   handleDelete,
   onAddAnswer,
   onDeleteAnswer,
   onSaveAnswer,
-  questionData
+  questionData,
+  onSetQuestion
 }: QuestionFormProps) => {
 
   return (
@@ -22,15 +22,12 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
         variant="standard"
         margin="normal"
         value={questionData.question}
-        onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => handleSave({...questionData, question: event.target.value})}
-        onBlur={() => handleSave(questionData)}
+        onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => onSetQuestion({...questionData, question: event.target.value})}
       />
       <List>
         {questionData.answers.map((answer, index) => {
           return (
             <ListItem key={index} style={{padding: "0px"}}>
-              {/* <p>{answer.AnswerId}</p>
-              <Button onClick={() => onDeleteAnswer(answer)}>Delete answer</Button> */}
               <AnswerPresenter handleSave={onSaveAnswer} handleDelete={onDeleteAnswer} answerData={answer} />
             </ListItem>
           );

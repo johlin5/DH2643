@@ -21,8 +21,9 @@ const QuizForm: React.FC<QuizFromProps> = ({
   saveQuiz, 
   setQuizData, 
   setNumberOfQuestions,
-  onSaveQuestion,
-  onDeleteQuestion
+  onSetQuestion,
+  onDeleteQuestion,
+  onUpdateQuestion
   }: QuizFromProps) => {
 
   return (
@@ -69,12 +70,12 @@ const QuizForm: React.FC<QuizFromProps> = ({
         {quiz.questions.map((question, index) => {
           return (
             <ListItem key={index}>
-              <QuestionPresenter saveQuestion={onSaveQuestion} handleDelete={onDeleteQuestion} questionData={question} />
+              <QuestionPresenter onSetQuestion={onSetQuestion} handleDelete={onDeleteQuestion} questionData={question} updateQuestion={onUpdateQuestion}/>
             </ListItem>
           );
         })}
       </List>
-      <PrimaryButton text="Save Quiz" color={PURPLE} variant="h6" height="48px" onClick={() => saveQuiz()} />
+      <PrimaryButton text="Save Quiz" color={PURPLE} variant="h6" height="48px" onClick={() => saveQuiz(quiz)} />
     </Container>
   );
 };

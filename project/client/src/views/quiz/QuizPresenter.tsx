@@ -1,48 +1,18 @@
 import { useMutation } from "@apollo/client";
 import { Container, Typography } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
-import { SAVE_QUIZ } from "../../services/queries/Quiz";
-import { QuestionInput } from "../../utils/types";
+import { SAVE_QUIZ, UPDATE_QUIZ } from "../../services/queries/Quiz";
+import { QuestionInput, QuizInput, Quiz } from "../../utils/types";
 import QuizForm from "./QuizForm";
 import { QuizProps } from "./Props";
 import { useEffect, useState } from "react";
+import Spinner from "../../components/Spinner";
 
 const QuizPresenter: React.FC<QuizProps> = ({ quiz }: QuizProps) => {
-  const [save, { data, loading, error }] = useMutation(SAVE_QUIZ);
-  
-  const history = useHistory();
-  const saveQuiz = async () => {
-    const answers = quizData.questions.map((q) => q.answers.map(({ AnswerId, ...answer }) => answer));
-    const cleanQuestions = quizData.questions.map(({ id, ...q }, index) => ({ ...q, answers: answers[index] }));
-    const response = await save({
-          variables: {
-            createQuizInput: {
-              ...quizData,
-              questions: cleanQuestions
-            }
-          }
-        });
-    history.push("/");
-  };
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :( </p>;
-
   const [quizData, setQuizData] = useState(quiz);
   const [numberOfQuestions, setNumberOfQuestions] = useState(0);
-
-  useEffect( () => {
-    setQuizData({
-      ...quizData,
-      questions: createQuestions()
-    });
-  }, [numberOfQuestions]);
-
-  const generateQuestionID = () => {
-      return Math.floor((1 + Math.random()) * 0x10000)
-        .toString(16)
-        .substring(1);
-  }
+  
+  const history = useHistory();
 
   const createQuestions = ()=> {
     if (quizData.questions.length === 0) {
@@ -60,8 +30,7 @@ const QuizPresenter: React.FC<QuizProps> = ({ quiz }: QuizProps) => {
   const appendQuestions = (start: number, end: number) => {
     let questions = quizData.questions;
     for (let index: number = start; index < end; index++) {
-      const questionId = generateQuestionID();
-      const questionData = { question: "", answers: [], id: questionId, userId: quiz.creator, upvotes: 0, report: "" };
+      const questionData = { question: "", answers: [], userId: quiz.creator };
       questions = [...questions, questionData];
     }
     return questions;
@@ -73,7 +42,7 @@ const QuizPresenter: React.FC<QuizProps> = ({ quiz }: QuizProps) => {
       return;
     }
     
-    setQuizData({
+    updateQuiz({
       ...quizData,
       questions: quizData.questions.filter( (q) => {
         return q.id !== questionData.id;
@@ -81,27 +50,62 @@ const QuizPresenter: React.FC<QuizProps> = ({ quiz }: QuizProps) => {
     });
   };
 
-  const handleSaveQuestion = (questionData: QuestionInput) => {
-    const existingQuestion = quizData.questions.find((q) => {return q.id === questionData.id});
-    if (existingQuestion) {
-      const index = quizData.questions.findIndex((q) => q.id === questionData.id);
-      updateQuestion(index, questionData);
-    } else {
-      setQuestions([...quizData.questions, questionData]);
-    }
+  const handleSetQuestion = (questionData: QuestionInput) => {
+    const index = quizData.questions.findIndex((q) => q.id === questionData.id);
+    setQuestion(index, questionData);
   };
 
-  const updateQuestion = (index: number, data: QuestionInput) => {
+  const setQuestion = (index: number, data: QuestionInput) => {
     const newQuestions = quizData.questions; // copying the old datas array
     newQuestions[index] = data; // replace old data with new
-    setQuestions(newQuestions);
-  };
-
-  const setQuestions = (newQuestions: QuestionInput[]) => {
     setQuizData({
       ...quizData,
       questions: newQuestions
     });
+  };
+
+  const handleUpdateQuestion = (questionData: QuestionInput) => {
+    const index = quizData.questions.findIndex((q) => q.id === questionData.id);
+    const newQuestions = quizData.questions; // copying the old datas array
+    newQuestions[index] = questionData; // replace old data with new
+    updateQuiz({
+      ...quizData,
+      questions: newQuestions
+    });
+  }
+
+  const [update, {data, loading, error}] = useMutation(UPDATE_QUIZ);
+  const updateQuiz = async (data: QuizInput) => {
+    const response = await update({
+      variables: {
+        updateQuizInput: {
+          title: data.title,
+          description: data.description,
+          questions: data.questions,
+          creator: data.creator
+        },
+        id: data.id
+      }
+    });
+    response.data.updateQuiz.questions.forEach( (q:any) => delete q.__typename );
+    response.data.updateQuiz.questions.forEach( (q: any) => q.answers.forEach((a: any) => delete a.__typename) );
+    setQuizData(response.data.updateQuiz);
+  }
+
+  useEffect( () => {
+    updateQuiz({
+      ...quizData,
+      questions: createQuestions()
+    });
+  }, [numberOfQuestions]);
+
+  if (loading || !data) {
+    return <Spinner />;
+  }
+
+  const saveQuiz = async (quizData: QuizInput) => {
+    await updateQuiz(quizData);
+    history.push("/");
   }
 
   return (
@@ -112,8 +116,9 @@ const QuizPresenter: React.FC<QuizProps> = ({ quiz }: QuizProps) => {
         saveQuiz={saveQuiz} 
         setQuizData={setQuizData} 
         setNumberOfQuestions={setNumberOfQuestions}
-        onSaveQuestion={handleSaveQuestion}
-        onDeleteQuestion={handleDeleteQuestion}/>
+        onSetQuestion={handleSetQuestion}
+        onDeleteQuestion={handleDeleteQuestion}
+        onUpdateQuestion={handleUpdateQuestion}/>
     </Container>
   );
 };

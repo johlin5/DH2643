@@ -5,9 +5,10 @@ export interface QuizProps {
 }
 
 export interface QuizFromProps extends QuizProps {
-  saveQuiz: () => void;
+  saveQuiz: (data: QuizInput) => void;
   setQuizData: (quizData: QuizInput) => void;
   setNumberOfQuestions: (numberOfQuestions: any) => void; 
   onDeleteQuestion: (questionData: QuestionInput) => void;
-  onSaveQuestion: (questionData: QuestionInput) => void;
+  onSetQuestion: (questionData: QuestionInput) => void;
+  onUpdateQuestion: (questionData: QuestionInput) => void;
 }

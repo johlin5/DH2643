@@ -5,14 +5,15 @@ export interface QuestionProps {
 }
 
 export interface QuestionFormProps extends QuestionProps {
-  handleSave: (questionData: QuestionInput) => void;
   handleDelete: (questionData: QuestionInput) => void;
   onAddAnswer: () => void;
   onDeleteAnswer: (answerData: AnswerInput) => void;
   onSaveAnswer: (answerData: AnswerInput) => void;
+  onSetQuestion: (questionData: QuestionInput) => void;
 }
 
 export interface QuestionPresenterProps extends QuestionProps {
-  saveQuestion: (questionData: QuestionInput) => void;
   handleDelete: (questionData: QuestionInput) => void;
+  onSetQuestion: (questionData: QuestionInput) => void;
+  updateQuestion: (questionData: QuestionInput) => void;
 }
