@@ -3,23 +3,23 @@ import { unprotectedRoutes, protectedRoutes } from "./Routes";
 import Header from "../components/Header";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { CssBaseline } from "@material-ui/core";
-import { jwtTokenAtom } from "../atoms/account";
-import { useRecoilValue } from "recoil";
 import Cookie from "js-cookie";
+import { useRecoilValue } from "recoil";
+import { userIsAuth } from "../selectors/account";
 
 const Layout: React.FC = () => {
-  const hasToken = !!useRecoilValue(jwtTokenAtom);
+  const isAuth = useRecoilValue(userIsAuth);
   return (
     <Router>
       <CssBaseline />
-      {!Cookie.get("token") && (
+      {!isAuth && !Cookie.get("token") && (
         <Switch>
           {unprotectedRoutes.map((nav) => {
             return <Route path={nav.path} exact={nav.exact} component={nav.component} key={nav.path} />;
           })}
         </Switch>
       )}
-      {Cookie.get("token") && (
+      {isAuth && Cookie.get("token") && (
         <>
           <Header />
           <Switch>
