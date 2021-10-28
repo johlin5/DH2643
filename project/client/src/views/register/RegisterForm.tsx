@@ -4,12 +4,13 @@ import { SIGN_UP } from "../../services/queries/Auth";
 import { useMutation } from "@apollo/client";
 import PrimaryButton from "../../components/PrimaryButton";
 import { PURPLE, RED } from "../../app/theme";
+import { useHistory } from "react-router-dom";
+
 type FormInputs = {
   userName: string;
   password: string;
   passwordConfirmation: string;
 };
-import { useHistory } from "react-router-dom";
 
 const RegisterForm: React.FC = () => {
   const [formInput, setFormInput] = useState<FormInputs>({ userName: "", password: "", passwordConfirmation: "" });
@@ -25,8 +26,12 @@ const RegisterForm: React.FC = () => {
         }
       }
     })
-      .catch((err) => err)
-      .finally(() => pushLogin("Sucessfully created account!"));
+      .then(() => {
+        pushLogin("Sucessfully created account!");
+      })
+      .catch((err) => {
+        return;
+      });
   };
 
   const pushLogin = (message: string) => history.push({ pathname: "/login", state: { message } });
@@ -50,6 +55,7 @@ const RegisterForm: React.FC = () => {
           name="username"
           autoComplete="username"
           autoFocus
+          value={formInput.userName}
           onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
             setFormInput({ ...formInput, userName: event.target.value });
           }}
@@ -64,6 +70,7 @@ const RegisterForm: React.FC = () => {
           label="Password"
           type="password"
           id="password"
+          value={formInput.password}
           onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
             setFormInput({ ...formInput, password: event.target.value });
           }}
@@ -78,6 +85,7 @@ const RegisterForm: React.FC = () => {
           name="Confirm password"
           label="Confirm password"
           type="password"
+          value={formInput.passwordConfirmation}
           onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
             setFormInput({ ...formInput, passwordConfirmation: event.target.value });
           }}

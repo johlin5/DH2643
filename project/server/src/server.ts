@@ -44,8 +44,8 @@ app.use(
 /**
  * API BINDINGS
  */
-app.get("/", (req: Request, res: Response) => {
-  res.send("Application works!");
+app.get("*", (req: Request, res: Response) => {
+  res.sendFile(resolve(__dirname, "..", "client", "dist", "index.html"));
 });
 
 /**

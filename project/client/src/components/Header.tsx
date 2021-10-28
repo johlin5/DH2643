@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { AppBar, Toolbar, Typography, Button, makeStyles, createStyles, Grid } from "@material-ui/core";
 import { WHITE } from "../app/theme";
-import { jwtTokenAtom } from "../atoms/account";
-import { useRecoilState } from "recoil";
+import { jwtTokenAtom, isAuthAtom } from "../atoms/account";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { useHistory } from "react-router-dom";
 import Cookies from "js-cookie";
 import PersonRoundedIcon from "@material-ui/icons/PersonRounded";
@@ -23,10 +23,12 @@ const useStyles = makeStyles(() =>
 );
 const Header: React.FC = () => {
   const [token, setToken] = useRecoilState(jwtTokenAtom);
+  const setIsAuth = useSetRecoilState(isAuthAtom);
   const history = useHistory();
   const logout = () => {
     Cookies.remove("token", { path: "/" });
     setToken(null);
+    setIsAuth(false);
     history.push("/");
   };
   const classes = useStyles();

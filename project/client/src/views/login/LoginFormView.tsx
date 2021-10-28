@@ -1,15 +1,17 @@
 import { Container, TextField, Typography, Button } from "@material-ui/core";
 import React, { useState, ChangeEvent } from "react";
-import { PURPLE } from "../../app/theme";
+import { PURPLE, RED } from "../../app/theme";
 import { FormInputs } from "./types";
+import PrimaryButton from "../../components/PrimaryButton";
 
 type LoginFormViewProps = {
   onSubmit: (input: FormInputs) => void;
   errorMessage: string;
-  message?: string | undefined;
+  message?: string | null;
+  onGoBack: () => void;
 };
 
-const LoginFormView: React.FC<LoginFormViewProps> = ({ onSubmit, errorMessage, message }) => {
+const LoginFormView: React.FC<LoginFormViewProps> = ({ onSubmit, errorMessage, message, onGoBack }) => {
   const [formInput, setFormInput] = useState<FormInputs>({ userName: "", password: "" });
 
   return (
@@ -72,6 +74,7 @@ const LoginFormView: React.FC<LoginFormViewProps> = ({ onSubmit, errorMessage, m
         >
           <Typography variant="h5">Login</Typography>
         </Button>
+        <PrimaryButton text="Back" color={RED} variant="h5" height="48px" type="button" onClick={() => onGoBack()} />
       </form>
       <>{errorMessage}</>
     </Container>
