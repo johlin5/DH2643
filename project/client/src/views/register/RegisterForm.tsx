@@ -29,7 +29,7 @@ const RegisterForm: React.FC = () => {
       .then(() => {
         pushLogin("Sucessfully created account!");
       })
-      .catch((err) => {
+      .catch(() => {
         return;
       });
   };
