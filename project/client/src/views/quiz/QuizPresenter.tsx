@@ -2,7 +2,7 @@ import { useMutation } from "@apollo/client";
 import { Container, Typography } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { SAVE_QUIZ, UPDATE_QUIZ } from "../../services/queries/Quiz";
-import { QuestionInput, QuizInput, Quiz } from "../../utils/types";
+import { QuestionInput, QuizInput } from "../../utils/types";
 import QuizForm from "./QuizForm";
 import { QuizProps } from "./Props";
 import { useEffect, useState } from "react";
@@ -105,7 +105,7 @@ const QuizPresenter: React.FC<QuizProps> = ({ quiz }: QuizProps) => {
 
   const saveQuiz = async (quizData: QuizInput) => {
     await updateQuiz(quizData);
-    history.push("/");
+    history.push("/")
   }
 
   return (
