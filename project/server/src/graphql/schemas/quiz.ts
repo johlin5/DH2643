@@ -25,6 +25,7 @@ const typeDefs = gql`
   }
 
   input QuizInput {
+    id: ID
     title: String
     description: String
     questions: [QuestionInput]

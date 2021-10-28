@@ -9,6 +9,7 @@ const typeDefs = gql`
   }
 
   input QuestionInput {
+    id: ID
     question: String
     userId: String
     answers: [AnswerInput]

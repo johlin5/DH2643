@@ -1,36 +1,49 @@
-import { Container } from "@material-ui/core";
-import { useState } from "react";
-import { QuestionInput } from "../../utils/types";
+import { AnswerInput } from "../../utils/types";
 import { QuestionPresenterProps } from "./props";
 import QuestionForm from "./QuestionForm";
 
 const QuestionPresenter: React.FC<QuestionPresenterProps> = ({
-  saveQuestion,
   handleDelete,
-  data
+  questionData,
+  onSetQuestion,
+  updateQuestion
 }: QuestionPresenterProps) => {
-  // States
-  const [questionData, setQuestionData] = useState<QuestionInput>(data);
-
+  
   // Callbacks / Handlers
-  const handleSave = (QuestionFormData: QuestionInput) => {
-    setQuestionData(QuestionFormData);
-    saveQuestion(QuestionFormData);
+  const handleSaveAnswer = (answerData: AnswerInput) => {
+    const existingAnswer = questionData.answers.find((a) => {return a.id === answerData.id});
+    if (existingAnswer) {
+      const index = questionData.answers.findIndex((a) => a.id === answerData.id);
+      updateAnswer(index, answerData);
+    } else {
+      console.log("Answer not found");
+    }
   };
 
-  const handleAdd = () => {
-    const answerId = Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
+  const handleAddAnswer = () => {
+    const newAnswer = { description: "", flag: false };
+    updateQuestion({...questionData, answers: [...questionData.answers, newAnswer]});
+  };
 
-    setQuestionData({
-      ...questionData,
-      answers: [...questionData.answers, { AnswerId: answerId, description: "", flag: false }]
-    });
+  const handleDeleteAnswer = (answerData: AnswerInput) => {
+    const newAnswers = questionData.answers.filter( (a) => {return a.id !== answerData.id});
+    onSetQuestion({...questionData, answers: newAnswers});
+  }
+
+  const updateAnswer = (index: number, answerData: AnswerInput) => {
+    const newAnswers = questionData.answers; // copying the old datas array
+    newAnswers[index] = answerData; // replace old data with new
+    onSetQuestion({...questionData, answers: newAnswers});
   };
 
   return (
-    <QuestionForm handleSave={handleSave} handleDelete={handleDelete} handleAdd={handleAdd} data={questionData!} />
+    <QuestionForm 
+      handleDelete={handleDelete} 
+      onAddAnswer={handleAddAnswer} 
+      onDeleteAnswer={handleDeleteAnswer} 
+      onSaveAnswer={handleSaveAnswer}
+      questionData={questionData}
+      onSetQuestion={onSetQuestion} />
   );
 };
 

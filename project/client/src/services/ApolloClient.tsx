@@ -21,4 +21,16 @@ const authLink = setContext((_: any, { headers }: any) => {
 
 const httpLink = createHttpLink({ uri: "http://localhost:8080/graphql" });
 
-export const client = new ApolloClient({ link: from([errorLink, authLink, httpLink]), cache: new InMemoryCache() });
+const memoryCache = new InMemoryCache({
+  typePolicies: {
+    Quiz: {
+      fields: {
+        questions: {
+          merge: false
+        }
+      }
+    }
+  }
+})
+
+export const client = new ApolloClient({ link: from([errorLink, authLink, httpLink]), cache: memoryCache });

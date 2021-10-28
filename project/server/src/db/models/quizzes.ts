@@ -14,7 +14,7 @@ export interface QuizDoc extends Document {
 const quizzesSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true
+    // required: true
   },
   image: {
     type: String

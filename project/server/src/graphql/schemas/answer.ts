@@ -8,6 +8,7 @@ const typeDefs = gql`
   }
 
   input AnswerInput {
+    id: ID
     description: String
     flag: Boolean
   }

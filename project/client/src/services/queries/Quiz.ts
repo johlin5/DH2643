@@ -11,6 +11,7 @@ export const SAVE_QUIZ = gql`
           flag
         }
       }
+      description
       creator
       id
     }
@@ -22,9 +23,18 @@ export const UPDATE_QUIZ = gql`
     updateQuiz(id: $id, input: $updateQuizInput) {
       title
       questions {
+        id
         question
+        answers {
+          id
+          description
+          flag
+        }
+        
       }
       id
+      description
+      creator
     }
   }
 `;

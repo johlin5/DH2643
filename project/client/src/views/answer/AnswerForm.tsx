@@ -1,10 +1,9 @@
 import { Container, Select, TextField, MenuItem, FormControl, Button } from "@material-ui/core";
-import React, { ChangeEvent, useState } from "react";
-import { AnswerFormProps } from "./props";
+import React, { ChangeEvent } from "react";
+import { AnswerProps } from "./props";
 
-const AnswerForm: React.FC<AnswerFormProps> = ({ saveAnswer, deleteAnswer, data }: AnswerFormProps) => {
-  const [formState, setFormState] = useState(data);
 
+const AnswerForm: React.FC<AnswerProps> = ({ answerData, handleSave, handleDelete }: AnswerProps) => {
   return (
     <Container
       maxWidth="sm"
@@ -16,25 +15,17 @@ const AnswerForm: React.FC<AnswerFormProps> = ({ saveAnswer, deleteAnswer, data 
           label="Answer"
           variant="standard"
           margin="normal"
-          value={formState.description}
-          onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-            setFormState({ ...formState, description: event.target.value });
-          }}
-          onBlur={() => {
-            saveAnswer(formState);
-          }}
+          value={answerData.description}
+          onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => handleSave({...answerData, description: event.target.value})}
+          onBlur={() => handleSave(answerData)}
         />
         <Select
           labelId="flag_id"
           id="flag_id"
-          value={formState.flag ? "1" : "0"}
+          value={answerData.flag ? "1" : "0"}
           defaultValue={0}
-          onChange={(event: any) => {
-            setFormState({ ...data, flag: event.target.value === "0" ? false : true });
-          }}
-          onBlur={() => {
-            saveAnswer(formState);
-          }}
+          onChange={(event: any) => handleSave({...answerData, flag: event.target.value === "0" ? false : true})}
+          onBlur={() => handleSave(answerData)}
           style={{
             width: 70
           }}
@@ -42,13 +33,10 @@ const AnswerForm: React.FC<AnswerFormProps> = ({ saveAnswer, deleteAnswer, data 
           <MenuItem value={1}>True</MenuItem>
           <MenuItem value={0}>False</MenuItem>
         </Select>
-        <Button
-          color="primary"
-          variant="text"
-          onClick={() => {
-            deleteAnswer(formState);
-          }}
-        >
+        <Button 
+        color="primary"
+        variant="text"
+        onClick={() => handleDelete(answerData)}>
           X
         </Button>
       </FormControl>
