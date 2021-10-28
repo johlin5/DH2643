@@ -9,7 +9,6 @@ import { userIsAuth } from "../selectors/account";
 
 const Layout: React.FC = () => {
   const isAuth = useRecoilValue(userIsAuth);
-  console.log(isAuth);
   return (
     <Router>
       <CssBaseline />

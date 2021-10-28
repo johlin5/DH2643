@@ -27,6 +27,7 @@ const Header: React.FC = () => {
   const history = useHistory();
   const logout = () => {
     Cookies.remove("token", { path: "/" });
+    Cookies.remove("userName", { path: "/" });
     setToken(null);
     setIsAuth(false);
     history.push("/");

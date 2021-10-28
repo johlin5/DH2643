@@ -36,6 +36,7 @@ const LoginForm: React.FC = () => {
     })
       .then((response) => {
         Cookie.set("token", response.data.login.token, { path: "/" });
+        Cookie.set("userName", response.data.login.user.userName, { path: "/" });
         setToken(response.data.login.token);
         setAccountName(response.data.login.user.userName);
         setIsAuth(true);
