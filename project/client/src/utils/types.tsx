@@ -5,7 +5,7 @@ export type FormInputs = {
 };
 
 export type AnswerInput = {
-  AnswerId?: string;
+  id?: string;
   description: string;
   flag: boolean;
 };
@@ -15,8 +15,6 @@ export type QuestionInput = {
   question: string;
   userId: string | null;
   answers: AnswerInput[];
-  upvotes: number;
-  report: string;
 };
 
 export type QuizInput = {
